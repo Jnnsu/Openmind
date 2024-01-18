@@ -7,14 +7,35 @@ import Post from './pages/post';
 import TextArea from './components/Input/TextArea';
 import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
-import theme from './styles/color';
+import Theme from './styles/Theme';
+import BoxButton from './components/Button/BoxButton';
+import FloatingButton from './components/Button/FloatingButton';
+import ShareButton from './components/Button/ShareButton';
+import BadgeButton from './components/Button/BadgeButton';
+import DropDownButton from './components/DropDown/DropDownButton';
+import Kebab from './components/Button/KebabButton';
 
+// const Div = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+// `;
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Theme}>
         <GlobalStyle />
+        {/* <Div> */}
         <TextArea />
+        <BoxButton type="answer" size="small" />
+        <FloatingButton />
+        <ShareButton />
+        <BadgeButton isAnswered={true} />
+        <BadgeButton isAnswered={false} />
+        <DropDownButton />
+        <Kebab />
+        {/* </Div> */}
+        {/* <ShareButton /> */}
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/list" element={<CardList />} />
