@@ -111,7 +111,7 @@ function ShareButton() {
   useEffect(() => {
     if (isOpenToast) {
       setTimeout(() => setIsOpenToast(false), 3000);
-    } //에니메이션 => 살살 사라지게....
+    } //에니메이션 => 살살 사라지게.... 다른거 다 완성후 추가적으로 효과 넣어보자.
   }, [isOpenToast]);
 
   return (

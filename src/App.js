@@ -14,6 +14,7 @@ import ShareButton from './components/Button/ShareButton';
 import BadgeButton from './components/Button/BadgeButton';
 import DropDownButton from './components/DropDown/DropDownButton';
 import Kebab from './components/Button/KebabButton';
+// import Profile from './components/Profile/profile';
 
 // const Div = styled.div`
 //   display: flex;
@@ -28,12 +29,14 @@ function App() {
         {/* <Div> */}
         <TextArea />
         <BoxButton type="answer" size="small" />
+        <BoxButton type="question" />
         <FloatingButton />
         <ShareButton />
         <BadgeButton isAnswered={true} />
         <BadgeButton isAnswered={false} />
         <DropDownButton />
         <Kebab />
+        {/* <Profile imageSource="./images/Photo.png" size="136px" /> */}
         {/* </Div> */}
         {/* <ShareButton /> */}
         <Routes>
