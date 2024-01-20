@@ -90,7 +90,6 @@ function ShareButton() {
   const handleToast = () => {
     setIsOpenToast(true);
     handleCopyClipBoard();
-    console.log(isOpenToast);
   };
   useEffect(() => {
     if (isOpenToast) {

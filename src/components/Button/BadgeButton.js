@@ -7,8 +7,8 @@ const Button = styled.button`
   align-items: center;
   gap: 10px;
 
-  color: ${props =>
-    props.isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)'};
+  color: ${({ $isAnswered }) =>
+    $isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)'};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -18,13 +18,14 @@ const Button = styled.button`
 
   border-radius: 8px;
   border: 1px solid
-    ${props => (props.isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)')};
+    ${({ $isAnswered }) =>
+      $isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)'};
   background: var(--Grayscale-10);
 `;
 
-function BadgeButton({ isAnswered }) {
+function BadgeButton({ isAnswered = false }) {
   return (
-    <Button isAnswered={isAnswered}>
+    <Button $isAnswered={isAnswered}>
       {isAnswered ? '답변 완료' : '미답변'}
     </Button>
   );

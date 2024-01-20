@@ -8,6 +8,7 @@ const KebabContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative;
 `;
 
 const KebabButton = styled.button`
@@ -22,6 +23,9 @@ const KebabMenu = styled.div`
   width: 110px;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 20px;
+  left: 20px;
   overflow: hidden;
 
   border-radius: 8px;
@@ -110,46 +114,21 @@ function Kebab() {
         <KebabMenu>
           {menuItem.map(element => {
             let className = '';
-            let src = element.imagePath;
+            let image = element.imagePath;
             if (element.text === selectedMenuItem) {
               className = 'selected';
-              src = element.imageBluePath;
+              image = element.imageBluePath;
             }
             return (
               <KebabMenuItem
                 className={className}
                 onClick={handleKebabMenuItemOnClick}
               >
-                {/* <img src={src} alt={element.imageAlt} fill={fill} /> */}
-                {/* <Edit fill="blue" /> */}
-                {src}
+                {image}
                 <span>{element.text}</span>
               </KebabMenuItem>
             );
           })}
-          {/* <KebabMenuItem
-            className={menuItemClassName[0]}
-            onClick={handleKebabMenuItemOnClick}
-          >
-            <img src="./images/Edit.png" alt="수정 아이콘" />
-            <img src={imagePath(selectedMenuItem)} alt="asd" />
-            <img src="./images/Edit-blue.png" alt="선택된 수정 아이콘" />
-            <span>수정하기</span>
-          </KebabMenuItem>
-          <KebabMenuItem
-            className={menuItemClassName[1]}
-            onClick={handleKebabMenuItemOnClick}
-          >
-            <img src="./images/close.png" alt="삭제 아이콘" />
-            <span>질문삭제</span>
-          </KebabMenuItem>
-          <KebabMenuItem
-            className={menuItemClassName[2]}
-            onClick={handleKebabMenuItemOnClick}
-          >
-            <img src="./images/rejection.png" alt="거절 아이콘" />
-            <span>답변거절</span>
-          </KebabMenuItem> */}
         </KebabMenu>
       )}
     </KebabContainer>
