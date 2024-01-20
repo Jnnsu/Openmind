@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import * as S from './PaginationStyle';
 
-export default function pagenaion({
+export default function Pagenaion({
   postsPerPage,
   totalPosts,
   paginate,

@@ -18,13 +18,13 @@ const InputTextArea = styled.textarea`
   width: 100%;
   color: #000;
   height: 180px;
-  background-color: ${props => props.theme.colorList['--Grayscale-20']};
+  background-color: var(--Grayscale-20);
   border-radius: 8px;
   padding: 1.6rem;
   resize: none;
 
   &:focus {
-    border: 1px solid ${props => props.theme.colorList['--Brown-40']};
+    border: 1px solid var(--Brown-40);
   }
 `;
 

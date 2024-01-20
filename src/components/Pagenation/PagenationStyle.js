@@ -11,7 +11,7 @@ export const ListPaginationNumber = styled.li`
   align-items: center;
   width: 40px;
   height: 40px;
-  color: ${props => props.theme.colorList['--Grayscale-60']};
+  color: var(--Grayscale-60);
   font-size: 2rem;
   font-weight: 400;
   cursor: pointer;
@@ -23,7 +23,7 @@ export const ListPaginationHellip = styled.li`
   align-items: center;
   width: 40px;
   height: 40px;
-  color: ${props => props.theme.colorList['--Grayscale-40']};
+  color: var(--Grayscale-40);
   font-size: 2rem;
   font-weight: 400;
 `;

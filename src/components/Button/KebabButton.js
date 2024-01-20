@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { ReactComponent as Edit } from '../../images/Edit.svg';
+import { ReactComponent as Rejection } from '../../images/Rejection.svg';
+import { ReactComponent as Close } from '../../images/Close.svg';
 
 const KebabContainer = styled.div`
   display: flex;
@@ -16,17 +19,17 @@ const KebabButton = styled.button`
 `;
 
 const KebabMenu = styled.div`
-  width: 150px;
+  width: 110px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 
   border-radius: 8px;
-  border: 1px solid ${props => props.theme.colorList['--Grayscale-30']};
-  background: ${props => props.theme.colorList['--Grayscale-10']};
+  border: 1px solid var(--Grayscale-30);
+  background: var(--Grayscale-10);
 
   /* 1pt */
-  box-shadow: ${props => props.theme.shadowList['--Shadow-1pt']};
+  box-shadow: var(--Shadow-1pt);
 `;
 
 const KebabMenuItem = styled.button`
@@ -36,18 +39,18 @@ const KebabMenuItem = styled.button`
   font-weight: 500;
   line-height: 18px;
   padding: 6px 16px;
-  background: ${props => props.theme.colorList['--Grayscale-10']};
-  color: ${props => props.theme.colorList['--Grayscale-50']};
+  background: var(--Grayscale-10);
+  color: var(--Grayscale-50);
   border: none;
   gap: 8px;
 
   &:hover {
-    color: ${props => props.theme.colorList['--Grayscale-60']};
-    background: ${props => props.theme.colorList['--Grayscale-20']};
+    color: var(--Grayscale-60);
+    background: var(--Grayscale-20);
   }
 
   &.selected {
-    color: ${props => props.theme.colorList['--Blue-50']};
+    color: var(--Blue-50);
   }
 
   & img {
@@ -59,7 +62,6 @@ const KebabMenuItem = styled.button`
 function Kebab() {
   const [isOpenKebabMenu, setIsOpenKebabMenu] = useState();
   const [selectedMenuItem, setSelectedMenuItem] = useState();
-  const [selectedIcon, setSeletedIcon] = useState();
 
   const handleKebabButtonOnClick = () => {
     setIsOpenKebabMenu(!isOpenKebabMenu);
@@ -72,20 +74,20 @@ function Kebab() {
   const menuItem = [
     {
       text: '수정하기',
-      imagePath: './images/Edit.png',
-      imageBluePath: './images/E',
+      imagePath: <Edit fill="" />,
+      imageBluePath: <Edit fill="var(--Blue-50)" />,
       imageAlt: '수정하기 아이콘',
     },
     {
       text: '질문삭제',
-      imagePath: './images/close.png',
-      imageBluePath: '',
+      imagePath: <Close fill="" />,
+      imageBluePath: <Close fill="var(--Blue-50)" />,
       imageAlt: '질문삭제 아이콘',
     },
     {
       text: '답변거절',
-      imagePath: './images/rejection.png',
-      imageBluePath: '',
+      imagePath: <Rejection fill="" />,
+      imageBluePath: <Rejection fill="var(--Blue-50)" />,
       imageAlt: '답변거절 아이콘',
     },
   ];
@@ -118,7 +120,9 @@ function Kebab() {
                 className={className}
                 onClick={handleKebabMenuItemOnClick}
               >
-                <img src={src} alt={element.imageAlt} />
+                {/* <img src={src} alt={element.imageAlt} fill={fill} /> */}
+                {/* <Edit fill="blue" /> */}
+                {src}
                 <span>{element.text}</span>
               </KebabMenuItem>
             );

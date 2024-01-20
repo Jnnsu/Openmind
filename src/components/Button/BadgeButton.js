@@ -8,9 +8,7 @@ const Button = styled.button`
   gap: 10px;
 
   color: ${props =>
-    props.isAnswered
-      ? props.theme.colorList['--Brown-40']
-      : props.theme.colorList['--Grayscale-40']};
+    props.isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)'};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -20,11 +18,8 @@ const Button = styled.button`
 
   border-radius: 8px;
   border: 1px solid
-    ${props =>
-      props.isAnswered
-        ? props.theme.colorList['--Brown-40']
-        : props.theme.colorList['--Grayscale-40']};
-  background: ${props => props.theme.colorList['--Grayscale-10']};
+    ${props => (props.isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)')};
+  background: var(--Grayscale-10);
 `;
 
 function BadgeButton({ isAnswered }) {

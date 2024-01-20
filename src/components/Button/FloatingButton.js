@@ -10,10 +10,10 @@ const FloatButton = styled.button`
   align-items: center;
   border-radius: 200px;
   border: none;
-  background: ${props => props.theme.colorList['--Brown-40']};
+  background: var(--Brown-40);
   font-size: 20px;
-  color: ${props => props.theme.colorList['--Grayscale-10']};
-  box-shadow: ${props => props.theme.shadowList['--Shadow-3pt']};
+  color: var(--Grayscale-10);
+  box-shadow: var(--Shadow-2pt);
   cursor: pointer;
 `;
 
