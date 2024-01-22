@@ -17,14 +17,8 @@ import Reaction from './components/Feed/Reaction';
 import Card from './components/Feed/Card';
 import Profile from './components/Feed/ProfileSample';
 import Answer from './components/Feed/AnswerSample';
+import Test from './test';
 
-const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 50px;
-  background-color: black;
-`;
 // const ProfileImg = '../images/avatar1.png';
 
 function App() {

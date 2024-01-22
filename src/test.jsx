@@ -17,13 +17,14 @@ import Reaction from './components/Feed/Reaction';
 import Card from './components/Feed/Card';
 import Answer from './components/Feed/AnswerSample';
 import Profile from './components/Feed/ProfileSample';
+import QuestionCardContainer from './components/Feed/QuestionCardContainer';
 
 const Div = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin: 50px;
-  background-color: gray;
+  background-color: green;
 `;
 
 export default function Test() {
@@ -61,15 +62,12 @@ export default function Test() {
         <Reaction />
         <br />
         <Card />
+        <QuestionCardContainer>
+          <Card />
+        </QuestionCardContainer>
         <Profile imageSource="https://fastly.picsum.photos/id/345/200/200.jpg?hmac=8FJWKiYOThZ6-UcvLpD_B42M20_KwpSqVMSJ7WFMc4Y" />
         <Answer />
-
-        {/* <Answer />
-        <span>뭐여 왜 안돼</span>
-        <Profile imageSource="./images/image6.png" size="136px" />
-        <Profile imageSource={ProfileImg} size="136px" /> */}
       </Div>
-      {/* <ShareButton /> */}
     </>
   );
 }

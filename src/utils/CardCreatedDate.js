@@ -1,6 +1,6 @@
-export default function CardCreatedDate({ createdAt }) {
+export default function CardCreatedDate(createdAt) {
   const createdTime = new Date(createdAt);
-  const now = new Date();
+  const now = Date.now();
   const seconds = Math.floor((now - createdTime) / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
@@ -9,20 +9,20 @@ export default function CardCreatedDate({ createdAt }) {
   const years = Math.floor(months / 12);
 
   if (seconds < 120) {
-    return '1 minute ago';
+    return '1분 전';
   } else if (minutes < 60) {
-    return `${minutes} minutes ago`;
+    return `${minutes}분 전`;
   } else if (hours < 2) {
-    return '1 hour ago';
+    return '1시간 전';
   } else if (hours < 24) {
-    return `${hours} hours ago`;
+    return `${hours}시간 전`;
   } else if (months < 2) {
-    return '1 month ago';
+    return '1달 전';
   } else if (months <= 11) {
-    return `${months} months ago`;
+    return `${months}달 전`;
   } else if (years < 2) {
-    return '1 years ago';
+    return '1년 전';
   } else {
-    return `${Math.floor(months / 12)} years ago`;
+    return `${Math.floor(months / 12)}년 전`;
   }
 }
