@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import BadgeButton from '../Button/BadgeButton';
 import Kebab from '../Button/KebabButton';
+import CardCreatedDate from '../../utils/CardCreatedDate';
+import Answer from './AnswerSample';
+import NoQuestion from './NoQuestion';
 
 const FeedCardContainer = styled.div`
   width: 684px;
@@ -15,16 +18,18 @@ const FeedCardContainer = styled.div`
   gap: 32px;
 `;
 
-function Card() {
+const CardTop = styled.div``;
+
+export default function Card({ createdAt, content, answer }) {
   return (
     <FeedCardContainer>
-      <div>
+      <CardTop>
         <BadgeButton />
         <Kebab />
-      </div>
+      </CardTop>
       <div>
-        <span>'질문·2주전'</span>
-        <h3>질문 내용</h3>
+        <span>{CardCreatedDate(createdAt)}</span>
+        <h3>{content}</h3>
       </div>
       <div>
         {/* <img>프로필사진</img> */}
@@ -33,7 +38,7 @@ function Card() {
             <span>닉네임</span>
             <span>2주전</span>
           </div>
-          <span>답변</span>
+          <span>{answer ? <Answer /> : <NoQuestion />}</span>
         </div>
       </div>
       <div>
@@ -42,5 +47,3 @@ function Card() {
     </FeedCardContainer>
   );
 }
-
-export default Card;

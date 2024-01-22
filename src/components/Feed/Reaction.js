@@ -47,7 +47,6 @@ function Reaction({ like = 0, dislike = 0 }) {
   const [isLikeClicked, setIsLikeClicked] = useState(false);
   const [isDislikeClicked, setIsDislikeClicked] = useState(false);
 
-  // 분리 하지 않을 경우 좋아요와 싫어요를 얻기가 어려워진다 -> 코드의 가독성이 떨어짐
   const handleReactionLikeButtonClick = () => {
     if (isLikeClicked) {
       setLikeCount(preLikeCount => preLikeCount - 1);
@@ -72,7 +71,7 @@ function Reaction({ like = 0, dislike = 0 }) {
         $isLikeClicked={isLikeClicked}
         onClick={handleReactionLikeButtonClick}
       >
-        <Like fill={isLikeClicked ? 'var(--Blue-50)' : 'var(--Grayscale-40'} />
+        <Like fill={isLikeClicked ? 'var(--Blue-50)' : 'var(--Grayscale-40)'} />
         <p>좋아요</p>
         <ReactionCount>{!!likeCount && likeCount}</ReactionCount>
       </ThumbsContainer>
