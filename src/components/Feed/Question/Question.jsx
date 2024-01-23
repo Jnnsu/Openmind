@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import * as S from './CardStyle';
 
 export default function Question() {
   return (
@@ -8,5 +8,3 @@ export default function Question() {
     </>
   );
 }
-
-const question = styled.div``;

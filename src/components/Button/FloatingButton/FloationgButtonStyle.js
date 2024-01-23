@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-export default function FloatingButton({ ButtonName }) {
-  return <FloatButton>{ButtonName}</FloatButton>;
-}
-
-const FloatButton = styled.button`
+export const FloatButton = styled.button`
   display: flex;
   gap: 8px;
   width: 208px;

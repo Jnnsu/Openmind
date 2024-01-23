@@ -1,21 +1,7 @@
-import BoxButton from './BoxButton';
 import styled from 'styled-components';
+import BoxButton from '../BoxButton/BoxButton';
 
-export default function FillBoxButton({
-  ButtonName = '',
-  imageSource = '',
-  imageAlt = '',
-}) {
-  return (
-    <FillButton>
-      <img src={imageSource} alt={imageAlt} width="18px" />
-      {ButtonName}
-      <img src={imageSource} alt={imageAlt} width="18px" />
-    </FillButton>
-  );
-}
-
-const FillButton = styled(BoxButton)`
+export const FillButton = styled(BoxButton)`
   background: var(--Brown-40);
   color: var(--Grayscale-10);
 

@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 
-export default function BadgeButton({ isAnswered = false }) {
-  return (
-    <Button $isAnswered={isAnswered}>
-      {isAnswered ? '답변 완료' : '미답변'}
-    </Button>
-  );
-}
-
-const Button = styled.button`
+export const Button = styled.button`
   display: inline-flex;
   padding: 4px 12px;
   justify-content: center;
