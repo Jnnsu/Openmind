@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export default function FloatingButton({ ButtonName }) {
+  return <FloatButton>{ButtonName}</FloatButton>;
+}
+
 const FloatButton = styled.button`
   display: flex;
   gap: 8px;
@@ -16,9 +20,3 @@ const FloatButton = styled.button`
   box-shadow: var(--Shadow-2pt);
   cursor: pointer;
 `;
-
-function FloatingButton() {
-  return <FloatButton>질문 작성하기</FloatButton>;
-}
-
-export default FloatingButton;

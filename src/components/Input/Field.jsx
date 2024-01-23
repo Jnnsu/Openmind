@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+export default function Field() {
+  return (
+    <Form>
+      <PersonImage src="./images/Person.png" alt="사람 아이콘" />
+      <InputField placeholder="이름을 입력하세요" />
+    </Form>
+  );
+}
+
 const Form = styled.form`
   display: flex;
   width: 336px;
@@ -36,14 +45,3 @@ const PersonImage = styled.img`
   height: 20px;
   flex-shrink: 0;
 `;
-
-function Field() {
-  return (
-    <Form>
-      <PersonImage src="./images/Person.png" alt="사람 아이콘" />
-      <InputField placeholder="이름을 입력하세요" />
-    </Form>
-  );
-}
-
-export default Field;

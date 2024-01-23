@@ -1,6 +1,20 @@
 import BoxButton from './BoxButton';
 import styled from 'styled-components';
 
+export default function OutlineBoxButton({
+  ButtonName = '',
+  imageSource = '',
+  imageAlt = '',
+}) {
+  return (
+    <OutlineButton>
+      <img src={imageSource} alt={imageAlt} width="18px" />
+      {ButtonName}
+      <img src={imageSource} alt={imageAlt} width="18px" />
+    </OutlineButton>
+  );
+}
+
 const OutlineButton = styled(BoxButton)`
   background: var(--Brown-10);
   border: 1px solid var(--Brown-40);
@@ -25,15 +39,3 @@ const OutlineButton = styled(BoxButton)`
     border: 1px solid var(--Brown-30);
   }
 `;
-
-function OutlineBoxButton({ text = '', imageSource = '', imageAlt = '' }) {
-  return (
-    <OutlineButton>
-      <img src={imageSource} alt={imageAlt} width="18px" />
-      {text}
-      <img src={imageSource} alt={imageAlt} width="18px" />
-    </OutlineButton>
-  );
-}
-
-export default OutlineBoxButton;

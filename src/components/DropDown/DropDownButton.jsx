@@ -1,6 +1,33 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
+export default function DropDownButton({ onClick }) {
+  const [isOpenDropDownMenu, setIsOpenDropDownMenu] = useState();
+
+  const handlDropDownButtonClick = () => {
+    setIsOpenDropDownMenu(!isOpenDropDownMenu);
+  };
+
+  return (
+    <>
+      <DropDownContainer>
+        <Button onClick={handlDropDownButtonClick}>
+          <DefaultItem isOpenDropDownMenu={isOpenDropDownMenu}>
+            이름순
+          </DefaultItem>
+          <img src="./images/Arrow-down.png" alt="아래 방향 화살표" />
+        </Button>
+        {isOpenDropDownMenu && (
+          <DropDownMenu>
+            <DropDownItem onClick={onClick}>이름순</DropDownItem>
+            <DropDownItem onClick={onClick}>최신순</DropDownItem>
+          </DropDownMenu>
+        )}
+      </DropDownContainer>
+    </>
+  );
+}
+
 const DropDownContainer = styled.div`
   width: 500px;
   padding: 40px;
@@ -52,32 +79,3 @@ const DefaultItem = styled.div`
   font-size: 14px;
   ${props => props.IsOpenDropDownMenu && `color: var(--Grayscale-60)`}
 `;
-
-function DropDownButton({ onClick }) {
-  const [isOpenDropDownMenu, setIsOpenDropDownMenu] = useState();
-
-  const handlDropDownButtonClick = () => {
-    setIsOpenDropDownMenu(!isOpenDropDownMenu);
-  };
-
-  return (
-    <>
-      <DropDownContainer>
-        <Button onClick={handlDropDownButtonClick}>
-          <DefaultItem isOpenDropDownMenu={isOpenDropDownMenu}>
-            이름순
-          </DefaultItem>
-          <img src="./images/Arrow-down.png" alt="아래 방향 화살표" />
-        </Button>
-        {isOpenDropDownMenu && (
-          <DropDownMenu>
-            <DropDownItem onClick={onClick}>이름순</DropDownItem>
-            <DropDownItem onClick={onClick}>최신순</DropDownItem>
-          </DropDownMenu>
-        )}
-      </DropDownContainer>
-    </>
-  );
-}
-
-export default DropDownButton;

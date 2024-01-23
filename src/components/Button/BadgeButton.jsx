@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export default function BadgeButton({ isAnswered = false }) {
+  return (
+    <Button $isAnswered={isAnswered}>
+      {isAnswered ? '답변 완료' : '미답변'}
+    </Button>
+  );
+}
+
 const Button = styled.button`
   display: inline-flex;
   padding: 4px 12px;
@@ -22,13 +30,3 @@ const Button = styled.button`
       $isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)'};
   background: var(--Grayscale-10);
 `;
-
-function BadgeButton({ isAnswered = false }) {
-  return (
-    <Button $isAnswered={isAnswered}>
-      {isAnswered ? '답변 완료' : '미답변'}
-    </Button>
-  );
-}
-
-export default BadgeButton;

@@ -1,6 +1,20 @@
 import BoxButton from './BoxButton';
 import styled from 'styled-components';
 
+export default function FillBoxButton({
+  ButtonName = '',
+  imageSource = '',
+  imageAlt = '',
+}) {
+  return (
+    <FillButton>
+      <img src={imageSource} alt={imageAlt} width="18px" />
+      {ButtonName}
+      <img src={imageSource} alt={imageAlt} width="18px" />
+    </FillButton>
+  );
+}
+
 const FillButton = styled(BoxButton)`
   background: var(--Brown-40);
   color: var(--Grayscale-10);
@@ -24,15 +38,3 @@ const FillButton = styled(BoxButton)`
     border: none;
   }
 `;
-
-function FillBoxButton({ text = '', imageSource = '', imageAlt = '' }) {
-  return (
-    <FillButton>
-      <img src={imageSource} alt={imageAlt} width="18px" />
-      {text}
-      <img src={imageSource} alt={imageAlt} width="18px" />
-    </FillButton>
-  );
-}
-
-export default FillBoxButton;

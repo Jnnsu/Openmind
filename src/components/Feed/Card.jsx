@@ -1,31 +1,28 @@
 import styled from 'styled-components';
 import BadgeButton from '../Button/BadgeButton';
 import Kebab from '../Button/KebabButton';
-import CardCreatedDate from '../../utils/CardCreatedDate';
+import cardCreatedDate from '../../utils/cardCreatedDate';
 import Answer from './AnswerSample';
 import NoQuestion from './NoQuestion';
 import Reaction from './Reaction';
 
-const question =
-  '좋아하는 동물은?좋아하는 동물은?좋아하는 동물은? 좋아하동 물은?';
-
 export default function Card({ question }) {
   const testDate = Date.now();
-  // const { createdAt, content, answer, like, dislike } = question;
+  const { createdAt, content, answer, like, dislike } = question;
 
   return (
     <FeedCardContainer>
       <CardTop>
-        <BadgeButton isAnswered={true} />
+        <BadgeButton isAnswered={answer} />
         <Kebab />
       </CardTop>
       <CardCreatedDateAndQuestion>
-        <span>질문 · {CardCreatedDate(testDate)}</span>
-        <h3>{question}</h3>
+        <span>질문 · {cardCreatedDate(createdAt)}</span>
+        <h3>{content}</h3>
       </CardCreatedDateAndQuestion>
       <Answer />
       <CardFooter>
-        <Reaction />
+        <Reaction like={like} dislike={dislike} />
         {/* like={like} dislike={dislike} */}
       </CardFooter>
     </FeedCardContainer>
@@ -89,10 +86,4 @@ const CardFooter = styled.div`
   align-items: flex-start;
   gap: 24px;
   align-self: stretch;
-
-  & hr {
-    height: 1px;
-    align-self: stretch;
-    background: var(--Grayscale-30);
-  }
 `;

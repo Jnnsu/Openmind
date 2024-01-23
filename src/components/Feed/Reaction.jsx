@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as like } from '../../images/Like.svg';
 import { ReactComponent as hate } from '../../images/Hate.svg';
 
-function Reaction({ like = 0, dislike = 0 }) {
+export default function Reaction({ like = 0, dislike = 0 }) {
   const [likeCount, setLikeCount] = useState(like);
   const [dislikeCount, setDislikeCount] = useState(dislike);
   const [isLikeClicked, setIsLikeClicked] = useState(false);
@@ -33,7 +33,7 @@ function Reaction({ like = 0, dislike = 0 }) {
         $isLikeClicked={isLikeClicked}
         onClick={handleReactionLikeButtonClick}
       >
-        <Like isLikeClicked={isLikeClicked} />
+        <Like $isLikeClicked={isLikeClicked} />
         <p className="like">좋아요</p>
         <ReactionCount>{!!likeCount && likeCount}</ReactionCount>
       </ThumbsContainer>
@@ -41,7 +41,7 @@ function Reaction({ like = 0, dislike = 0 }) {
         $isDislikeClicked={isDislikeClicked}
         onClick={handleReactionDislikeButtonClick}
       >
-        <Hate isDislikeClicked={isDislikeClicked} />
+        <Hate $isDislikeClicked={isDislikeClicked} />
         <p className="dislike">싫어요</p>
         <ReactionCount>{!!dislikeCount && dislikeCount}</ReactionCount>
       </ThumbsContainer>
@@ -90,12 +90,10 @@ const ReactionCount = styled.p`
 
 const Like = styled(like)`
   fill: ${props =>
-    props.isLikeClicked ? 'var(--Blue-50)' : 'var(--Grayscale-40)'};
+    props.$isLikeClicked ? 'var(--Blue-50)' : 'var(--Grayscale-40)'};
 `;
 
 const Hate = styled(hate)`
   fill: ${props =>
-    props.isDislikeClicked ? 'var(--Grayscale-60)' : 'var(--Grayscale-40)'};
+    props.$isDislikeClicked ? 'var(--Grayscale-60)' : 'var(--Grayscale-40)'};
 `;
-
-export default Reaction;

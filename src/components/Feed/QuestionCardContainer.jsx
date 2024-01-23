@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import Card from './Card';
 
-const countQuestion = '몇개의 질문이 있습니다.';
-
-export default function QuestionCardContainer({ countQuestion, results }) {
+export default function QuestionCardContainer({ results }) {
   const testResults = [
     {
       id: 3608,
@@ -34,26 +32,36 @@ export default function QuestionCardContainer({ countQuestion, results }) {
       answer: null,
     },
   ];
+
+  const countQuestionString = testResults.length
+    ? `${testResults.length}개의 질문이 있습니다`
+    : '아직 질문이 없습니다';
+
   return (
     <>
       <CardContainer>
         <CountQuestion>
-          <div>
-            <img src="./images/empty.png" alt="메세지 아이콘" />
-            <span>{countQuestion}</span>
-          </div>
+          <img src="./images/Messages.svg" alt="메세지 아이콘" />
+          <span>{countQuestionString}</span>
         </CountQuestion>
-        <div>
-          {testResults.map(element => {
-            <Card question={element} />;
-          })}
-        </div>
+        <QuestionList>
+          {testResults.map(element => (
+            <Card key={element.id} question={element} />
+          ))}
+        </QuestionList>
       </CardContainer>
     </>
   );
 }
 
 const CardContainer = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 16px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
   width: 100%;
   color: var(--brown-10);
   border-radius: 16px;
@@ -66,4 +74,22 @@ const CountQuestion = styled.div`
   justify-content: center;
   align-items: center;
   gap: 8px;
+
+  & span {
+    color: var(--Brown-40);
+    font-feature-settings:
+      'clig' off,
+      'liga' off;
+    font-family: Actor;
+    font-size: 20px;
+    line-height: 25px; /* 125% */
+  }
+`;
+
+const QuestionList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
 `;

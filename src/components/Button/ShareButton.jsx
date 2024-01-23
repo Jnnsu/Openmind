@@ -1,6 +1,45 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+const handleCopyClipBoard = async () => {
+  const currentURL = window.location.href;
+
+  try {
+    await navigator.clipboard.writeText(currentURL);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default function ShareButton() {
+  const [isOpenToast, setIsOpenToast] = useState(false);
+
+  const handleToast = () => {
+    setIsOpenToast(true);
+    handleCopyClipBoard();
+  };
+  useEffect(() => {
+    if (isOpenToast) {
+      setTimeout(() => setIsOpenToast(false), 3000);
+    } //애니메이션 => 살살 사라지게.... 다른거 다 완성후 추가적으로 효과 넣어보자.
+  }, [isOpenToast]);
+
+  return (
+    <ShareBox>
+      <LinkButton onClick={handleToast}>
+        <LinkImage src="./images/Link-icon.png" alt="링크아이콘" />
+        {isOpenToast && <ToastStyle>URL이 복사되었습니다</ToastStyle>}
+      </LinkButton>
+      <KakaotalkButton>
+        <KakaoImage src="./images/kakao-icon.png" alt="카카오아이콘" />
+      </KakaotalkButton>
+      <FacebookButton>
+        <FacebookImage src="./images/facebook.png" alt="페이스북아이콘" />
+      </FacebookButton>
+    </ShareBox>
+  );
+}
+
 const ShareBox = styled.div`
   display: inline-flex;
   align-items: flex-start;
@@ -73,44 +112,3 @@ const ToastStyle = styled.div`
     bottom: 100px;
   }
 `;
-
-const handleCopyClipBoard = async () => {
-  const currentURL = window.location.href;
-
-  try {
-    await navigator.clipboard.writeText(currentURL);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-function ShareButton() {
-  const [isOpenToast, setIsOpenToast] = useState(false);
-
-  const handleToast = () => {
-    setIsOpenToast(true);
-    handleCopyClipBoard();
-  };
-  useEffect(() => {
-    if (isOpenToast) {
-      setTimeout(() => setIsOpenToast(false), 3000);
-    } //애니메이션 => 살살 사라지게.... 다른거 다 완성후 추가적으로 효과 넣어보자.
-  }, [isOpenToast]);
-
-  return (
-    <ShareBox>
-      <LinkButton onClick={handleToast}>
-        <LinkImage src="./images/Link-icon.png" alt="링크아이콘" />
-        {isOpenToast && <ToastStyle>URL이 복사되었습니다</ToastStyle>}
-      </LinkButton>
-      <KakaotalkButton>
-        <KakaoImage src="./images/kakao-icon.png" alt="카카오아이콘" />
-      </KakaotalkButton>
-      <FacebookButton>
-        <FacebookImage src="./images/facebook.png" alt="페이스북아이콘" />
-      </FacebookButton>
-    </ShareBox>
-  );
-}
-
-export default ShareButton;

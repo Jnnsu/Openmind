@@ -1,5 +1,19 @@
 import styled from 'styled-components';
 
+export default function TextArea({ type = 'default' }) {
+  const inputContent = {
+    default: '내용을 입력해주세요',
+    question: '질문을 입력해주세요',
+    answer: '답변을 입력해주세요',
+  };
+
+  return (
+    <Form>
+      <InputTextArea placeholder={inputContent[type]} />
+    </Form>
+  );
+}
+
 const Form = styled.form`
   width: 100%;
 
@@ -27,19 +41,3 @@ const InputTextArea = styled.textarea`
     border: 1px solid var(--Brown-40);
   }
 `;
-
-function TextArea({ type = 'default' }) {
-  const inputContent = {
-    default: '내용을 입력해주세요',
-    question: '질문을 입력해주세요',
-    answer: '답변을 입력해주세요',
-  };
-
-  return (
-    <Form>
-      <InputTextArea placeholder={inputContent[type]} />
-    </Form>
-  );
-}
-
-export default TextArea;

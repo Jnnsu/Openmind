@@ -1,4 +1,4 @@
-export default function CardCreatedDate(createdAt) {
+export default function cardCreatedDate(createdAt) {
   const createdTime = new Date(createdAt);
   const now = Date.now();
   const seconds = Math.floor((now - createdTime) / 1000);
