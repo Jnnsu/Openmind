@@ -54,6 +54,7 @@ export default function Post() {
   return (
   <>
   {/*헤더 컴포넌트 */}
+<<<<<<< HEAD
   <PostHeader>
     <headerImage/>
     <LogoAndProfile>
@@ -71,6 +72,15 @@ export default function Post() {
       data={questionData}
       subjectData={[subjectName, subjectImg]}
     </QuestionFeedCard>
+=======
+  <PostHeader 
+    id = {subjectId}
+    setterSubjectName = {setSubjectName}
+    setterSubjectImg = {setSubjectImg}
+    filter = {Option.filter}
+  />
+  <MainContainer>
+>>>>>>> e5c10dd (✨ feat: 질문목록 받아오기 api 수정 밒 postpage 질문 받아오기 구현, Style페이지 추가)
 
 
   </MainContainer>

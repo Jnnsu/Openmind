@@ -1,35 +1,50 @@
 import styled from 'styled-components';
-import ProfileImage from '../../components/Feed/ProfileImage/ProfileImage';
 import DropDownButton from '../../components/DropDown/DropDownButton';
 import OutlineBoxButton from '../../components/Button/OutlineBoxButton/OutlineBoxButton';
 import Pagenaion from '../../components/Pagenation/Pagenation';
-import { getSample } from '../../api/api';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { API } from '../../constants';
 
-export default function CardList({ id, name, image, question }) {
-  const [questionCount, setQuestionCount] = useState(0);
-  const [profileImage, setProfileImage] = useState('');
+export default function CardList() {
+  const [result, setResult] = useState([]);
+  const [sortOption, setSortOption] = useState('date');
 
-  // useEffect(() => {
-  //   const getlistData = async () => {
-  //     try {
-  //       const result = await getSample();
-  //       const { results } = result || {};
+  const navigate = useNavigate();
 
-  //       if (results && Array.isArray(results)) {
-  //         const questionCounts = results.map(item => item.questionCount);
-  //         setQuestionCount(questionCounts);
-  //         const imageSources = results.map(item => item.imageSource);
-  //         setProfileImage(imageSources);
-  //       }
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
+  useEffect(() => {
+    async function getListData() {
+      try {
+        const response = await fetch(API.SUBJECT);
+        const { results } = await response.json();
+        // const resultArray = results.results || [];
+        // setResult(resultArray);
+        let sortedData = [...results];
 
-  //   getlistData();
-  // }, []);
+        if (sortOption === 'name') {
+          sortedData = sortedData.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        if (sortOption === 'date') {
+          sortedData = sortedData.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+          );
+        }
+
+        setResult(sortedData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getListData();
+  }, [sortOption]);
+
+  const handleAnswerPage = () => {
+    navigate('/post/:subjectId/answer');
+  };
+
+  const handleSortOption = option => {
+    setSortOption(option);
+  };
 
   return (
     <>
@@ -38,133 +53,39 @@ export default function CardList({ id, name, image, question }) {
           <Link to="./">
             <Logo src="./images/logo.png" alt="로고 이미지" />
           </Link>
-          <OutlineBoxButton />
+          <OutlineBoxButton onClick={handleAnswerPage}>
+            답변하러 가기
+          </OutlineBoxButton>
         </CardListHeader>
         <CardListTitleWrapper>
           <CardListTitle>누구에게 질문할까요?</CardListTitle>
-          <DropDownButton />
+          <DropDownButton
+            sortOption={sortOption}
+            onSortOptionChange={handleSortOption}
+          />
         </CardListTitleWrapper>
         <CardListMain>
-          <Card>
-            <CardTop>
-              {/* <ProfileImage style={{ width: '60px' }}> */}
-              <img src="./images/Photo.png" alt="" />
-              {/* </ProfileImage> */}
-              <CardNickname>{id}아초는고양이</CardNickname>
-            </CardTop>
-            <CardBottom>
-              <ReceiveQuestion>
-                <img src="./images/Messages.svg" alt="메세지 아이콘" />
-                <div>받은 질문</div>
-              </ReceiveQuestion>
-              <div>{question}개</div>
-            </CardBottom>
-          </Card>
-          <Card>
-            <CardTop>
-              <ProfileImage style={{ width: '60px' }}>
-                <img src={image} alt="" />
-              </ProfileImage>
-              <CardNickname>{id}</CardNickname>
-            </CardTop>
-            <CardBottom>
-              <ReceiveQuestion>
-                <img src="./images/Messages.svg" alt="메세지 아이콘" />
-                <div>받은 질문</div>
-              </ReceiveQuestion>
-              <div>{question}개</div>
-            </CardBottom>
-          </Card>
-          <Card>
-            <CardTop>
-              <ProfileImage style={{ width: '60px' }}>
-                <img src={image} alt="" />
-              </ProfileImage>
-              <CardNickname>{id}</CardNickname>
-            </CardTop>
-            <CardBottom>
-              <ReceiveQuestion>
-                <img src="./images/Messages.svg" alt="메세지 아이콘" />
-                <div>받은 질문</div>
-              </ReceiveQuestion>
-              <div>{question}개</div>
-            </CardBottom>
-          </Card>
-          <Card>
-            <CardTop>
-              <ProfileImage style={{ width: '60px' }}>
-                <img src={image} alt="" />
-              </ProfileImage>
-              <CardNickname>{id}</CardNickname>
-            </CardTop>
-            <CardBottom>
-              <ReceiveQuestion>
-                <img src="./images/Messages.svg" alt="메세지 아이콘" />
-                <div>받은 질문</div>
-              </ReceiveQuestion>
-              <div>{question}개</div>
-            </CardBottom>
-          </Card>
-          <Card>
-            <CardTop>
-              <ProfileImage style={{ width: '60px' }}>
-                <img src={image} alt="" />
-              </ProfileImage>
-              <CardNickname>{id}</CardNickname>
-            </CardTop>
-            <CardBottom>
-              <ReceiveQuestion>
-                <img src="./images/Messages.svg" alt="메세지 아이콘" />
-                <div>받은 질문</div>
-              </ReceiveQuestion>
-              <div>{question}개</div>
-            </CardBottom>
-          </Card>
-          <Card>
-            <CardTop>
-              <ProfileImage style={{ width: '60px' }}>
-                <img src={image} alt="" />
-              </ProfileImage>
-              <CardNickname>{id}</CardNickname>
-            </CardTop>
-            <CardBottom>
-              <ReceiveQuestion>
-                <img src="./images/Messages.svg" alt="메세지 아이콘" />
-                <div>받은 질문</div>
-              </ReceiveQuestion>
-              <div>{question}개</div>
-            </CardBottom>
-          </Card>
-          <Card>
-            <CardTop>
-              <ProfileImage style={{ width: '60px' }}>
-                <img src={image} alt="" />
-              </ProfileImage>
-              <CardNickname>{id}</CardNickname>
-            </CardTop>
-            <CardBottom>
-              <ReceiveQuestion>
-                <img src="./images/Messages.svg" alt="메세지 아이콘" />
-                <div>받은 질문</div>
-              </ReceiveQuestion>
-              <div>{question}개</div>
-            </CardBottom>
-          </Card>
-          <Card>
-            <CardTop>
-              <ProfileImage style={{ width: '60px' }}>
-                <img src={image} alt="" />
-              </ProfileImage>
-              <CardNickname>{id}</CardNickname>
-            </CardTop>
-            <CardBottom>
-              <ReceiveQuestion>
-                <img src="./images/Messages.svg" alt="메세지 아이콘" />
-                <div>받은 질문</div>
-              </ReceiveQuestion>
-              <div>{question}개</div>
-            </CardBottom>
-          </Card>
+          {result.map((item, index) => (
+            <Card
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              image={item.imageSource}
+              questionCount={item.questionCount}
+            >
+              <CardTop>
+                <img src={item.imageSource} alt="" />
+                <CardNickname>{item.name}</CardNickname>
+              </CardTop>
+              <CardBottom>
+                <ReceiveQuestion>
+                  <img src="./images/Messages.svg" alt="메세지 아이콘" />
+                  <div>받은 질문</div>
+                </ReceiveQuestion>
+                <div>{item.questionCount}개</div>
+              </CardBottom>
+            </Card>
+          ))}
         </CardListMain>
         <CardListFooter>
           <CardPagenation>
@@ -261,6 +182,7 @@ const CardListMain = styled.div`
 
 const Card = styled.div`
   width: calc(25%-10px);
+  min-width: 186px;
   max-width: 220px;
   margin-bottom: 20px;
   height: 187px;
@@ -285,6 +207,11 @@ const CardTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  img {
+    width: 60px;
+    border-radius: 50%;
+  }
 `;
 
 const CardNickname = styled.div`
@@ -298,6 +225,10 @@ const CardBottom = styled.div`
   justify-content: space-between;
   align-items: center;
   color: var(--Grayscale-40);
+
+  div {
+    font-size: 16px;
+  }
 `;
 
 const ReceiveQuestion = styled.div`
