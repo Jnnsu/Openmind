@@ -16,6 +16,8 @@ export default function cardCreatedDate(createdAt) {
     return '1시간 전';
   } else if (hours < 24) {
     return `${hours}시간 전`;
+  } else if (days < 60) {
+    return `${days}일 전`;
   } else if (months < 2) {
     return '1달 전';
   } else if (months <= 11) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { ReactComponent as Edit } from '../../images/Edit.svg';
-import { ReactComponent as Rejection } from '../../images/Rejection.svg';
-import { ReactComponent as Close } from '../../images/Close.svg';
+import { ReactComponent as Edit } from '../../../images/Edit.svg';
+import { ReactComponent as Rejection } from '../../../images/Rejection.svg';
+import { ReactComponent as Close } from '../../../images/Close.svg';
 import * as S from './KebabButtonStyle';
 
 export default function Kebab() {
@@ -49,7 +49,7 @@ export default function Kebab() {
   return (
     <S.KebabContainer>
       <S.KebabButton onClick={handleKebabButtonOnClick}>
-        <img src="./images/More.png" alt="케밥 이미지" />
+        <img src="/images/More.png" alt="케밥 이미지" />
       </S.KebabButton>
       {isOpenKebabMenu && (
         <S.KebabMenu>
@@ -62,6 +62,7 @@ export default function Kebab() {
             }
             return (
               <S.KebabMenuItem
+                key={element.text}
                 className={className}
                 onClick={handleKebabMenuItemOnClick}
               >
