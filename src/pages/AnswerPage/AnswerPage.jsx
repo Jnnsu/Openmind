@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ShareButton from '../../components/Button/ShareButton/ShareButton';
@@ -11,7 +11,38 @@ import {
 
 export default function AnswerPage() {
   const [subject, setSubject] = useState();
+  // const [questionList, setQuestionList] = useState();
   const { subjectId } = useParams();
+  const navigate = useNavigate();
+
+  const questionCount = subject?.questionCount
+    ? `${subject.questionCount}개의 질문이 있습니다`
+    : '아직 질문이 없습니다';
+
+  const handleDeleteQuestionButtonOnClick = async () => {
+    try {
+      if (
+        window.confirm(
+          '정말로 이 질문 대상을 삭제하시겠습니까?\n모든 질문들은 같이 삭제됩니다.',
+        )
+      ) {
+        const response = await fetch(
+          `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/`,
+          {
+            method: 'DELETE',
+            headers: {
+              accept: 'application/json',
+            },
+          },
+        );
+        if (response.ok) {
+          navigate('/');
+        }
+      } else return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     async function getSubject() {
@@ -19,12 +50,23 @@ export default function AnswerPage() {
         const response = await fetch(
           `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/`,
         );
+        if (!response.ok) {
+          alert('존재하지 않는 이름/아이디 입니다.');
+          navigate('/');
+        }
         const nextSubject = await response.json();
         setSubject(nextSubject);
       } catch (error) {
         console.log(error);
       }
     }
+
+    // async function getQuestionList() {
+    //   try {
+    //     const response = await fetch(`https://openmind-api.vercel.app/3-3/subjects/${subjectId}/questions/?limit=10&offset=0`);
+
+    //   }
+    // }
 
     getSubject();
   }, [subjectId]);
@@ -44,11 +86,17 @@ export default function AnswerPage() {
           <S.ShareButton />
         </S.LogoAndProfileAndShare>
       </S.Header>
-      <S.QuestionListContainer>
-        <S.QuestionList>
-          <S.DeleteQuestionsButton>삭제하기</S.DeleteQuestionsButton>
-        </S.QuestionList>
-      </S.QuestionListContainer>
+      <S.MainContainer>
+        <S.QuestionListContainer>
+          <S.DeleteQuestionsButton onClick={handleDeleteQuestionButtonOnClick}>
+            삭제하기
+          </S.DeleteQuestionsButton>
+          <S.CountQuestion>
+            <img src="/images/Messages.svg" alt="메세지 아이콘" />
+            <span>{questionCount}</span>
+          </S.CountQuestion>
+        </S.QuestionListContainer>
+      </S.MainContainer>
     </>
   );
 }
@@ -56,8 +104,6 @@ export default function AnswerPage() {
 const Header = styled.div`
   display: flex;
   justify-content: center;
-
-  background-color: black;
 `;
 
 const HeaderImage = styled.div`
@@ -106,27 +152,31 @@ const LogoAndProfileAndShare = styled.div`
   }
 `;
 
-const QuestionListContainer = styled.div`
+const MainContainer = styled.div`
   width: 100%;
   height: 100vh;
   background: var(--Grayscale-20);
+  padding: 19rem calc((100vw - 716px) / 2) 14rem;
 `;
 
-// const QuestionList = styled.div`
-// `
+const QuestionListContainer = styled(CardContainer)`
+  position: relative;
+`;
 
 const DeleteQuestionsButton = styled(FloatButton)`
   width: 10rem;
   height: 3.5rem;
   position: absolute;
+  top: -44px;
+  right: 0;
 
   color: var(--Grayscale-10);
   font-feature-settings:
     'clig' off,
     'liga' off;
   font-family: Pretendard;
-  font-size: 15px;
-  line-height: 25px; /* 166.667% */
+  font-size: 1.3rem;
+  line-height: 2.5rem; /* 166.667% */
 `;
 
 const S = {
@@ -134,7 +184,8 @@ const S = {
   HeaderImage,
   LogoAndProfileAndShare,
   ShareButton,
+  MainContainer,
   QuestionListContainer,
-  QuestionList,
   DeleteQuestionsButton,
+  CountQuestion,
 };
