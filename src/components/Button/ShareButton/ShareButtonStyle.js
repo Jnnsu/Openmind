@@ -39,15 +39,15 @@ export const ShareImage = styled.button`
 `;
 
 export const LinkImage = styled(ShareImage)`
-  background: url('./images/Link-icon.png') no-repeat center center;
+  background: url('/images/Link-icon.png') no-repeat center center;
 `;
 
 export const KakaoImage = styled(ShareImage)`
-  background: url('./images/kakao-icon.png') no-repeat center center;
+  background: url('/images/kakao-icon.png') no-repeat center center;
 `;
 
 export const FacebookImage = styled(ShareImage)`
-  background: url('./images/facebook-icon.png') no-repeat center center;
+  background: url('/images/facebook-icon.png') no-repeat center center;
 `;
 
 export const ToastStyle = styled.div`
