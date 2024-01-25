@@ -54,13 +54,23 @@ export default function Post() {
   return (
   <>
   {/*헤더 컴포넌트 */}
-  <PostHeader 
-    id = {subjectId}
-    setterSubjectName = {setSubjectName}
-    setterSubjectImg = {setSubjectImg}
-    filter = {Option.filter}
-  />
+  <PostHeader>
+    <headerImage/>
+    <LogoAndProfile>
+      <img className="logo" src= "/images/logo.png" alt="로고 이미지" />
+      <img 
+      className="HeaderProfileImage"/>
+    </LogoAndProfile>
+
+  </PostHeader>
+  {/* 메인 컨테이너 */}
   <MainContainer>
+    {/* 질문목록 컴포넌트 */}
+    <QuestionFeedCard>
+      total={total}
+      data={questionData}
+      subjectData={[subjectName, subjectImg]}
+    </QuestionFeedCard>
 
 
   </MainContainer>
