@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
 export const DropDownContainer = styled.div`
-  width: 500px;
-  padding: 40px;
+  /* width: 500px; */
+  display: flex;
+  justify-content: center;
+  /* padding: 40px; */
 `;
 
 export const Button = styled.button`
   display: flex;
   align-items: center;
+  position: relative;
   font-weight: 500;
   background: var(--Grayscale-10);
   border: 1px solid var(--Grayscale-40);
@@ -23,11 +26,12 @@ export const Button = styled.button`
 export const DropDownMenu = styled.div`
   display: flex;
   flex-direction: column;
+  position: absolute;
   border: 1px solid var(--Grayscale-30);
   border-radius: 8px;
   box-shadow: var(--Shadow-1pt);
   width: 79px;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
   font-feature-settings:
     'clig' off,
     'liga' off;
