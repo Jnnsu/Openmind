@@ -1,8 +1,13 @@
 import * as S from './OutlineBoxButtonStyle';
 
-export default function OutlineBoxButton({ prefix, children, appendix }) {
+export default function OutlineBoxButton({
+  prefix,
+  children,
+  appendix,
+  onClick,
+}) {
   return (
-    <S.OutlineButton>
+    <S.OutlineButton onClick={onClick}>
       {prefix}
       {children}
       {appendix}
