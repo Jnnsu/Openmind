@@ -10,4 +10,10 @@ export const LoginForm = styled.form`
   border-radius: 16px;
   position: absolute;
   top: 364px;
+
+  & button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;

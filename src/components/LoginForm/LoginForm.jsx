@@ -10,6 +10,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const userData = {
     name: userName,
+    team: '3-3',
   };
 
   const handleUserNameChange = e => {
