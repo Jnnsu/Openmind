@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { ReactComponent as like } from '../../images/Like.svg';
-import { ReactComponent as hate } from '../../images/Hate.svg';
+import { ReactComponent as like } from '../../../images/Like.svg';
+import { ReactComponent as hate } from '../../../images/Hate.svg';
 
 export const ReactionButton = styled.div`
   width: 100%;
