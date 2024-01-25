@@ -27,10 +27,10 @@ export default function (data, subjectData){
             <AnswerProfile>
               <AnswerName>{subjectName}</AnswerName>
               <AnswerDate>
-              {CardCreatedDate(answer['createdAt'])}
+                {CardCreatedDate(answer['createdAt'])}
               </AnswerDate>
             </AnswerProfile>
-            {answer.isRejected} ? (
+            { answer[ isRejected ] ? (
               <RefuseContent>답변 거절</RefuseContent>
             ):(
             <AnsweredContent>{answer['content']}</AnsweredContent>
@@ -38,6 +38,11 @@ export default function (data, subjectData){
           </AnswerBox>
         </AnswerContainer>
       ) : null }
+      <Foooter>
+        <FooterIcons>
+          <Reaction number = {count} questionId={questionId}/>
+        </FooterIcons>
+      </Foooter>
     </CardContainer>
   );
 
