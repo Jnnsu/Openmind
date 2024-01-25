@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 
-const COLORS = {
-  brown: 'var(--Brown-40)',
-  gray: 'var(--Grayscale-40)',
-};
-
 export const Button = styled.button`
   display: inline-flex;
   padding: 4px 12px;
@@ -12,7 +7,8 @@ export const Button = styled.button`
   align-items: center;
   gap: 10px;
 
-  color: ${({ $color }) => COLORS[$color]};
+  color: ${({ $isAnswered }) =>
+    $isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)'};
   font-feature-settings:
     'clig' off,
     'liga' off;
@@ -21,6 +17,8 @@ export const Button = styled.button`
   line-height: 18px; /* 128.571% */
 
   border-radius: 8px;
-  border: 1px solid ${({ $color }) => COLORS[$color]};
+  border: 1px solid
+    ${({ $isAnswered }) =>
+      $isAnswered ? 'var(--Brown-40)' : 'var(--Grayscale-40)'};
   background: var(--Grayscale-10);
 `;
