@@ -129,6 +129,7 @@ export default function QuestionList({
         element => element.id === questionId,
       );
       questionList[questionIndex].answer = answer;
+      answerList[questionId] = questionAnswer.content;
     }
 
     setAnswerModifyId(null);
