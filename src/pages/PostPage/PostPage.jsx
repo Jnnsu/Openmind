@@ -21,11 +21,8 @@ export default function Post() {
   const offset = useRef(0);
   const [isLoading, setIsLoading] = useState(false);
   const [total, setTotal] = useState(null);
-  const [subjectName, setSubjectName] = useState('');
-  const [subjectImg, setSubjectImg] = useState('');
-  const [questionData, setQuestionData] = useState({
-    data: [],
-  });
+  const [subject, setSubject] = useState();
+  const [questionList, setQuestionList] = useState();
 
   //질문목록 데이터 호출 함수
   function handleFeedCardSelection(id, limit, offset){
@@ -54,33 +51,30 @@ export default function Post() {
   return (
   <>
   {/*헤더 컴포넌트 */}
-<<<<<<< HEAD
   <PostHeader>
     <headerImage/>
     <LogoAndProfile>
       <img className="logo" src= "/images/logo.png" alt="로고 이미지" />
       <img 
-      className="HeaderProfileImage"/>
+      className="HeaderProfileImage"
+      src={subject?.imageSource}
+      alt="프로필 사진"/>
+      <h1 className="profileName">{subject?.name}</h1>
+      <ShareButton/>
     </LogoAndProfile>
-
   </PostHeader>
   {/* 메인 컨테이너 */}
   <MainContainer>
+    <CountQuestion>
+      <img src="/images/Messages.svg" alt="메세지 아이콘" />
+      <span>{QuestionCount}</span>
+    </CountQuestion>
     {/* 질문목록 컴포넌트 */}
     <QuestionFeedCard>
       total={total}
       data={questionData}
       subjectData={[subjectName, subjectImg]}
     </QuestionFeedCard>
-=======
-  <PostHeader 
-    id = {subjectId}
-    setterSubjectName = {setSubjectName}
-    setterSubjectImg = {setSubjectImg}
-    filter = {Option.filter}
-  />
-  <MainContainer>
->>>>>>> e5c10dd5d093b2013f8d2b7738f9bff5033633fe
 
 
   </MainContainer>
