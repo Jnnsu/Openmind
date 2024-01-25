@@ -16,6 +16,8 @@ import { FillButton } from '../../components/Button/FillBoxButton/FillBoxButtonS
 export default function AnswerPage() {
   const [subject, setSubject] = useState();
   const [questionList, setQuestionList] = useState();
+  const [answerInput, setAnswerInput] = useState();
+  const [isAnswerModify, setIsAnswerModify] = useState();
   const { subjectId } = useParams();
   const navigate = useNavigate();
 
@@ -23,16 +25,41 @@ export default function AnswerPage() {
     ? `${subject.questionCount}개의 질문이 있습니다`
     : '아직 질문이 없습니다';
 
-  const getAnswerContent = answer => {
+  const getAnswerContent = (answer, questionId) => {
     let answerContent;
     if (answer.isRejected) {
       answerContent = <span className="answerIsRejected">답변 거절</span>;
     } else {
-      answerContent = <span className="answerContent">{answer.content}</span>;
+      if (isAnswerModify) {
+        answerContent = (
+          <S.AnswerForm>
+            <textarea
+              className="answerTextarea"
+              placeholder="답변을 입력해 주세요"
+              defaultValue={answer.content}
+              onChange={handleAnswerTextareaOnChange}
+            />
+            <S.AnswerCompleteButton
+              type="button"
+              onClick={e => handleAnswerCompleteButtonOnClick(questionId)}
+            >
+              답변 완료
+            </S.AnswerCompleteButton>
+          </S.AnswerForm>
+        );
+      } else {
+        answerContent = <span className="answerContent">{answer.content}</span>;
+      }
     }
 
     return answerContent;
   };
+
+  const handleAnswerTextareaOnChange = e => {
+    setAnswerInput(e.target.value);
+  };
+
+  const onSelectedAnswerModify = () => setIsAnswerModify(!isAnswerModify);
 
   const handleDeleteQuestionButtonOnClick = async () => {
     try {
@@ -46,7 +73,7 @@ export default function AnswerPage() {
           {
             method: 'DELETE',
             headers: {
-              accept: 'application/json',
+              'Content-Type': 'application/json',
             },
           },
         );
@@ -56,6 +83,34 @@ export default function AnswerPage() {
           alert('삭제에 실패하였습니다.');
         }
       } else return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAnswerCompleteButtonOnClick = async questionId => {
+    const questionAnswer = {
+      questionId: questionId,
+      content: answerInput,
+      isRejected: false,
+      team: '3-3',
+    };
+
+    try {
+      const response = await fetch(
+        `https://openmind-api.vercel.app/3-3/questions/${questionId}/answers/`,
+        {
+          method: 'POST',
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(questionAnswer),
+        },
+      );
+      if (!response.ok) {
+        alert('데이터 등록에 실패하였습니다.');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -130,7 +185,7 @@ export default function AnswerPage() {
                   <S.QuestionCard key={element.id}>
                     <S.QuestionStatus>
                       <S.BadgeButton $color={color}>{text}</S.BadgeButton>
-                      <S.Kebab />
+                      <S.Kebab selectModify={onSelectedAnswerModify} />
                     </S.QuestionStatus>
                     <S.QuestionElapsedTime>
                       <span className="questionElapsedTime">
@@ -156,14 +211,20 @@ export default function AnswerPage() {
                           )}
                         </S.AnswerElapsedTime>
                         {isAnswered ? (
-                          getAnswerContent(element.answer)
+                          getAnswerContent(element.answer, element.id)
                         ) : (
                           <S.AnswerForm>
                             <textarea
                               className="answerTextarea"
                               placeholder="답변을 입력해 주세요"
+                              onChange={handleAnswerTextareaOnChange}
                             />
-                            <S.AnswerCompleteButton>
+                            <S.AnswerCompleteButton
+                              type="button"
+                              onClick={e =>
+                                handleAnswerCompleteButtonOnClick(element.id)
+                              }
+                            >
                               답변 완료
                             </S.AnswerCompleteButton>
                           </S.AnswerForm>
