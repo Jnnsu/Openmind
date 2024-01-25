@@ -4,7 +4,7 @@ import { ReactComponent as Rejection } from '../../images/Rejection.svg';
 import { ReactComponent as Close } from '../../images/Close.svg';
 import * as S from './KebabButtonStyle';
 
-export default function Kebab() {
+export default function Kebab({ selectModify }) {
   const [isOpenKebabMenu, setIsOpenKebabMenu] = useState();
   const [selectedMenuItem, setSelectedMenuItem] = useState();
 
@@ -16,24 +16,31 @@ export default function Kebab() {
     setSelectedMenuItem(e.target.innerText);
   };
 
+  const handleKebabMenuItemModifyOnClick = () => {
+    selectModify();
+  };
+
   const menuItem = [
     {
       text: '수정하기',
       imagePath: <Edit fill="" />,
       imageBluePath: <Edit fill="var(--Blue-50)" />,
       imageAlt: '수정하기 아이콘',
+      onClick: handleKebabMenuItemModifyOnClick,
     },
     {
       text: '질문삭제',
       imagePath: <Close fill="" />,
       imageBluePath: <Close fill="var(--Blue-50)" />,
       imageAlt: '질문삭제 아이콘',
+      onClick: '',
     },
     {
       text: '답변거절',
       imagePath: <Rejection fill="" />,
       imageBluePath: <Rejection fill="var(--Blue-50)" />,
       imageAlt: '답변거절 아이콘',
+      onClick: '',
     },
   ];
   const menuItemClassName = [];
@@ -63,7 +70,10 @@ export default function Kebab() {
             return (
               <S.KebabMenuItem
                 className={className}
-                onClick={handleKebabMenuItemOnClick}
+                onClick={e => {
+                  handleKebabMenuItemOnClick(e);
+                  element.onClick();
+                }}
               >
                 {image}
                 <span>{element.text}</span>
