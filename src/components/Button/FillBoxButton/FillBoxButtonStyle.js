@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import BoxButton from '../BoxButton/BoxButton';
+import BoxButton from '../BoxButton/BoxButtonStyle';
 
 export const FillButton = styled(BoxButton)`
   background: var(--Brown-40);
