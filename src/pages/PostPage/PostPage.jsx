@@ -70,11 +70,58 @@ export default function Post() {
       <span>{QuestionCount}</span>
     </CountQuestion>
     {/* 질문목록 컴포넌트 */}
-    <QuestionFeedCard>
-      total={total}
-      data={questionData}
-      subjectData={[subjectName, subjectImg]}
-    </QuestionFeedCard>
+    <FeedQuestionList>
+      {questionList && questionList.map(element => {
+        const isAnswered = !!element.answer;
+        const color = isAnswered ? 'brown' : 'gray';
+        const text = isAnswered ? '답변 완료' : '미답변';
+        
+        return (
+          <FeedQuestionCard key={element.id}>
+            <FeedQuestionCardStatus>
+              <BadgeButton $color = {color}>{text}</BadgeButton>
+            </FeedQuestionCardStatus>
+            <FeedElapsedTime>
+              <span className="feedElapsedTime">
+                질문 · {cardCreatedDate(element.createdAt)}
+              </span>
+              <h3 className="feedQuestion">{element.content}</h3>
+            </FeedElapsedTime>
+            <FeedAnswered>
+              <img 
+                className="HeaderProfileImage"
+                src={subject?.imageSource}
+                alt="프로필 사진"/>
+                {answer ? (
+              <FeedAnsweredContainer>
+                <AnsweredElapsedTime>
+                  <span className="profileName">{subject?.name}</span>
+                  {isAnswered && (
+                    <span className="answeredElapsedTime">
+                      {cardCreatedDate(element.answer.createdAt)}
+                    </span>
+                  )}
+                </AnsweredElapsedTime>
+                <AnsweredCard>
+                  {answer[isRejected] ? (
+                    <RefuseContent>답변 거절</RefuseContent>
+                  ) : (
+                    <AnsweredContent>{answer['content']}</AnsweredContent>
+                  )}
+                </AnsweredCard>
+              </FeedAnsweredContainer>
+              ): null }
+            </FeedAnswered>
+            <Footer>
+              <FooterIcons>
+                <Reaction like={like} dislike={dislike} />
+
+              </FooterIcons>
+            </Footer>
+          </FeedQuestionCard>
+        )
+      })}
+    </FeedQuestionList>
 
 
   </MainContainer>
