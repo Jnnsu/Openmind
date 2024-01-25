@@ -29,6 +29,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     }
 
+
+  html, 
   body {
     font-family: Pretendard;
     font-size: 62.5%;
