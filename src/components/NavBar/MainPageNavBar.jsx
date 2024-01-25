@@ -1,7 +1,14 @@
 import * as S from './MainPageNavBarStyle';
 import OutlineBoxButton from '../../components/Button/OutlineBoxButton/OutlineBoxButton';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
+  const navigate = useNavigate();
+
+  const handleQuestionButtonClick = () => {
+    navigate('/list');
+  };
+
   return (
     <S.NavBar>
       <OutlineBoxButton
@@ -12,6 +19,7 @@ export default function NavBar() {
             width="18"
           />
         }
+        onClick={handleQuestionButtonClick}
       >
         질문하러 가기
       </OutlineBoxButton>
