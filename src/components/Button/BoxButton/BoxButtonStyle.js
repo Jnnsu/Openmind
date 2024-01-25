@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const BoxButton = styled.button`
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 8px;
   padding: 12px 24px;

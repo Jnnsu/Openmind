@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import BoxButton from './BoxButton';
+import BoxButton from '../BoxButton/BoxButtonStyle';
 
 export const OutlineButton = styled(BoxButton)`
   background: var(--Brown-10);
