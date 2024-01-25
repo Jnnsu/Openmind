@@ -36,7 +36,7 @@ const InputField = styled.input`
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-size: 1.6rem;
+  font-size: 16px;
   line-height: 22px;
 `;
 
