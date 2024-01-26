@@ -10,3 +10,5 @@ export const API = {
   QUESTION: QUESTION_URL,
   ANSWER: ANSWER_URL,
 };
+
+export default TEAM;
