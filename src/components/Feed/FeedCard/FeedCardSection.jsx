@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "styled-components";
+import FeedCard from "./FeedCard";
 
 export default function FeedCardSection ({results =[]}) {
     const theme = useContext( ThemeContext );
@@ -13,6 +14,10 @@ export default function FeedCardSection ({results =[]}) {
           <img src="./images/Messages.svg" alt="메세지 아이콘" />
           <span>{questionCountIndicator}</span>
         </CountContainer>
+        <QuestionContainer>
+
+        </QuestionContainer>
+        
       </CardContainer>
     )
 // 여기는 일단 보류..
