@@ -1,18 +1,12 @@
 import { useContext } from "react";
 import { ThemeContext } from "styled-components";
 
-export default function FeedCardSection ( 
-  total, 
-  data, 
-  subjectData, 
-  setTotal, 
-  setQuestionData,
-  {results =[]}
-  ) {
+export default function FeedCardSection ({results =[]}) {
     const theme = useContext( ThemeContext );
     const questionCountIndicator = results.length
     ? `${results.length}개의 질문이 있습니다`
     : '아직 질문이 없습니다';
+    
     return (
       <CardContainer>
         <CountContainer>

@@ -7,9 +7,9 @@ export const CardContainer = styled.div`
   width: 684px;
   margin-top: 54px;
   padding: 16px;
-  border: 1px solid var(--brown30);
+  border: 1px solid var(--Brown-30);
   border-radius: 16px;
-  background: var(--brown10);
+  background: var(--Brown-10);
 
   @media (max-width: 1199px) {
     width: 100%;

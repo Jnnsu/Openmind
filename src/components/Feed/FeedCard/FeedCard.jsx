@@ -3,7 +3,7 @@ import {
   Reaction
 } from 'components';
 import * as S from './FeedCardStyle';
-import { CardCreatedDate } from 'utils/CardCreatedDate';
+import { cardCreatedDate } from 'utils/CardCreatedDate';
 
 export default function (data, subjectData){
   const {id: qusetionId, content, like, dislike, createdAt, answer} =data;
