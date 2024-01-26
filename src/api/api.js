@@ -14,9 +14,31 @@ export const setUserData = async userData => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const result = await response.json();
-    console.log(result);
-    return result;
+    const userDataList = await response.json();
+    console.log(userDataList);
+    return userDataList;
+  } catch (error) {
+    console.error(`Error during fetch: ${error.message}`);
+    return `Error: ${error.message}`;
+  }
+};
+
+export const getUserDataList = async () => {
+  try {
+    const response = await fetch(API.SUBJECT, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const userDataList = await response.json();
+    console.log(userDataList);
+    return userDataList;
   } catch (error) {
     console.error(`Error during fetch: ${error.message}`);
     return `Error: ${error.message}`;

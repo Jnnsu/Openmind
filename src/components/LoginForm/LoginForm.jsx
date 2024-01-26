@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setUserData } from '../../api/api';
+import { setUserData, getUserDataList } from '../../api/api';
 import TEAM from '../../constants';
 import Field from '../Input/Field';
 import FillBoxButton from '../Button/FillBoxButton/FillBoxButton';
@@ -20,6 +20,13 @@ export default function LoginForm() {
 
   const handleLoginButtonSubmit = async e => {
     e.preventDefault();
+
+    // const userDataList = await getUserDataList();
+    // if (userName === userDataList.name) {
+    //   alert('이미 사용중인 이름입니다.')
+
+    //   return;
+    // }
 
     try {
       const userDataResponse = await setUserData(userData);
