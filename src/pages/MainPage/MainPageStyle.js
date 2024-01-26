@@ -19,7 +19,4 @@ export const LogoImage = styled.img`
 
 export const BackgroundImage = styled.img`
   width: 100vw;
-  /* position: absolute;
-  top: 205px;
-  z-index: -1; */
 `;

@@ -1,13 +1,24 @@
-export const getSample = async () => {
-  try {
-    const response = await fetch(
-      'https://openmind-api.vercel.app/3-3/subjects/',
-    );
-    const result = await response.json();
+import { API } from '../constants';
 
+export const setUserData = async userData => {
+  try {
+    const response = await fetch(API.SUBJECT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
     console.log(result);
     return result;
   } catch (error) {
-    return `Error: ${error}`;
+    console.error(`Error during fetch: ${error.message}`);
+    return `Error: ${error.message}`;
   }
 };

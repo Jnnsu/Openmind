@@ -1,8 +1,8 @@
-import * as S from './FillBoxButtonStyle';
+import * as S from './FillBoxButtonStyle'; // useNavigate import
 
-export default function FillBoxButton({ prefix, children, appendix }) {
+export default function FillBoxButton({ prefix, children, appendix, onClick }) {
   return (
-    <S.FillButton>
+    <S.FillButton onClick={onClick}>
       {prefix}
       {children}
       {appendix}
