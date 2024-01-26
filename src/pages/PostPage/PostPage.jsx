@@ -15,7 +15,6 @@ export default function Post() {
   const location = useLocation();
   const navigate = useNavigate();
   const subjectId = location.pathname.split('/')[2];
-  const { isOpen, openModal, closeModal } = useModal();
   const option = { visible: true, filter: true };
   const target = useRef();
   const [hasNext, setHasNext] = useState(true);
