@@ -1,12 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  FeedCard, 
-  FeedCardSection, 
-  ShareButton, // floatingbutton
-} from 'src\components'
+import { SharedButton } from "../../components/Button/ShareButton/ShareButtonStyle";
 import * as S from "./PostPageStyle"
-import { getSubjectsQuestion } from 'api/api';
+import { getSubjectQustion } from "../../api/api";
 
 //한 번에 로드되는 항목 수
 const LIMIT = 5;
@@ -30,7 +26,7 @@ export default function Post() {
   const handleFeedCardSection = async (id, limit, offset) => {
     setIsLoading(true);
     try{
-      const result = await getSubjectsQuestion(id, limit, offset.current);
+      const result = await getSubjectQustion(id, limit, offset.current);
       const { count, next, results: questionData } = result;
       setQuestionData((prevData) => ({
         data: [...prevData.data, ...questionData],
@@ -67,9 +63,9 @@ export default function Post() {
 
   return (
   <>
-  <Header>
-    <HeaderImage />
-    <LogoAndProFileAndShare>
+  <S.Header>
+    <S.HeaderImage />
+    <S.LogoAndProFileAndShare>
       <img className="logo" src="/images/logo.png" alt="오픈마인드 로고" />
       <img 
         className="profileImageContainer" 
@@ -77,16 +73,16 @@ export default function Post() {
         alt="프로필 이미지"
       />
       <h1 className="profileNameContainer">{subjectName}</h1> 
-      <ShareButton />
-    </LogoAndProFileAndShare>
-  </Header>
-  <MainContainer>
-    <FeedCardSection>
+      <SharedButton />
+    </S.LogoAndProFileAndShare>
+  </S.Header>
+  <S.MainContainer>
+    <S.FeedCardSection>
       total ={total}
       data = {questionData.data}
       subjectData = {[subjectName, subjectImg]}
-    </FeedCardSection>
-  </MainContainer>
+    </S.FeedCardSection>
+  </S.MainContainer>
   </>);
 }
 
