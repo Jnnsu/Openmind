@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as S from './LoginformStyle';
+import { setUserData } from '../../api/api';
+import TEAM from '../../constants';
 import Field from '../Input/Field';
 import FillBoxButton from '../Button/FillBoxButton/FillBoxButton';
-import { postUserData } from '../../api/api';
+import * as S from './LoginformStyle';
 
 export default function LoginForm() {
   const [userName, setUserName] = useState('');
   const navigate = useNavigate();
   const userData = {
     name: userName,
-    team: '3-3',
+    team: TEAM,
   };
 
   const handleUserNameChange = e => {
@@ -20,16 +21,14 @@ export default function LoginForm() {
   const handleLoginButtonSubmit = async e => {
     e.preventDefault();
 
-    console.log(userData);
-
     try {
-      const userDataResponse = await postUserData(userData);
+      const userDataResponse = await setUserData(userData);
       console.log('Server Response:', userDataResponse);
       const userId = userDataResponse?.id;
 
-      if (userDataResponse && userId) {
+      if (userId) {
         window.sessionStorage.setItem('userId', userId);
-        navigate(`/post/${userDataResponse.id}/answer`);
+        navigate(`/post/${userId}/answer`);
       } else {
         console.error('No id received from server');
       }
