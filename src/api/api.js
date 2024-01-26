@@ -1,6 +1,6 @@
 import { API } from '../constants';
 
-export const postUserData = async userData => {
+export const setUserData = async userData => {
   try {
     const response = await fetch(API.SUBJECT, {
       method: 'POST',
