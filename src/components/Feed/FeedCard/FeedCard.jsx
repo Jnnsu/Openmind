@@ -5,7 +5,7 @@ import {
 import * as S from './FeedCardStyle';
 import { cardCreatedDate } from 'utils/CardCreatedDate';
 
-export default function (data, subjectData){
+export default function FeedCard ( {data, subjectData} ){
   const {id: qusetionId, content, like, dislike, createdAt, answer} =data;
   const [subjectName, subjectImg] = subjectData;
 
