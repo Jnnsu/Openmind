@@ -50,7 +50,7 @@ export default function CardList() {
     <>
       <CardListContainer>
         <CardListHeader>
-          <Link to="./">
+          <Link to="/">
             <Logo src="./images/logo.png" alt="로고 이미지" />
           </Link>
           <OutlineBoxButton onClick={handleAnswerPage}>
