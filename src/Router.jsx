@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage/MainPage';
 import CardListPage from './pages/CardListPage';
-import PostPage from './pages/PostPage';
-import AnswerPage from './pages/AnswerPage';
+import PostPage from './pages/PostPage/PostPage';
+import AnswerPage from './pages/AnswerPage/AnswerPage';
 
 export default function Router() {
   return (
