@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import DropDownButton from '../../components/DropDown/DropDownButton';
 import OutlineBoxButton from '../../components/Button/OutlineBoxButton/OutlineBoxButton';
 import Pagenaion from '../../components/Pagenation/Pagenation';
+import { getSample } from '../../api/api';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { API } from '../../constants';
@@ -50,7 +51,7 @@ export default function CardList() {
     <>
       <CardListContainer>
         <CardListHeader>
-          <Link to="/">
+          <Link to="./">
             <Logo src="./images/logo.png" alt="로고 이미지" />
           </Link>
           <OutlineBoxButton onClick={handleAnswerPage}>
@@ -225,10 +226,6 @@ const CardBottom = styled.div`
   justify-content: space-between;
   align-items: center;
   color: var(--Grayscale-40);
-
-  div {
-    font-size: 16px;
-  }
 `;
 
 const ReceiveQuestion = styled.div`
