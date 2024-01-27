@@ -1,10 +1,6 @@
 import { API } from '../constants';
 
-<<<<<<< HEAD
 export const setUserData = async userData => {
-=======
-export const postUserData = async userData => {
->>>>>>> 4b6bae9 (🎨 chore: POST시 team 정보 누락 수정)
   try {
     const response = await fetch(API.SUBJECT, {
       method: 'POST',

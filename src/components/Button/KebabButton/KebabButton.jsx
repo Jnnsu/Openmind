@@ -1,58 +1,36 @@
 import { useState } from 'react';
 import * as S from './KebabButtonStyle';
 
-export default function Kebab({ selectModify }) {
+export default function Kebab({
+  menuItem,
+  questionId,
+  question,
+  answerModifyId,
+}) {
   const [isOpenKebabMenu, setIsOpenKebabMenu] = useState();
   const [selectedMenuItem, setSelectedMenuItem] = useState();
+  const [dropLeft, setDropLeft] = useState();
 
-  const handleKebabButtonOnClick = () => {
+  const handleKebabButtonOnClick = e => {
+    if (e.clientX + 110 >= window.innerWidth) {
+      setDropLeft(true);
+    } else {
+      setDropLeft(false);
+    }
     setIsOpenKebabMenu(!isOpenKebabMenu);
   };
 
   const handleKebabButtonOnBlur = () => {
     setTimeout(() => {
       setIsOpenKebabMenu(false);
-    }, 200);
+    }, 150);
   };
 
   const handleKebabMenuItemOnClick = e => {
-    setSelectedMenuItem(e.target.innerText);
-  };
-
-  const handleKebabMenuItemModifyOnClick = () => {
-    selectModify();
-  };
-
-  const menuItem = [
-    {
-      text: '수정하기',
-      imagePath: <Edit fill="" />,
-      imageBluePath: <Edit fill="var(--Blue-50)" />,
-      imageAlt: '수정하기 아이콘',
-      onClick: handleKebabMenuItemModifyOnClick,
-    },
-    {
-      text: '질문삭제',
-      imagePath: <Close fill="" />,
-      imageBluePath: <Close fill="var(--Blue-50)" />,
-      imageAlt: '질문삭제 아이콘',
-      onClick: '',
-    },
-    {
-      text: '답변거절',
-      imagePath: <Rejection fill="" />,
-      imageBluePath: <Rejection fill="var(--Blue-50)" />,
-      imageAlt: '답변거절 아이콘',
-      onClick: '',
-    },
-  ];
-  const menuItemClassName = [];
-
-  menuItem.forEach(element => {
-    if (element === selectedMenuItem) {
-      menuItemClassName.push('selected');
+    if (e.target.innerText === selectedMenuItem) {
+      setSelectedMenuItem(null);
     } else {
-      setSelectedMenuItem(e.target.innerText);
+      setSelectedMenuItem(e.currentTarget.innerText);
     }
   };
 
@@ -65,11 +43,17 @@ export default function Kebab({ selectModify }) {
         <img src="/images/More.png" alt="케밥 이미지" />
       </S.KebabButton>
       {isOpenKebabMenu && (
-        <S.KebabMenu>
+        <S.KebabMenu $dropLeft={dropLeft}>
           {menuItem.map(element => {
             let className = '';
             let image = element.imagePath;
-            if (element.text === selectedMenuItem) {
+            if (element.text === '답변거절' && question.answer.isRejected) {
+              className = 'selected';
+              image = element.imageBluePath;
+            } else if (
+              element.text !== '답변거절' &&
+              element.text === selectedMenuItem
+            ) {
               className = 'selected';
               image = element.imageBluePath;
             }
@@ -80,7 +64,7 @@ export default function Kebab({ selectModify }) {
                 className={className}
                 onClick={e => {
                   handleKebabMenuItemOnClick(e);
-                  element.onClick();
+                  element.onClick(questionId);
                 }}
               >
                 {image}
