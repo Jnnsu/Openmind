@@ -1,9 +1,7 @@
-import {
-  BadgeButton,
-  Reaction
-} from 'components';
+import { BadgeButton } from '../../Button/BadgeButton/BadgeButton';
+import { Reaction } from '../Reaction/Reaction';
 import * as S from './FeedCardStyle';
-import { cardCreatedDate } from 'utils/CardCreatedDate';
+import { cardCreatedDate } from '../../../utils/CardCreatedDate';
 
 export default function FeedCard ( {data, subjectData} ){
   const {id: qusetionId, content, like, dislike, createdAt, answer} =data;
