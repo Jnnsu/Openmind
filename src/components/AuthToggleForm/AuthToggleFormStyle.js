@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const FormContainer = styled.div`
   position: absolute;
@@ -13,6 +13,7 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  gap: 3px;
 `;
 
 export const LoginButton = styled.button`
@@ -20,8 +21,11 @@ export const LoginButton = styled.button`
   height: 100%;
   border: none;
   font-size: 1.6rem;
-
-  background: ${({ active }) => (active ? '#182' : '#fff')};
+  border-radius: 8px 8px 0 0;
+  box-shadow: ${({ active }) =>
+    active ? '0 4px 8px rgba(0, 0, 0, 0.35)' : '0 4px 8px rgba(0, 0, 0, 0.1)'};
+  background: #fff;
+  opacity: ${({ active }) => (active ? '1' : '0.4')};
 `;
 
 export const JoinButton = styled.button`
@@ -29,8 +33,11 @@ export const JoinButton = styled.button`
   height: 100%;
   border: none;
   font-size: 1.6rem;
-
-  background: ${({ active }) => (active ? '#182' : '#fff')};
+  border-radius: 8px 8px 0 0;
+  box-shadow: ${({ active }) =>
+    active ? '0 4px 8px rgba(0, 0, 0, 0.35)' : '0 4px 8px rgba(0, 0, 0, 0.1)'};
+  background: #fff;
+  opacity: ${({ active }) => (active ? '1' : '0.4')};
 `;
 
 export const FormContent = styled.div`
@@ -41,4 +48,6 @@ export const FormContent = styled.div`
     visibility 100ms ease-in-out;
   position: absolute;
   width: 100%;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 `;

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setUserData } from '../../api/api';
 import { TEAM } from '../../constants';
-import Field from '../Input/Field';
 import FillBoxButton from '../Button/FillBoxButton/FillBoxButton';
 import * as S from './JoinFornStyle';
 
@@ -30,7 +29,7 @@ export default function JoinForm() {
       const userDataResponse = await setUserData(userData);
       console.log('Server Response:', userDataResponse);
       const userId = userDataResponse?.id;
-      alert(`당신의 S/N는 ${userId}입니다. 반드시 기억해주세요!`);
+      alert(`당신의 UserID는 ${userId}입니다. 반드시 기억해주세요!`);
 
       if (userId) {
         window.sessionStorage.setItem('userId', userId);
@@ -48,11 +47,17 @@ export default function JoinForm() {
 
   return (
     <S.JoinForm onSubmit={handleJoinFormSubmit}>
-      <Field
-        value={userName}
-        onChange={handleUserNameInputChange}
-        placeholder="이름을 입력하세요"
-      />
+      <S.InputGroup>
+        <S.InputIcon src="./images/Person.png" alt="사람 아이콘" />
+        <S.Input
+          value={userName}
+          onChange={handleUserNameInputChange}
+          placeholder="Username"
+          type="text"
+          id="username"
+        />
+        <S.Label htmlFor="username">Username</S.Label>
+      </S.InputGroup>
       <FillBoxButton type="submit">새로 생성하기</FillBoxButton>
     </S.JoinForm>
   );

@@ -16,16 +16,6 @@ export default function AuthToggleForm() {
   return (
     <S.FormContainer>
       <S.ButtonContainer>
-        {/* {activeForm === 'login' ? (
-          <S.JoinButton onClick={handleJoinButtonClick}>
-            계정 새로 생성하기
-          </S.JoinButton>
-        ) : (
-          <S.LoginButton onClick={handleLoginButtonClick}>
-            로그인 하러가기
-          </S.LoginButton>
-        )} */}
-
         <S.LoginButton
           onClick={handleLoginButtonClick}
           active={activeForm === 'login'}
@@ -36,14 +26,13 @@ export default function AuthToggleForm() {
           onClick={handleJoinButtonClick}
           active={activeForm === 'join'}
         >
-          Join Us
+          Join
         </S.JoinButton>
       </S.ButtonContainer>
 
       <S.FormContent active={activeForm === 'login'}>
         <LoginForm />
       </S.FormContent>
-
       <S.FormContent active={activeForm === 'join'}>
         <JoinForm />
       </S.FormContent>
