@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import * as S from './KebabButtonStyle';
 
-export default function Kebab({
-  menuItem,
-  questionId,
-  question,
-  answerModifyId,
-}) {
+export default function Kebab({ menuItem }) {
   const [isOpenKebabMenu, setIsOpenKebabMenu] = useState();
   const [selectedMenuItem, setSelectedMenuItem] = useState();
   const [dropLeft, setDropLeft] = useState();
@@ -26,8 +21,8 @@ export default function Kebab({
     }, 150);
   };
 
-  const handleKebabMenuItemOnClick = e => {
-    if (e.target.innerText === selectedMenuItem) {
+  const handleKebabMenuItemOnClick = (e, isBlue) => {
+    if (e.target.innerText === selectedMenuItem || isBlue) {
       setSelectedMenuItem(null);
     } else {
       setSelectedMenuItem(e.currentTarget.innerText);
@@ -47,13 +42,7 @@ export default function Kebab({
           {menuItem.map(element => {
             let className = '';
             let image = element.imagePath;
-            if (element.text === '답변거절' && question.answer.isRejected) {
-              className = 'selected';
-              image = element.imageBluePath;
-            } else if (
-              element.text !== '답변거절' &&
-              element.text === selectedMenuItem
-            ) {
+            if (element.isBlue || element.text === selectedMenuItem) {
               className = 'selected';
               image = element.imageBluePath;
             }
@@ -63,8 +52,8 @@ export default function Kebab({
                 key={element.text}
                 className={className}
                 onClick={e => {
-                  handleKebabMenuItemOnClick(e);
-                  element.onClick(questionId);
+                  handleKebabMenuItemOnClick(e, element.isBlue);
+                  element.onClick();
                 }}
               >
                 {image}

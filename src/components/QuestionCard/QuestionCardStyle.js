@@ -1,10 +1,29 @@
 import styled from 'styled-components';
-import { QuestionList } from '../Feed/QuestionCardContainer/QuestionCardContainerStyle';
 import { Button as BadgeButton } from '../../components/Button/BadgeButton/BadgeButtonStyle';
 import Kebab from '../../components/Button/KebabButton/KebabButton';
 import { FillButton } from '../../components/Button/FillBoxButton/FillBoxButtonStyle';
 import Reaction from '../../components/Feed/Reaction/Reaction';
 import { FloatButton } from '../Button/FloatingButton/FloationgButtonStyle';
+
+export const QuestionCardContainer = styled.div`
+  display: flex;
+  padding: 3.2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.2rem;
+  align-self: stretch;
+
+  border-radius: 16px;
+  background: var(--Grayscale-10);
+
+  /* 1pt */
+  box-shadow: var(--Shadow-1pt);
+
+  @media (max-width: 767px) {
+    padding: 2.4rem;
+    gap: 2.4rem;
+  }
+`;
 
 export const QuestionCard = styled.div`
   display: flex;
@@ -239,4 +258,4 @@ export const ViewMoreButton = styled(FloatButton)`
   }
 `;
 
-export { QuestionList, BadgeButton, Kebab, Reaction };
+export { BadgeButton, Kebab, Reaction };
