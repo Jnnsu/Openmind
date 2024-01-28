@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserDataList } from '../../api/api';
-import FillBoxButton from '../Button/FillBoxButton/FillBoxButton';
+import { getUserDataList } from '../../../api/api';
+import FillBoxButton from '../../Button/FillBoxButton/FillBoxButton';
 import * as S from './LoginformStyle';
 
 export default function LoginForm() {
