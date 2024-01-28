@@ -77,6 +77,26 @@ export async function getSubject(subjectId) {
   }
 }
 
+export async function deleteSubject(subjectId) {
+  try {
+    const response = await fetch(
+      `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/`,
+      {
+        method: 'DELETE',
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    const body = await response.json();
+
+    return body;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getQuestionList(subjectId, offset = 0) {
   try {
     const response = await fetch(

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import ShareButton from '../../components/Button/ShareButton/ShareButton';
 import { FloatButton } from '../../components/Button/FloatingButton/FloationgButtonStyle';
+import { QuestionList } from '../../components/Feed/QuestionCardContainer/QuestionCardContainerStyle';
 import {
   CardContainer,
   CountQuestion,
 } from '../../components/Feed/QuestionCardContainer/QuestionCardContainerStyle';
-import QuestionList from '../../components/QustionList/QuestionList';
+import QuestionCard from '../../components/QuestionCard/QuestionCard';
 
 export const Header = styled.div`
   display: flex;
@@ -126,21 +127,6 @@ export const DeleteSubjectButton = styled(FloatButton)`
 
     font-size: 1rem;
   }
-`;
-
-export const QuestionCard = styled.div`
-  display: flex;
-  padding: 3.2rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3.2rem;
-  align-self: stretch;
-
-  border-radius: 16px;
-  background: var(--Grayscale-10);
-
-  /* 1pt */
-  box-shadow: var(--Shadow-1pt);
 `;
 
 export const QuestionStatus = styled.div`
@@ -293,4 +279,32 @@ export const AnswerForm = styled.form`
   }
 `;
 
-export { ShareButton, CountQuestion, QuestionList };
+export const ViewMoreButton = styled(FloatButton)`
+  width: 13.4rem;
+  height: 3.5rem;
+  position: absolute;
+  bottom: -44px;
+  right: 0;
+
+  color: var(--Grayscale-10);
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-family: Pretendard;
+  font-size: 1.5rem;
+  line-height: 2.5rem; /* 166.667% */
+
+  &:disabled {
+    cursor: default;
+    background: var(--Brown-30);
+  }
+
+  @media (max-width: 767px) {
+    width: 10.6rem;
+    height: 2.5rem;
+
+    font-size: 1rem;
+  }
+`;
+
+export { ShareButton, CountQuestion, QuestionList, QuestionCard };

@@ -1,12 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getSubject } from '../../api/api';
+import { getQuestionList, getSubject, deleteSubject } from '../../api/api';
 import * as S from './AnswrePageStyle';
 
 export default function AnswerPage() {
   const [subject, setSubject] = useState({});
   const [questionCount, setQuestionCount] = useState(0);
   const [questionList, setQuestionList] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState();
+  const [isHasNext, setIsHasNext] = useState();
+
   const { subjectId } = useParams();
   const navigate = useNavigate();
 
@@ -14,30 +18,33 @@ export default function AnswerPage() {
     ? `${questionCount}개의 질문이 있습니다`
     : '아직 질문이 없습니다';
 
-  const handleDeleteQuestionButtonOnClick = async () => {
-    try {
-      if (
-        window.confirm(
-          '정말로 이 질문 대상을 삭제하시겠습니까?\n질문 대상의 모든 질문들은 같이 삭제됩니다.',
-        )
-      ) {
-        const response = await fetch(
-          `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/`,
-          {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-        if (response.ok) {
-          navigate('/');
-        } else {
-          alert('삭제에 실패하였습니다.');
-        }
-      } else return;
-    } catch (error) {
-      console.log(error);
+  const handleDeleteSubjectButtonOnClick = async () => {
+    if (
+      window.confirm(
+        '정말로 이 질문 대상을 삭제하시겠습니까?\n질문 대상의 모든 질문들은 같이 삭제됩니다.',
+      )
+    ) {
+      const result = await deleteSubject(subjectId);
+      if (result.ok) {
+        navigate('/');
+      } else {
+        alert('삭제에 실패하였습니다.');
+      }
+    } else return;
+  };
+
+  const onDeleteItem = questionId => {
+    setQuestionList(preQuestionList =>
+      preQuestionList.filter(element => element.id !== questionId),
+    );
+  };
+
+  const handleViewMoreButtonOnClick = async () => {
+    if (!isHasNext) {
+      return;
+    } else {
+      setIsLoading(true);
+      setOffset(questionList.length);
     }
   };
 
@@ -48,7 +55,15 @@ export default function AnswerPage() {
       setSubject(nextSubject);
       setQuestionCount(nextSubject.questionCount);
     })();
-  }, [subjectId]);
+
+    (async () => {
+      const { next, results } = await getQuestionList(subjectId, offset);
+      if (!results) return;
+      setIsHasNext(!!next);
+      setQuestionList(preQuestionsList => [...preQuestionsList, ...results]);
+      setIsLoading(false);
+    })();
+  }, [subjectId, offset]);
 
   return (
     <>
@@ -67,7 +82,7 @@ export default function AnswerPage() {
       </S.Header>
       <S.MainContainer>
         <S.QuestionListContainer>
-          <S.DeleteSubjectButton onClick={handleDeleteQuestionButtonOnClick}>
+          <S.DeleteSubjectButton onClick={handleDeleteSubjectButtonOnClick}>
             삭제하기
           </S.DeleteSubjectButton>
           <S.CountQuestion>
@@ -75,13 +90,30 @@ export default function AnswerPage() {
             <span>{questionCountString}</span>
           </S.CountQuestion>
           {questionCount > 0 ? (
-            <S.QuestionList
-              subjectId={subjectId}
-              subject={subject}
-              questionList={questionList}
-              setQuestionList={setQuestionList}
-              setQuestionCount={setQuestionCount}
-            />
+            <S.QuestionList>
+              {questionList.map((element, index, array) => {
+                return (
+                  <S.QuestionCard
+                    key={element.id}
+                    subject={subject}
+                    question={element}
+                    questionList={array}
+                    setQuestionList={setQuestionList}
+                    index={index}
+                    setQuestionCount={setQuestionCount}
+                    onDeleteItem={onDeleteItem}
+                  />
+                );
+              })}
+              {isHasNext && (
+                <S.ViewMoreButton
+                  onClick={handleViewMoreButtonOnClick}
+                  disabled={isLoading}
+                >
+                  질문 더 보기
+                </S.ViewMoreButton>
+              )}
+            </S.QuestionList>
           ) : (
             <S.NoQuestionImageContainer>
               <img src="/images/empty.png" alt="편지지 이미지" />
