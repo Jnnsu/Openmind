@@ -7,6 +7,7 @@ import * as S from './LoginformStyle';
 export default function LoginForm() {
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState('');
+  const [inputType, setInputType] = useState('password');
   const navigate = useNavigate();
 
   const handleUserNameInputChange = e => {
@@ -54,42 +55,57 @@ export default function LoginForm() {
     }
   };
 
+  const handleEyeIconClick = () => {
+    setInputType(inputType === 'password' ? 'text' : 'password');
+  };
+
   return (
-    <div>
-      <S.LoginForm onSubmit={handleLoginFormSubmit}>
-        <S.InputGroup>
-          <S.InputIcon
-            src="./images/Person.png"
-            alt="사람 아이콘"
-            fill="none"
-          />
-          <S.Input
-            value={userName}
-            onChange={handleUserNameInputChange}
-            placeholder="Username"
-            type="text"
-            id="username"
-          />
-          <S.Label htmlFor="username">Username</S.Label>
-        </S.InputGroup>
+    <S.LoginForm onSubmit={handleLoginFormSubmit}>
+      <S.InputGroup>
+        <S.InputIcon src="./images/Person.png" alt="사람 아이콘" fill="none" />
+        <S.Input
+          value={userName}
+          onChange={handleUserNameInputChange}
+          placeholder="Username"
+          type="text"
+          id="username"
+          required
+        />
+        <S.Label htmlFor="username">Username</S.Label>
+      </S.InputGroup>
 
-        <S.InputGroup>
-          <S.InputIcon
-            src={`${process.env.PUBLIC_URL}/images/lock.svg`}
-            alt="id 아이콘"
+      <S.InputGroup>
+        <S.InputIcon
+          src={`${process.env.PUBLIC_URL}/images/lock.svg`}
+          alt="id 아이콘"
+        />
+        <S.Input
+          value={userId}
+          onChange={handleUserIdInputChange}
+          placeholder="UserID"
+          type={inputType}
+          id="userid"
+          required
+        />
+        <S.Label htmlFor="userid">UserID</S.Label>
+        {inputType === 'password' ? (
+          <img
+            src={`${process.env.PUBLIC_URL}/images/eye-off.svg`}
+            alt="눈 모양 아이콘 off"
+            onClick={handleEyeIconClick}
+            width="18"
           />
-          <S.Input
-            value={userId}
-            onChange={handleUserIdInputChange}
-            placeholder="UserID"
-            type="password"
-            id="userid"
+        ) : (
+          <img
+            src={`${process.env.PUBLIC_URL}/images/eye-on.svg`}
+            alt="눈 모양 아이콘 on"
+            onClick={handleEyeIconClick}
+            width="18"
           />
-          <S.Label htmlFor="userid">UserID</S.Label>
-        </S.InputGroup>
+        )}
+      </S.InputGroup>
 
-        <FillBoxButton type="submit">질문 받기</FillBoxButton>
-      </S.LoginForm>
-    </div>
+      <FillBoxButton type="submit">질문 받기</FillBoxButton>
+    </S.LoginForm>
   );
 }

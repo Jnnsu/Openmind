@@ -55,6 +55,7 @@ export default function JoinForm() {
           placeholder="Username"
           type="text"
           id="username"
+          required
         />
         <S.Label htmlFor="username">Username</S.Label>
       </S.InputGroup>
