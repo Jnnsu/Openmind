@@ -1,15 +1,17 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { getSubject } from '../../api/api';
 import * as S from './AnswrePageStyle';
 
 export default function AnswerPage() {
-  const [subject, setSubject] = useState();
-  const [questionList, setQuestionList] = useState();
+  const [subject, setSubject] = useState({});
+  const [questionCount, setQuestionCount] = useState(0);
+  const [questionList, setQuestionList] = useState([]);
   const { subjectId } = useParams();
   const navigate = useNavigate();
 
-  const questionCount = questionList?.length
-    ? `${questionList.length}개의 질문이 있습니다`
+  const questionCountString = questionCount
+    ? `${questionCount}개의 질문이 있습니다`
     : '아직 질문이 없습니다';
 
   const handleDeleteQuestionButtonOnClick = async () => {
@@ -40,24 +42,12 @@ export default function AnswerPage() {
   };
 
   useEffect(() => {
-    async function getSubject() {
-      try {
-        const response = await fetch(
-          `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/`,
-        );
-        if (!response.ok) {
-          alert('존재하지 않는 이름/아이디 입니다.');
-          window.location.href = '/';
-        }
-
-        const nextSubject = await response.json();
-        setSubject(nextSubject);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    getSubject();
+    (async () => {
+      const nextSubject = await getSubject(subjectId);
+      if (!nextSubject) return;
+      setSubject(nextSubject);
+      setQuestionCount(nextSubject.questionCount);
+    })();
   }, [subjectId]);
 
   return (
@@ -82,14 +72,21 @@ export default function AnswerPage() {
           </S.DeleteSubjectButton>
           <S.CountQuestion>
             <img src="/images/Messages.svg" alt="메세지 아이콘" />
-            <span>{questionCount}</span>
+            <span>{questionCountString}</span>
           </S.CountQuestion>
-          <S.QuestionList
-            subjectId={subjectId}
-            subject={subject}
-            questionList={questionList}
-            setQuestionList={setQuestionList}
-          />
+          {questionCount > 0 ? (
+            <S.QuestionList
+              subjectId={subjectId}
+              subject={subject}
+              questionList={questionList}
+              setQuestionList={setQuestionList}
+              setQuestionCount={setQuestionCount}
+            />
+          ) : (
+            <S.NoQuestionImageContainer>
+              <img src="/images/empty.png" alt="편지지 이미지" />
+            </S.NoQuestionImageContainer>
+          )}
         </S.QuestionListContainer>
       </S.MainContainer>
     </>
