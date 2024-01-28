@@ -4,6 +4,7 @@ import { Button as BadgeButton } from '../../components/Button/BadgeButton/Badge
 import Kebab from '../../components/Button/KebabButton/KebabButton';
 import { FillButton } from '../../components/Button/FillBoxButton/FillBoxButtonStyle';
 import Reaction from '../../components/Feed/Reaction/Reaction';
+import { FloatButton } from '../Button/FloatingButton/FloationgButtonStyle';
 
 export const QuestionCard = styled.div`
   display: flex;
@@ -18,6 +19,11 @@ export const QuestionCard = styled.div`
 
   /* 1pt */
   box-shadow: var(--Shadow-1pt);
+
+  @media (max-width: 767px) {
+    padding: 2.4rem;
+    gap: 2.4rem;
+  }
 `;
 
 export const QuestionStatus = styled.div`
@@ -52,8 +58,15 @@ export const QuestionElapsedTime = styled.div`
       'clig' off,
       'liga' off;
     font-family: Actor;
-    font-size: 18px;
-    line-height: 24px; /* 133.333% */
+    font-size: 1.8rem;
+    line-height: 2.4rem; /* 133.333% */
+  }
+
+  @media (max-width: 767px) {
+    & .questionElapsedTime {
+      font-size: 1.6rem;
+      line-height: 2.2rem;
+    }
   }
 `;
 
@@ -70,6 +83,13 @@ export const QuestionAnswer = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+  }
+
+  @media (max-width: 767px) {
+    & .main__profileImage {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
   }
 `;
 
@@ -126,6 +146,13 @@ export const AnswerElapsedTime = styled.div`
     font-weight: 500;
     line-height: 1.8rem; /* 128.571% */
   }
+
+  @media (max-width: 767px) {
+    & .main__profileName {
+      font-size: 1.4rem;
+      line-height: 1.8rem; /* 128.571% */
+    }
+  }
 `;
 
 export const AnswerForm = styled.form`
@@ -159,6 +186,10 @@ export const AnswerForm = styled.form`
     border-radius: 8px;
     background: var(--Grayscale-20);
 
+    &:focus {
+      border: 1px solid var(--Brown-40);
+    }
+
     &::placeholder {
       color: var(--Grayscale-40);
       font-feature-settings:
@@ -177,6 +208,34 @@ export const AnswerCompleteButton = styled(FillButton)`
 
   &:disabled {
     cursor: default;
+  }
+`;
+
+export const ViewMoreButton = styled(FloatButton)`
+  width: 13.4rem;
+  height: 3.5rem;
+  position: absolute;
+  bottom: -44px;
+  right: 0;
+
+  color: var(--Grayscale-10);
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-family: Pretendard;
+  font-size: 1.5rem;
+  line-height: 2.5rem; /* 166.667% */
+
+  &:disabled {
+    cursor: default;
+    background: var(--Brown-30);
+  }
+
+  @media (max-width: 767px) {
+    width: 10.6rem;
+    height: 2.5rem;
+
+    font-size: 1rem;
   }
 `;
 
