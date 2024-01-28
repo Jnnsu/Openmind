@@ -19,7 +19,12 @@ export const CountQuestion = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 0.8rem;
+
+  & img {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
 
   & span {
     color: var(--Brown-40);
@@ -27,8 +32,20 @@ export const CountQuestion = styled.div`
       'clig' off,
       'liga' off;
     font-family: Actor;
-    font-size: 20px;
-    line-height: 25px; /* 125% */
+    font-size: 2rem;
+    line-height: 2.5rem; /* 125% */
+  }
+
+  @media (max-width: 767px) {
+    & img {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+
+    & span {
+      font-size: 1.8rem;
+      line-height: 2.4rem; /* 133.333% */
+    }
   }
 `;
 

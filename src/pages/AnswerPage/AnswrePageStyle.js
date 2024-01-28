@@ -34,6 +34,7 @@ export const LogoAndProfileAndShare = styled.div`
   gap: 1.2rem;
 
   & .logo {
+    width: 17rem;
     height: 6.7rem;
   }
 
@@ -53,8 +54,24 @@ export const LogoAndProfileAndShare = styled.div`
       'clig' off,
       'liga' off;
     font-family: Actor;
-    font-size: 32px;
-    line-height: 40px; /* 125% */
+    font-size: 3.2rem;
+    line-height: 4rem; /* 125% */
+  }
+
+  @media (max-width: 767px) {
+    & .logo {
+      width: 12.4rem;
+      height: 4.9rem;
+    }
+
+    & .header__profileImage {
+      width: 10.4rem;
+      height: 10.4rem;
+    }
+
+    & .profileName {
+      font-size: 2.4rem;
+    }
   }
 `;
 
@@ -62,14 +79,34 @@ export const MainContainer = styled.div`
   width: 100%;
   background: var(--Grayscale-20);
   padding: 19rem calc((100vw - 716px) / 2) 14rem;
+
+  @media (max-width: 780px) {
+    padding: 19rem 3.2rem 14rem;
+  }
+
+  @media (max-width: 767px) {
+    padding: 17.5rem 2.4rem 17rem;
+  }
 `;
 
 export const QuestionListContainer = styled(CardContainer)`
   position: relative;
+  min-height: 33rem;
+
+  @media (max-width: 767px) {
+    border: 1px solid var(--Brown-20);
+  }
+`;
+
+export const NoQuestionImageContainer = styled.div`
+  height: 25.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const DeleteSubjectButton = styled(FloatButton)`
-  width: 10rem;
+  width: 10.8rem;
   height: 3.5rem;
   position: absolute;
   top: -44px;
@@ -80,8 +117,15 @@ export const DeleteSubjectButton = styled(FloatButton)`
     'clig' off,
     'liga' off;
   font-family: Pretendard;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   line-height: 2.5rem; /* 166.667% */
+
+  @media (max-width: 767px) {
+    width: 8.8rem;
+    height: 2.5rem;
+
+    font-size: 1rem;
+  }
 `;
 
 export const QuestionCard = styled.div`

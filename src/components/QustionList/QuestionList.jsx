@@ -1,4 +1,10 @@
 import { useState, useEffect } from 'react';
+import {
+  getQuestionList,
+  putQuestionAnswer,
+  postQuestionAnswer,
+  deleteQuestion,
+} from '../../api/api';
 import * as S from './QuestionListStyle';
 import cardCreatedDate from '../../utils/CardCreatedDate';
 import { ReactComponent as Edit } from '../../images/Edit.svg';
@@ -10,73 +16,16 @@ export default function QuestionList({
   subject,
   questionList,
   setQuestionList,
+  setQuestionCount,
 }) {
   const [answerModifyId, setAnswerModifyId] = useState();
   const [answerList, setAnswerList] = useState();
+  const [offset, setOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState();
+  const [isHasNext, setIsHasNext] = useState();
 
   const handleTextareaOnChange = (e, questionId) => {
     setAnswerList({ ...answerList, [questionId]: e.target.value });
-  };
-
-  const modifyQuestionAnswer = async (answerId, questionAnswer) => {
-    try {
-      const response = await fetch(
-        `https://openmind-api.vercel.app/3-3/answers/${answerId}/`,
-        {
-          method: 'PUT',
-          headers: {
-            accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(questionAnswer),
-        },
-      );
-      const body = await response.json();
-
-      return body;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteQuestion = async questionId => {
-    try {
-      const response = await fetch(
-        `https://openmind-api.vercel.app/3-3/questions/${questionId}/`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      if (!response.ok) {
-        alert('질문 삭제에 실패하였습니다.');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const postQuestionAnswer = async (questionId, questionAnswer) => {
-    try {
-      const response = await fetch(
-        `https://openmind-api.vercel.app/3-3/questions/${questionId}/answers/`,
-        {
-          method: 'POST',
-          headers: {
-            accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(questionAnswer),
-        },
-      );
-      const body = await response.json();
-
-      return body;
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const handleSelectAnswerModify = questionId => {
@@ -87,8 +36,8 @@ export default function QuestionList({
     }
   };
 
-  const handleSelectQuestionDelete = questionId => {
-    deleteQuestion(questionId);
+  const handleSelectQuestionDelete = async questionId => {
+    await deleteQuestion(questionId);
     setQuestionList(preQuestionList => {
       const deleteIndex = preQuestionList.findIndex(
         element => element.id === questionId,
@@ -99,23 +48,24 @@ export default function QuestionList({
         ...preQuestionList.slice(deleteIndex + 1),
       ];
     });
+    setQuestionCount(preQuestionCount => preQuestionCount - 1);
   };
 
   const handleSelectAnswerReject = async questionId => {
     const questionIndex = questionList.findIndex(
       element => element.id === questionId,
     );
-    const answer = questionList[questionIndex].answer;
+    const question = questionList[questionIndex];
 
-    if (answer) {
-      const answerId = answer.id;
-      answer.isRejected = !answer.isRejected;
+    if (question.answer) {
+      const answer = question.answer;
       const questionAnswer = {
         content: answer.content,
-        isRejected: answer.isRejected,
+        isRejected: !answer.isRejected,
       };
 
-      modifyQuestionAnswer(answerId, questionAnswer);
+      const nextAnswer = await putQuestionAnswer(answer.id, questionAnswer);
+      question.answer = nextAnswer;
     } else {
       const questionAnswer = {
         questionId: questionId,
@@ -125,15 +75,16 @@ export default function QuestionList({
       };
 
       const answer = await postQuestionAnswer(questionId, questionAnswer);
-      const questionIndex = questionList.findIndex(
-        element => element.id === questionId,
-      );
-      questionList[questionIndex].answer = answer;
+      question.answer = answer;
       answerList[questionId] = questionAnswer.content;
     }
 
     setAnswerModifyId(null);
-    setQuestionList([...questionList]);
+    setQuestionList([
+      ...questionList.slice(0, questionIndex),
+      question,
+      ...questionList.slice(questionIndex + 1),
+    ]);
   };
 
   const handleAnswerCompleteButtonOnClick = async (e, question) => {
@@ -150,7 +101,7 @@ export default function QuestionList({
           isRejected: false,
         };
 
-        answer = await modifyQuestionAnswer(question.answer.id, questionAnswer);
+        answer = await putQuestionAnswer(question.answer.id, questionAnswer);
       }
     } else {
       questionAnswer = {
@@ -164,13 +115,59 @@ export default function QuestionList({
     }
 
     question.answer = answer;
-    setQuestionList([...questionList]);
+    const questionIndex = questionList.findIndex(
+      element => element.id === question.id,
+    );
     setAnswerModifyId(null);
+    setQuestionList([
+      ...questionList.slice(0, questionIndex),
+      question,
+      ...questionList.slice(questionIndex + 1),
+    ]);
   };
+
+  const handleViewMoreButtonOnClick = async () => {
+    setIsLoading(true);
+    const result = await getQuestionList(subjectId, offset);
+    if (!result) return;
+    const { next, results } = result;
+    setIsHasNext(!!next);
+    setOffset(preOffset => preOffset + 10);
+    setQuestionList(preQuestionList => [...preQuestionList, ...results]);
+
+    const questionAnswerList = {};
+    results.forEach(element => {
+      questionAnswerList[element.id] = element.answer?.content ?? '';
+    });
+    setAnswerList(preAnswerList => ({
+      ...preAnswerList,
+      ...questionAnswerList,
+    }));
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    (async () => {
+      const result = await getQuestionList(subjectId);
+      if (!result) return;
+      const { next, results } = result;
+      setIsHasNext(!!next);
+      setOffset(preOffset => preOffset + 10);
+      setQuestionList(results);
+
+      const questionAnswerList = {};
+      results.forEach(element => {
+        questionAnswerList[element.id] = element.answer?.content ?? '';
+      });
+      setAnswerList(questionAnswerList);
+    })();
+  }, [subjectId, setQuestionList]);
 
   const getAnswerContent = question => {
     const answer = question?.answer;
     const questionId = question.id;
+    const buttonText =
+      answerModifyId === questionId ? '수정 완료' : '답변 완료';
     let answerContent;
     if (answer && answerModifyId !== questionId) {
       answerContent = <span className="answerContent">{answer?.content}</span>;
@@ -188,7 +185,7 @@ export default function QuestionList({
             onClick={e => handleAnswerCompleteButtonOnClick(e, question)}
             disabled={!answerList[question.id]}
           >
-            답변 완료
+            {buttonText}
           </S.AnswerCompleteButton>
         </S.AnswerForm>
       );
@@ -196,27 +193,6 @@ export default function QuestionList({
 
     return answerContent;
   };
-
-  useEffect(() => {
-    async function getQuestionList() {
-      try {
-        const response = await fetch(
-          `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/questions/?limit=10&offset=0`,
-        );
-        const { results } = await response.json();
-        setQuestionList(results);
-        const questionAnswerList = {};
-        results.forEach(element => {
-          questionAnswerList[element.id] = element.answer?.content ?? '';
-        });
-        setAnswerList(questionAnswerList);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    getQuestionList();
-  }, [subjectId, setQuestionList]);
 
   const menuItem = [
     {
@@ -258,6 +234,7 @@ export default function QuestionList({
                   menuItem={menuItem}
                   questionId={element.id}
                   question={element}
+                  answerModifyId={answerModifyId}
                 />
               </S.QuestionStatus>
               <S.QuestionElapsedTime>
@@ -292,6 +269,14 @@ export default function QuestionList({
             </S.QuestionCard>
           );
         })}
+      {isHasNext && (
+        <S.ViewMoreButton
+          onClick={handleViewMoreButtonOnClick}
+          disabled={isLoading}
+        >
+          질문 더 보기
+        </S.ViewMoreButton>
+      )}
     </S.QuestionList>
   );
 }
