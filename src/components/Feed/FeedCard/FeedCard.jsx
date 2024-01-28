@@ -1,9 +1,9 @@
-import { BadgeButton } from '../../Button/BadgeButton/BadgeButton';
-import { Reaction } from '../Reaction/Reaction';
+import BadgeButton from '../../Button/BadgeButton/BadgeButton';
+import Reaction from '../Reaction/Reaction';
 import * as S from './FeedCardStyle';
-import { cardCreatedDate } from '../../../utils/CardCreatedDate';
+import cardCreatedDate from '../../../utils/CardCreatedDate';
 
-export default function FeedCard ( {data, subjectData} ){
+export default function FeedCard ( { data, subjectData } ){
   const {id: qusetionId, content, like, dislike, createdAt, answer} =data;
   const [subjectName, subjectImg] = subjectData;
 
@@ -12,12 +12,10 @@ export default function FeedCard ( {data, subjectData} ){
       <S.Header>
         <BadgeButton isAnswered={answer} />
       </S.Header>
-      <S.Question>
         <S.QuestionTime>
          질문 · {cardCreatedDate(createdAt)}
         </S.QuestionTime>
         <S.QuestionContent>{content}</S.QuestionContent>
-      </S.Question>
       {answer ? (
         <S.AnswerContainer>
           <S.ProfileImage src={subjectImg}/>
@@ -28,7 +26,7 @@ export default function FeedCard ( {data, subjectData} ){
                 {cardCreatedDate(answer['createdAt'])}
               </S.AnswerDate>
             </S.AnswerProfile>
-            { answer[ isRejected ] ? (
+            { answer['isRejected'] ? (
               <S.RefuseContent>답변 거절</S.RefuseContent>
             ):(
             <S.AnsweredContent>{answer['content']}</S.AnsweredContent>
