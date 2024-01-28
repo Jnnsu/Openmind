@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginForm = styled.form`
+export const JoinForm = styled.form`
   width: 400px;
   display: flex;
   flex-direction: column;
