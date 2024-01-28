@@ -1,6 +1,6 @@
 import * as S from './MainPageStyle';
 import NavBar from '../../components/NavBar/MainPageNavBar';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import AuthToggleForm from '../../components/AuthToggleForm/AuthToggleForm';
 
 export default function Main() {
   return (
@@ -10,7 +10,7 @@ export default function Main() {
         src={`${process.env.PUBLIC_URL}/images/logo.svg`}
         alt="OPENMIND 로고"
       />
-      <LoginForm />
+      <AuthToggleForm />
       <S.BackgroundImage
         src={`${process.env.PUBLIC_URL}/images/mainPageBackground.png`}
         alt="메인 패이지 배경 그림"

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { InputContainer, InputField, PersonImage } from '../Input/FieldStyle';
 
-export const LoginForm = styled.form`
+export const JoinForm = styled.form`
   width: 400px;
   display: flex;
   flex-direction: column;

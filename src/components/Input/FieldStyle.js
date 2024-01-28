@@ -11,10 +11,10 @@ export const InputContainer = styled.div`
   border-radius: 8px;
   border: 1px solid var(--Grayscale-40);
   background: var(--Grayscale-10);
+
   @media (max-width: 767px) {
     width: 100%;
   }
-  padding: 12px 16px 12px 16px;
 
   &:focus-within {
     border: 1px solid var(--Brown-40);
@@ -22,7 +22,7 @@ export const InputContainer = styled.div`
 `;
 
 export const InputField = styled.input`
-  flex: 1 0 0; //여백 다 채우기(but.부모가 flex컨테이너여야 가능)
+  flex: 1 0 0;
   color: var(--Grayscale-60);
   font-feature-settings:
     'clig' off,

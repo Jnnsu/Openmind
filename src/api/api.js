@@ -14,9 +14,31 @@ export const setUserData = async userData => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const result = await response.json();
-    console.log(result);
-    return result;
+    const userDataList = await response.json();
+    console.log(userDataList);
+    return userDataList;
+  } catch (error) {
+    console.error(`Error during fetch: ${error.message}`);
+    return `Error: ${error.message}`;
+  }
+};
+
+export const getUserDataList = async () => {
+  try {
+    const response = await fetch(API.SUBJECT, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const userDataList = await response.json();
+    console.log(userDataList);
+    return userDataList;
   } catch (error) {
     console.error(`Error during fetch: ${error.message}`);
     return `Error: ${error.message}`;
@@ -47,6 +69,26 @@ export async function getSubject(subjectId) {
       window.location.href = '/';
     }
 
+    const body = await response.json();
+
+    return body;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteSubject(subjectId) {
+  try {
+    const response = await fetch(
+      `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/`,
+      {
+        method: 'DELETE',
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
     const body = await response.json();
 
     return body;
