@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { SharedButton } from "../../components/Button/ShareButton/ShareButtonStyle";
 import * as S from "./PostPageStyle"
 import { getSubjectQustion } from "../../api/api";
+import { FloatButton } from "../../components/Button/FloatingButton/FloationgButtonStyle";
 
 //한 번에 로드되는 항목 수
 const LIMIT = 5;
@@ -19,9 +20,15 @@ export default function Post() {
   const [total, setTotal] = useState(null);
   const [subjectName, setSubjectName] = useState();
   const [subjectImg, setSubjectImg] = useState();
+  const [isShowModal, setIsShowModal] = useState(false);
   const [questionData, setQuestionData] = useState({
     data: [],
   });
+
+  //모달띄우는 버튼
+  const handleModalQuestion = () => {
+    setIsShowModal(!isShowModal);
+  };
 
   const handleFeedCardSection = async (id, limit, offset) => {
     setIsLoading(true);
@@ -82,6 +89,22 @@ export default function Post() {
       data = {questionData.data}
       subjectData = {[subjectName, subjectImg]}
     </S.FeedCardSection>
+    <FloatButton
+      className="question-write-button"
+      type="button"
+      onClick={handleModalQuestion}
+      >
+      질문 작성하기
+    </FloatButton>
+    <FloatButton
+      className='question-write-button-mobile'
+      type="button"
+      onClick={handleModalQuestion}
+      >
+      질문 작성
+    </FloatButton>
+    {isShowModal && <ModalQustion handleClose={handleModalQuestion}/>}
+    {/* ModalQustion은 임시 이름, 모달창 임포트해서 쓸 것 */}
   </S.MainContainer>
   </>);
 }
