@@ -21,6 +21,7 @@ export default function QuestionCard({
 }) {
   const [answerInput, setAnswerInput] = useState(question.answer);
   const [answerModifyId, setAnswerModifyId] = useState();
+  console.log(question);
 
   const handleTextareaOnChange = e => {
     setAnswerInput(e.target.value);
@@ -177,12 +178,7 @@ export default function QuestionCard({
     <S.QuestionCardContainer>
       <S.QuestionStatus>
         <S.BadgeButton $color={color}>{text}</S.BadgeButton>
-        <S.Kebab
-          menuItem={menuItem}
-          questionId={question.id}
-          question={question}
-          answerModifyId={answerModifyId}
-        />
+        <S.Kebab menuItem={menuItem} question={question} />
       </S.QuestionStatus>
       <S.QuestionElapsedTime>
         <span className="questionElapsedTime">

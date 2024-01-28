@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import * as S from './KebabButtonStyle';
 
-export default function Kebab({ menuItem }) {
+export default function Kebab({ menuItem, question }) {
   const [isOpenKebabMenu, setIsOpenKebabMenu] = useState();
   const [selectedMenuItem, setSelectedMenuItem] = useState();
   const [dropLeft, setDropLeft] = useState();
+  const [isReject, setIsReject] = useState();
 
   const handleKebabButtonOnClick = e => {
     if (e.clientX + 110 >= window.innerWidth) {
@@ -12,6 +13,7 @@ export default function Kebab({ menuItem }) {
     } else {
       setDropLeft(false);
     }
+    setIsReject(menuItem[2].isBlue);
     setIsOpenKebabMenu(!isOpenKebabMenu);
   };
 
@@ -21,8 +23,14 @@ export default function Kebab({ menuItem }) {
     }, 150);
   };
 
-  const handleKebabMenuItemOnClick = (e, isBlue) => {
-    if (e.target.innerText === selectedMenuItem || isBlue) {
+  const handleKebabMenuItemOnClick = e => {
+    if (
+      e.currentTarget.lastElementChild.textContent === '수정하기' &&
+      !question.answer
+    ) {
+      return;
+    }
+    if (e.target.innerText === selectedMenuItem || isReject) {
       setSelectedMenuItem(null);
     } else {
       setSelectedMenuItem(e.currentTarget.innerText);
@@ -52,7 +60,7 @@ export default function Kebab({ menuItem }) {
                 key={element.text}
                 className={className}
                 onClick={e => {
-                  handleKebabMenuItemOnClick(e, element.isBlue);
+                  handleKebabMenuItemOnClick(e);
                   element.onClick();
                 }}
               >
