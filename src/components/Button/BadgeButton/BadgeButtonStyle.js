@@ -7,10 +7,10 @@ const COLORS = {
 
 export const Button = styled.button`
   display: inline-flex;
-  padding: 4px 12px;
+  padding: 0.4rem 1.2rem;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
 
   color: ${({ $color }) => COLORS[$color]};
   font-feature-settings:

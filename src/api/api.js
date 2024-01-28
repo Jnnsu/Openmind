@@ -35,3 +35,96 @@ export async function getSubjectQustion(id, limit = 2, offset = '') {
   const body = await response.json();
   return body;
 }
+
+export async function getSubject(subjectId) {
+  try {
+    const response = await fetch(
+      `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/`,
+    );
+
+    if (!response.ok) {
+      alert('존재하지 않는 이름/아이디 입니다.');
+      window.location.href = '/';
+    }
+
+    const body = await response.json();
+
+    return body;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getQuestionList(subjectId, offset = 0) {
+  try {
+    const response = await fetch(
+      `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/questions/?limit=10&offset=${offset}`,
+    );
+    const body = await response.json();
+
+    return body;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function putQuestionAnswer(answerId, questionAnswer) {
+  try {
+    const response = await fetch(
+      `https://openmind-api.vercel.app/3-3/answers/${answerId}/`,
+      {
+        method: 'PUT',
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(questionAnswer),
+      },
+    );
+    const body = await response.json();
+
+    return body;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function postQuestionAnswer(questionId, questionAnswer) {
+  try {
+    const response = await fetch(
+      `https://openmind-api.vercel.app/3-3/questions/${questionId}/answers/`,
+      {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(questionAnswer),
+      },
+    );
+    const body = await response.json();
+
+    return body;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteQuestion(questionId) {
+  try {
+    const response = await fetch(
+      `https://openmind-api.vercel.app/3-3/questions/${questionId}/`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    if (!response.ok) {
+      alert('질문 삭제에 실패하였습니다.');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

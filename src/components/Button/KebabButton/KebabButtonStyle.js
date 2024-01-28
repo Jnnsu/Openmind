@@ -21,7 +21,7 @@ export const KebabMenu = styled.div`
   flex-direction: column;
   position: absolute;
   top: 20px;
-  left: 20px;
+  left: ${({ $dropLeft }) => ($dropLeft ? '-80px' : '0px')};
   overflow: hidden;
 
   border-radius: 8px;
