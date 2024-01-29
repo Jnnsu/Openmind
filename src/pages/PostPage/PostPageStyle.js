@@ -15,7 +15,7 @@ export const HeaderImage = styled.div`
   mix-blend-mode: hard-light;
 `;
 
-export const UserInfo = styled.div`
+export const SubjectInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

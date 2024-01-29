@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getQuestionList, getUser } from '../../api/api';
+import { getQuestionList, getSubject  } from '../../api/api';
 import * as S from './PostPageStyle';
 
 const LIMIT = 10;
 
 const PostPage = () => {
-  const { id } = useParams();
+  const { subjectId } = useParams();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({});
+  const [subject, setSubject] = useState({});
   const [questionCount, setQuestionCount] = useState(0);
   const [questionList, setQuestionList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,17 +22,23 @@ const PostPage = () => {
     setQuery(prevQuery => ({ ...prevQuery, offset: prevQuery.offset + LIMIT }));
   };
 
+  //모달띄우는 버튼
+  const handleModalQuestion = () => {
+    setIsShowModal(!isShowModal);
+  };
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = await getUser(id);
-        if (!userData) {
+        const subjectData = await getSubject (subjectId);
+        if (!subjectData) {
           navigate('/404'); // 사용자를 찾을 수 없음을 알리는 페이지로 이동합니다.
           return;
         }
-        setUser(userData);
+        setSubject(subjectData);
 
-        const { questionCount, questionList } = await getQuestionList(id, query.limit, query.offset);
+        const { questionCount, questionList } = await getQuestionList(subjectId, query.limit, query.offset);
         setQuestionCount(questionCount);
         setQuestionList(prevQuestionList => [...prevQuestionList, ...questionList]);
         setIsHasNext(questionList.length === query.limit);
@@ -44,20 +50,20 @@ const PostPage = () => {
     };
 
     fetchData();
-  }, [id, query, navigate]);
+  }, [subjectId, query, navigate]);
 
   return (
     <>
       <S.Header>
         <S.HeaderImage />
-        <S.UserInfo>
+        <S.SubjectInfo>
           <a href='/'>
             <img className='logo' src='/images/logo.png' alt='메인페이지 로고'/>
           </a>
-          <img className="user-profile-image" src={user?.profileImage} alt="프로필 이미지" />
-          <h1 className="user-name">{user?.name}</h1>
-          <p className="user-description">{user?.description}</p>
-        </S.UserInfo>
+          <img className="subject-profile-image" src={subject?.profileImage} alt="프로필 이미지" />
+          <h1 className="subject-name">{subject?.name}</h1>
+          <p className="subject-description">{subject?.description}</p>
+        </S.SubjectInfo>
       </S.Header>
       <S.MainContainer>
         <S.QuestionListContainer>
@@ -68,7 +74,7 @@ const PostPage = () => {
             <S.QuestionList>
               {questionList.map((question, index) => (
                 <S.QuestionCard
-                  key={question.id}
+                  key={question.subjectId}
                   question={question}
                   index={index}
                   // 필요한 props를 전달합니다.
