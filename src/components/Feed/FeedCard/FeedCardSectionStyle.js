@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CardContainer = styled.div`
   display: flex;
@@ -7,9 +7,9 @@ export const CardContainer = styled.div`
   width: 684px;
   margin-top: 54px;
   padding: 16px;
-  border: 1px solid var(--Brown-30);
+  border: 1px solid var(--brown30);
   border-radius: 16px;
-  background: var(--Brown-10);
+  background: var(--brown10);
 
   @media (max-width: 1199px) {
     width: 100%;
@@ -22,4 +22,11 @@ export const CountContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 8px;
+`;
+
+export const CountContent = styled.div`
+  font-family: Actor;
+  font-size: 2rem;
+  line-height: 25px;
+  color: var(--brown40);
 `;
