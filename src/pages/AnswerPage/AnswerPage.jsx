@@ -76,7 +76,9 @@ export default function AnswerPage() {
       <S.Header>
         <S.HeaderImage />
         <S.LogoAndProfileAndShare>
-          <img className="logo" src="/images/logo.png" alt="로고 이미지" />
+          <a href="/">
+            <img className="logo" src="/images/logo.png" alt="로고 이미지" />
+          </a>
           <img
             className="header__profileImage"
             src={subject?.imageSource}
