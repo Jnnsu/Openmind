@@ -1,26 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './DropDownButtonStyle';
 
-export default function DropDownButton({ onClick }) {
-  const [isOpenDropDownMenu, setIsOpenDropDownMenu] = useState();
+export default function DropDownButton({ sortOption, onSortOptionChange }) {
+  const [isOpenDropDownMenu, setIsOpenDropDownMenu] = useState(false);
 
   const handlDropDownButtonClick = () => {
     setIsOpenDropDownMenu(!isOpenDropDownMenu);
   };
 
+  const handleSortOption = option => {
+    setIsOpenDropDownMenu(false);
+    onSortOptionChange(option);
+  };
+
   return (
     <>
       <S.DropDownContainer>
-        <S.Button onClick={handlDropDownButtonClick}>
+        <S.Button isOpenDropDownMenu onClick={handlDropDownButtonClick}>
           <S.DefaultItem isOpenDropDownMenu={isOpenDropDownMenu}>
-            이름순
+            {sortOption === 'name' ? '이름순' : '최신순'}
           </S.DefaultItem>
-          <img src="./images/Arrow-down.png" alt="아래 방향 화살표" />
+          {isOpenDropDownMenu === false ? (
+            <img src="./images/Arrow-down.png" alt="아래 방향 화살표" />
+          ) : (
+            <img src="./images/Arrow-up.png" alt="위 방향 화살표" />
+          )}
         </S.Button>
         {isOpenDropDownMenu && (
           <S.DropDownMenu>
-            <S.DropDownItem onClick={onClick}>이름순</S.DropDownItem>
-            <S.DropDownItem onClick={onClick}>최신순</S.DropDownItem>
+            <S.DropDownItem onClick={() => handleSortOption('name')}>
+              이름순
+            </S.DropDownItem>
+            <S.DropDownItem onClick={() => handleSortOption('date')}>
+              최신순
+            </S.DropDownItem>
           </S.DropDownMenu>
         )}
       </S.DropDownContainer>
