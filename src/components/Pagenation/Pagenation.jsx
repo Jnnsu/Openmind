@@ -1,126 +1,201 @@
-import { Fragment, useEffect, useState } from 'react';
-import * as S from './PagenationStyle';
+// import React, { useEffect, useState } from 'react';
 
-export default function Pagenaion({
-  postsPerPage,
-  totalPosts,
-  paginate,
-  currentPage,
-}) {
-  const pageNumbers = [];
-  const [numberList, setNumberListState] = useState({
-    numberBox: pageNumbers,
-  });
+// function Pagination({ postsPerPage, totalPosts, paginate, currentPage }) {
+//   const [pageNumbers, setPageNumbers] = useState([]);
+//   const visiblePages = 5;
+
+// useEffect(() => {
+//   전체 페이지 수 계산
+//   const calculateTotalPages = async () => {
+//     const response = await fetch(
+//       `https://openmind-api.vercel.app/3-3/subjects/`,
+//     );
+//     const data = await response.json();
+//     const totalItems = data.count;
+//     const totalPages = Math.ceil(totalItems / postPerPage);
+//     setTotalPages(totalPages);
+//   };
+
+//   calculateTotalPages();
+// }, [postPerPage]);
+
+//   useEffect(() => {
+//     페이지 숫자 목록 생성
+//     const calculatePageNumbers = () => {
+//       const totalPageCount = Math.ceil(totalPosts / postsPerPage);
+
+//       let startPage;
+//       let endPage;
+
+//       if (totalPageCount <= visiblePages) {
+//         startPage = 1;
+//         endPage = totalPageCount;
+//       } else {
+//         if (currentPage <= Math.ceil(visiblePages / 2)) {
+//           startPage = 1;
+//           endPage = visiblePages;
+//         } else if (
+//           currentPage + Math.floor(visiblePages / 2) >=
+//           totalPageCount
+//         ) {
+//           startPage = totalPageCount - visiblePages + 1;
+//           endPage = totalPageCount;
+//         } else {
+//           startPage = currentPage - Math.floor(visiblePages / 2);
+//           endPage = startPage + visiblePages - 1;
+//         }
+//       }
+
+//       const numbers = [];
+//       for (let i = startPage; i <= endPage; i++) {
+//         numbers.push(i);
+//       }
+//       setPageNumbers(numbers);
+//     };
+
+//     calculatePageNumbers();
+//   }, [totalPosts, postsPerPage, currentPage, visiblePages]);
+
+//   const handlePageClick = pageNumber => {
+//     paginate(pageNumber);
+//   };
+
+//   const handleNextClick = () => {
+//     const totalPageCount = Math.ceil(totalPosts / postsPerPage);
+
+//     if (currentPage < totalPageCount) {
+//       const startPage = Math.min(
+//         currentPage + 1,
+//         totalPageCount - visiblePages + 1,
+//       );
+//       const endPage = Math.min(startPage + visiblePages - 1, totalPageCount);
+
+//       const numbers = [];
+//       for (let i = startPage; i <= endPage; i++) {
+//         numbers.push(i);
+//       }
+//       setPageNumbers(numbers);
+//     }
+//   };
+
+//   const handlePrevClick = () => {
+//     if (currentPage > 1) {
+//       const endPage = currentPage - 1;
+//       const startPage = Math.max(endPage - visiblePages + 1, 1);
+
+//       const numbers = [];
+//       for (let i = startPage; i <= endPage; i++) {
+//         numbers.push(i);
+//       }
+//       setPageNumbers(numbers);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <img
+//         src="./images/Arrow-left.png"
+//         alt="왼쪽 화살표 아이콘"
+//         onClick={handlePrevClick}
+//         style={{ cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+//       />
+//       {pageNumbers.map(number => (
+//         <span
+//           key={number}
+//           onClick={() => handlePageClick(number)}
+//           style={{
+//             margin: '10px',
+//             color:
+//               currentPage === number
+//                 ? 'var(--Brown-40)'
+//                 : 'var(--Grayscale-40)',
+//           }}
+//         >
+//           {number}
+//         </span>
+//       ))}
+//       {currentPage < Math.ceil(totalPosts / postsPerPage) && (
+//         <img
+//           src="./images/Arrow-right.png"
+//           alt="오른쪽 화살표 아이콘"
+//           onClick={handleNextClick}
+//         />
+//       )}
+//     </div>
+//   );
+// }
+
+// export default Pagination;
+
+import React, { useEffect, useState } from 'react';
+
+function Pagination({ postsPerPage, totalPosts, paginate, currentPage }) {
+  const [pageNumbers, setPageNumbers] = useState([]);
 
   useEffect(() => {
-    setNumberListState({
-      numberBox: pageNumbers,
-    });
-    if (currentPage > Math.ceil(totalPosts / postsPerPage)) {
-      handleReload();
-    }
-  }, [postsPerPage, currentPage]);
+    const generatePageNumbers = () => {
+      const totalPageCount = Math.ceil(totalPosts / postsPerPage);
 
-  //reload to last page when size change tablet to PC
-  const handleReload = () => {
-    paginate(Math.ceil(totalPosts / postsPerPage));
-  };
+      if (totalPageCount <= 1) {
+        setPageNumbers([]);
+        return;
+      }
 
-  //make number and activate onpage
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    if (i === currentPage) {
-      pageNumbers.push({ id: i, isDone: true });
-    } else {
-      pageNumbers.push({ id: i, isDone: false });
-    }
-  }
+      const visiblePages = 5; // Adjust the number of visible pages as needed
+      const middlePage = Math.ceil(visiblePages / 2);
 
-  //activate onpage when buttonclickevent
-  const onNumberToggle = ({ id }) => {
-    const newNumberList = numberList.numberBox.map(num =>
-      num.id === id
-        ? {
-            ...num,
-            isDone: !num.isDone,
-          }
-        : num.id !== id && num.isDone === true
-          ? {
-              ...num,
-              isDone: !num.isDone,
-            }
-          : num,
-    );
+      let startPage = currentPage - middlePage + 1;
+      let endPage = currentPage + middlePage - 1;
 
-    setNumberListState({
-      ...numberList,
-      numberBox: newNumberList,
-    });
-  };
-  //번호 배열 길이 -2 보다 현재페이지 번호가 작으면 ... 제거
-  const isLastHellip = () => {
-    return currentPage <= numberList.numberBox.length - 3;
-  };
-  //4보다 현재 페이지가 작은경우 ...제거
-  const isFirstHellip = () => {
-    return currentPage >= 4;
-  };
-  //activate fix 1st and last number
-  const isFixedNumber = num => {
-    return num === 1 || num === numberList.numberBox.length;
-  };
-  //현재 페이지 +1 보다 각각 값이 크거나 현재페이지 -1 보다 값이 작을 때 번호 활성화
-  const isNoneNumber = num => {
-    return currentPage + 1 < num || currentPage - 1 > num;
-  };
-  //1번페이지와 마지막 페이지가 가까워졌을때 현재 화면에 렌더링된 번호 유지
-  const isNoneNumberChange = num => {
-    return (
-      (currentPage === 2 && currentPage + 3 > num) ||
-      (currentPage === numberList.numberBox.length - 1 &&
-        currentPage - 3 < num) ||
-      (currentPage === 1 && currentPage + 4 > num) ||
-      (currentPage === numberList.numberBox.length && currentPage - 4 < num)
-    );
+      if (startPage < 1) {
+        startPage = 1;
+        endPage = visiblePages;
+      }
+
+      if (endPage > totalPageCount) {
+        endPage = totalPageCount;
+        startPage = Math.max(1, endPage - visiblePages + 1);
+      }
+
+      const numbers = [];
+      for (let i = startPage; i <= endPage; i++) {
+        numbers.push(i);
+      }
+      setPageNumbers(numbers);
+    };
+
+    generatePageNumbers();
+  }, [totalPosts, postsPerPage, currentPage]);
+
+  const handlePageClick = pageNumber => {
+    paginate(pageNumber);
   };
 
   return (
-    <>
-      <S.ListPagination>
-        {numberList.numberBox.map((num, index) => {
-          return (
-            <Fragment key={index}>
-              {num.id === numberList.numberBox.length && isLastHellip() ? (
-                <S.ListPaginationHellip className="hellip">
-                  &hellip;
-                </S.ListPaginationHellip>
-              ) : null}
-              {num.id === 2 && isFirstHellip() ? (
-                <S.ListPaginationHellip className="hellip">
-                  &hellip;
-                </S.ListPaginationHellip>
-              ) : null}
-              <S.ListPaginationNumber
-                key={num.id}
-                style={{
-                  color: num.isDone ? 'var(--Brown-40)' : 'var(--Grayscale-40)',
-                  display:
-                    !isNoneNumber(num.id) ||
-                    isFixedNumber(num.id) ||
-                    isNoneNumberChange(num.id)
-                      ? 'flex'
-                      : 'none',
-                }}
-                onClick={() => {
-                  onNumberToggle(num.id);
-                  paginate(num.id);
-                }}
-              >
-                {num.id}
-              </S.ListPaginationNumber>
-            </Fragment>
-          );
-        })}
-      </S.ListPagination>
-    </>
+    <div>
+      {currentPage > 1 && (
+        <span onClick={() => handlePageClick(currentPage - 1)}>{'<'}</span>
+      )}
+      {pageNumbers.map(number => (
+        <span
+          key={number}
+          onClick={() => handlePageClick(number)}
+          style={{
+            margin: '10px',
+            color:
+              currentPage === number
+                ? 'var(--Brown-40)'
+                : 'var(--Grayscale-40)',
+          }}
+        >
+          {number}
+        </span>
+      ))}
+      {currentPage < Math.ceil(totalPosts / postsPerPage) && (
+        <span onClick={() => handlePageClick(currentPage + 1)}>{'>'}</span>
+      )}
+    </div>
   );
 }
+
+export default Pagination;

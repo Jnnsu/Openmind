@@ -1,25 +1,30 @@
 import * as S from './CardListPageStyle';
 import DropDownButton from '../../components/DropDown/DropDownButton';
 import OutlineBoxButton from '../../components/Button/OutlineBoxButton/OutlineBoxButton';
-import Pagenaion from '../../components/Pagenation/Pagenation';
+import Pagenation from '../../components/Pagenation/Pagenation';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { API } from '../../constants';
+import { useNavigate } from 'react-router-dom';
 
 export default function CardList() {
   const [result, setResult] = useState([]);
   const [sortOption, setSortOption] = useState('date');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPosts, setTotalPosts] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(8);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     async function getListData() {
       try {
-        const response = await fetch(API.SUBJECT);
-        const { results } = await response.json();
-        // const resultArray = results.results || [];
-        // setResult(resultArray);
+        // const response = await fetch(API.SUBJECT);
+        const response = await fetch(
+          `https://openmind-api.vercel.app/3-3/subjects/?limit=${postsPerPage}`,
+        );
+        const { results, count } = await response.json();
         let sortedData = [...results];
+        console.log(count);
 
         if (sortOption === 'name') {
           sortedData = sortedData.sort((a, b) => a.name.localeCompare(b.name));
@@ -31,12 +36,40 @@ export default function CardList() {
         }
 
         setResult(sortedData);
+        setTotalPosts(count);
       } catch (error) {
         console.error(error);
       }
     }
     getListData();
-  }, [sortOption]);
+  }, [sortOption, postsPerPage]);
+
+  // useEffect(() => {
+  //   async function fetchDataForPage() {
+  //     const offset = (currentPage - 1) * postsPerPage;
+  //     const url = `https://openmind-api.vercel.app/3-3/subjects/?limit=${postsPerPage}&offset=${offset}`;
+  //     try {
+  //       const response = await fetch(url);
+  //       const data = await response.json();
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   }
+  //   fetchDataForPage();
+  // }, []);
+
+  const fetchDataForPage = async pageNumber => {
+    const offset = (currentPage - 1) * postsPerPage;
+    const url = `https://openmind-api.vercel.app/3-3/subjects/?limit=${postsPerPage}&offset=${offset}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data.results || [];
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleAnswerPage = () => {
     navigate('/post/:subjectId/answer');
@@ -50,13 +83,31 @@ export default function CardList() {
     setSortOption(option);
   };
 
+  const handlePaginate = async pageNumber => {
+    try {
+      // console.log('Handling pagination for page:', pageNumber);
+      setCurrentPage(pageNumber);
+      const data = await fetchDataForPage(pageNumber);
+      setResult(data);
+    } catch (error) {
+      console.error(
+        'Error handling pagination for page',
+        pageNumber,
+        ':',
+        error,
+      );
+    }
+  };
+
   return (
     <>
       <S.CardListContainer>
         <S.CardListHeader>
-          <Link to="./">
-            <S.Logo src="./images/logo.png" alt="로고 이미지" />
-          </Link>
+          <S.Logo
+            src="./images/logo.png"
+            alt="로고 이미지"
+            onClick={() => navigate('/')}
+          />
           <OutlineBoxButton onClick={handleAnswerPage}>
             답변하러 가기
           </OutlineBoxButton>
@@ -94,14 +145,12 @@ export default function CardList() {
         </S.CardListMain>
         <S.CardListFooter>
           <S.CardPagenation>
-            <img src="./images/Arrow-left.png" alt="왼쪽 화살표 아이콘" />
-            {/* <Pagenaion /> */}
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <img src="./images/Arrow-right.png" alt="오른쪽 화살표 아이콘" />
+            <Pagenation
+              postsPerPage={postsPerPage}
+              totalPosts={totalPosts}
+              paginate={handlePaginate}
+              currentPage={currentPage}
+            />
           </S.CardPagenation>
         </S.CardListFooter>
       </S.CardListContainer>
