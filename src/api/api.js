@@ -97,10 +97,10 @@ export async function deleteSubject(subjectId) {
   }
 }
 
-export async function getQuestionList(subjectId, offset = 0) {
+export async function getQuestionList(subjectId, limit = 10, offset = 0) {
   try {
     const response = await fetch(
-      `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/questions/?limit=10&offset=${offset}`,
+      `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/questions/?limit=${limit}&offset=${offset}`,
     );
     const body = await response.json();
 
