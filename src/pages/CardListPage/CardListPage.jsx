@@ -42,6 +42,10 @@ export default function CardList() {
     navigate('/post/:subjectId/answer');
   };
 
+  const handlePostPage = id => {
+    navigate(`/post/${id}`);
+  };
+
   const handleSortOption = option => {
     setSortOption(option);
   };
@@ -72,6 +76,7 @@ export default function CardList() {
               name={item.name}
               image={item.imageSource}
               questionCount={item.questionCount}
+              onClick={() => handlePostPage(item.id)}
             >
               <S.CardTop>
                 <img src={item.imageSource} alt="" />
