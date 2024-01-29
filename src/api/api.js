@@ -170,3 +170,27 @@ export async function deleteQuestion(questionId) {
     console.log(error);
   }
 }
+
+export const getWeatherData = async (lat, lon, key) => {
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const weatherData = await response.json();
+    console.log(weatherData);
+    return weatherData;
+  } catch (error) {
+    return `Error: ${error.message}`;
+  }
+};

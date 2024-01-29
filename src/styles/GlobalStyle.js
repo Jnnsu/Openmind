@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   :root {
     --Grayscale-60: #000;
     --Grayscale-50: #515151;
@@ -52,5 +52,3 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 `;
-
-export default GlobalStyle;
