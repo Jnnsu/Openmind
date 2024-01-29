@@ -1,17 +1,56 @@
 import { createPortal } from 'react-dom';
 import * as S from './ModalStyle';
 import TextArea from '../components/Input/TextArea';
-import profileImage from '../components/ProfileImage/ProfileImage';
 
-export default function Modal(
-  id = '임시 유저 아이디',
-  imageSource = '../images/image6.png',
-  handleCloseModal,
-) {
+export default function Modal({ handleCloseModal, subjectData }) {
+  const [name, imageSource, subjectId] = subjectData;
+  const SUBJECT_ID = subjectId;
+  const [isTextArea, setIsTextArea] = useState(true);
+  const [inputValue, setInputValue] = useState('');
+
   const onClick = e => {
     // 모달 바깥클릭하면 나가는 이벤트
     if (e.target === e.currentTarget) {
       handleCloseModal(e);
+    }
+  };
+
+  const handleEnterKey = e => {
+    if (e.keyCode === 13 && !e.shiftKey) {
+      postQuestion();
+    }
+  };
+
+  const textAreaCheck = e => {
+    if (e.target.value !== '') {
+      setIsTextArea(true);
+    } else {
+      setIsTextArea(false);
+    }
+  };
+
+  const postQuestion = async () => {
+    try {
+      const response = await axios.post(
+        `https://openmind-api.vercel.app/3-3/subjects/${SUBJECT_ID}/questions/`,
+        {
+          subjectId: SUBJECT_ID.id,
+          content: inputValue,
+          team: '3-3',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (response.status === 201) {
+        window.location.reload(true);
+      }
+    } catch (error) {
+      console.log("modal's send question", error);
+      throw new Error('전송에 실패했습니다.');
     }
   };
 
@@ -36,22 +75,26 @@ export default function Modal(
         </S.ModalHeader>
         <S.ModalProfileBox>
           <S.ModalProfileTo className="ModalProfileTo">To.</S.ModalProfileTo>
-          {/* <S.ModalProfileUserImageBox> */}
-          {/* 유저 사진은 어떻게 할지 아직 안정함.... */}
-          {/* <img
+          <S.ModalProfileUserImageBox>
+            <img
               className="ModalProfileUserImage"
-              src="/images/image6.png"
-              alt="임시 유저 사진"
+              src={imageSource}
+              alt="프로필 사진"
             />
-            <profileImage imageSource={imageSource} />
-          </S.ModalProfileUserImageBox> */}
-          <S.ModalProfileUserId>{id}</S.ModalProfileUserId>
+          </S.ModalProfileUserImageBox>
+          <S.ModalProfileUserId>{name}</S.ModalProfileUserId>
         </S.ModalProfileBox>
         <S.ModalMain>
           <S.ModalMainQuestionArea>
-            <TextArea />
+            <TextArea
+              onKeyDown={handleEnterKey}
+              onChange={e => {
+                textAreaCheck(e);
+                setInputValue(e.target.value);
+              }}
+            />
           </S.ModalMainQuestionArea>
-          <S.ModalQuestionExportButton />
+          {isTextArea && <S.ModalQuestionExportButton onClick={postQuestion} />}
         </S.ModalMain>
       </S.ModalContents>
     </S.ModalContainer>,
