@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getQuestionList, getSubject, deleteSubject } from '../../api/api';
 import * as S from './AnswrePageStyle';
 
@@ -7,7 +7,7 @@ export default function AnswerPage() {
   const [subject, setSubject] = useState({});
   const [questionCount, setQuestionCount] = useState(0);
   const [questionList, setQuestionList] = useState([]);
-  const [offset, setOffset] = useState(0);
+  const [query, setQuery] = useState({ limit: 10, offset: 0 });
   const [isLoading, setIsLoading] = useState();
   const [isHasNext, setIsHasNext] = useState();
 
@@ -37,6 +37,7 @@ export default function AnswerPage() {
     setQuestionList(preQuestionList =>
       preQuestionList.filter(element => element.id !== questionId),
     );
+    setQuery({ limit: 1, offset: questionList.length - 1 });
   };
 
   const handleViewMoreButtonOnClick = async () => {
@@ -44,9 +45,20 @@ export default function AnswerPage() {
       return;
     } else {
       setIsLoading(true);
-      setOffset(questionList.length);
+      setQuery({ limit: 10, offset: questionList.length });
     }
   };
+
+  const handleGetQuestionList = useCallback(
+    async ({ limit, offset }) => {
+      const { next, results } = await getQuestionList(subjectId, limit, offset);
+      if (!results) return;
+      setIsHasNext(!!next);
+      setQuestionList(preQuestionsList => [...preQuestionsList, ...results]);
+      setIsLoading(false);
+    },
+    [subjectId],
+  );
 
   useEffect(() => {
     (async () => {
@@ -56,21 +68,17 @@ export default function AnswerPage() {
       setQuestionCount(nextSubject.questionCount);
     })();
 
-    (async () => {
-      const { next, results } = await getQuestionList(subjectId, offset);
-      if (!results) return;
-      setIsHasNext(!!next);
-      setQuestionList(preQuestionsList => [...preQuestionsList, ...results]);
-      setIsLoading(false);
-    })();
-  }, [subjectId, offset]);
+    handleGetQuestionList(query);
+  }, [subjectId, query, handleGetQuestionList]);
 
   return (
     <>
       <S.Header>
         <S.HeaderImage />
         <S.LogoAndProfileAndShare>
-          <img className="logo" src="/images/logo.png" alt="로고 이미지" />
+          <a href="/">
+            <img className="logo" src="/images/logo.png" alt="로고 이미지" />
+          </a>
           <img
             className="header__profileImage"
             src={subject?.imageSource}

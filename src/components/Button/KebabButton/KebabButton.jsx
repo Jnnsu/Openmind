@@ -13,7 +13,9 @@ export default function Kebab({ menuItem, question }) {
     } else {
       setDropLeft(false);
     }
-    setIsReject(menuItem[2].isBlue);
+    setIsReject(
+      menuItem.filter(element => element.text === '답변거절')[0].isBlue,
+    );
     setIsOpenKebabMenu(!isOpenKebabMenu);
   };
 
@@ -24,13 +26,7 @@ export default function Kebab({ menuItem, question }) {
   };
 
   const handleKebabMenuItemOnClick = e => {
-    if (
-      e.currentTarget.lastElementChild.textContent === '수정하기' &&
-      !question.answer
-    ) {
-      return;
-    }
-    if (e.target.innerText === selectedMenuItem || isReject) {
+    if (e.currentTarget.innerText === selectedMenuItem || isReject) {
       setSelectedMenuItem(null);
     } else {
       setSelectedMenuItem(e.currentTarget.innerText);
