@@ -15,7 +15,7 @@ export const HeaderImage = styled.div`
   mix-blend-mode: hard-light;
 `;
 
-export const LogoAndProfile = styled.div`
+export const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,7 @@ export const LogoAndProfile = styled.div`
     height: 6.7rem;
   }
 
-  & .header__profileImage {
+  & .user-profile-image {
     width: 13.6rem;
     height: 13.6rem;
     display: flex;
@@ -39,7 +39,7 @@ export const LogoAndProfile = styled.div`
     border-radius: 50%;
   }
 
-  & .profileName {
+  & .user-name {
     color: var(--Grayscale-60);
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: Actor;
@@ -53,12 +53,12 @@ export const LogoAndProfile = styled.div`
       height: 4.9rem;
     }
 
-    & .header__profileImage {
+    & .user-profile-image {
       width: 10.4rem;
       height: 10.4rem;
     }
 
-    & .profileName {
+    & .user-name {
       font-size: 2.4rem;
     }
   }
@@ -92,27 +92,6 @@ export const NoQuestionImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-export const DeleteSubjectButton = styled(FloatButton)`
-  width: 10.8rem;
-  height: 3.5rem;
-  position: absolute;
-  top: -44px;
-  right: 0;
-
-  color: var(--Grayscale-10);
-  font-feature-settings: 'clig' off, 'liga' off;
-  font-family: Pretendard;
-  font-size: 1.5rem;
-  line-height: 2.5rem; /* 166.667% */
-
-  @media (max-width: 767px) {
-    width: 8.8rem;
-    height: 2.5rem;
-
-    font-size: 1rem;
-  }
 `;
 
 export const CountQuestion = styled.div`
@@ -163,4 +142,12 @@ export const ModalFloatButton = styled(FloatButton)`
   position:fixed;
   bottom: 20px;
   right: 20px;
+`;
+
+export const QuestionList = styled.div`
+
+`;
+
+export const QuestionCard = styled.div`
+
 `;
