@@ -279,6 +279,10 @@ export const AnswerForm = styled.form`
   }
 `;
 
+export const QuestionCardWrapper = styled.div`
+  width: 100%;
+`;
+
 export const ViewMoreButton = styled(FloatButton)`
   width: 13.4rem;
   height: 3.5rem;

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getQuestionList, getSubject, deleteSubject } from '../../api/api';
 import * as S from './AnswrePageStyle';
 
@@ -12,6 +12,8 @@ export default function AnswerPage() {
   const [isHasNext, setIsHasNext] = useState();
 
   const { subjectId } = useParams();
+  const observer = useRef();
+  const lastQuestion = useRef();
   const navigate = useNavigate();
 
   const questionCountString = questionCount
@@ -34,10 +36,10 @@ export default function AnswerPage() {
   };
 
   const onDeleteItem = questionId => {
+    setQuery({ limit: 1, offset: questionList.length - 1 });
     setQuestionList(preQuestionList =>
       preQuestionList.filter(element => element.id !== questionId),
     );
-    setQuery({ limit: 1, offset: questionList.length - 1 });
   };
 
   const handleViewMoreButtonOnClick = async () => {
@@ -54,11 +56,37 @@ export default function AnswerPage() {
       const { next, results } = await getQuestionList(subjectId, limit, offset);
       if (!results) return;
       setIsHasNext(!!next);
-      setQuestionList(preQuestionsList => [...preQuestionsList, ...results]);
+      setQuestionList(preQuestionList => [...preQuestionList, ...results]);
       setIsLoading(false);
     },
     [subjectId],
   );
+
+  useEffect(() => {
+    if (!isHasNext) {
+      return;
+    }
+
+    observer.current = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting && !isLoading) {
+          setIsLoading(true);
+          setQuery({ limit: 10, offset: questionList.length });
+        }
+      },
+      { threshold: 0 },
+    );
+
+    if (lastQuestion.current) {
+      observer.current.observe(lastQuestion.current);
+    }
+
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
+  }, [questionList, isHasNext, isLoading]);
 
   useEffect(() => {
     (async () => {
@@ -101,16 +129,19 @@ export default function AnswerPage() {
             <S.QuestionList>
               {questionList.map((element, index, array) => {
                 return (
-                  <S.QuestionCard
-                    key={element.id}
-                    subject={subject}
-                    question={element}
-                    questionList={array}
-                    setQuestionList={setQuestionList}
-                    index={index}
-                    setQuestionCount={setQuestionCount}
-                    onDeleteItem={onDeleteItem}
-                  />
+                  <S.QuestionCardWrapper key={element.id}>
+                    {index === array.length - 3 && <div ref={lastQuestion} />}
+                    <S.QuestionCard
+                      key={element.id}
+                      subject={subject}
+                      question={element}
+                      questionList={array}
+                      setQuestionList={setQuestionList}
+                      index={index}
+                      setQuestionCount={setQuestionCount}
+                      onDeleteItem={onDeleteItem}
+                    />
+                  </S.QuestionCardWrapper>
                 );
               })}
               {isHasNext && (
