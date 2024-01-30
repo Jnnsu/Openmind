@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getQuestionList, getSubject  } from '../../api/api';
 import * as S from './PostPageStyle';
@@ -15,6 +15,8 @@ const PostPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isHasNext, setIsHasNext] = useState(true);
   const [query, setQuery] = useState({ limit: LIMIT, offset: 0 });
+  const [isShowModal, setIsShowModal] = useState(false);
+
 
   const handleViewMoreButtonOnClick = () => {
     if (!isHasNext) return;
