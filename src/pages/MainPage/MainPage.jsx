@@ -1,6 +1,6 @@
 import * as S from './MainPageStyle';
 import NavBar from '../../components/NavBar/MainPageNavBar';
-import AuthToggleForm from '../../components/AuthToggleForm/AuthToggleForm';
+import AuthToggleForm from '../../components/Form/AuthToggleForm/AuthToggleForm';
 
 export default function Main() {
   return (
