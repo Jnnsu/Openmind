@@ -15,6 +15,11 @@ export const LogoImage = styled.img`
   width: 456px;
   position: absolute;
   top: 160px;
+
+  @media (max-width: 767px) {
+    width: 248px;
+    top: 80px;
+  }
 `;
 
 export const BackgroundImage = styled.img`
