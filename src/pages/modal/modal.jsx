@@ -1,6 +1,8 @@
 import { createPortal } from 'react-dom';
 import * as S from './ModalStyle';
 import TextArea from '../components/Input/TextArea';
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function Modal({ handleCloseModal, subjectData }) {
   const [name, imageSource, subjectId] = subjectData;
