@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 export const WeatherContainer = styled.div`
-  width: 150px;
+  width: 300px;
   font-size: 1.6rem;
   font-weight: 400;
 
   @media (max-width: 767px) {
-    width: 150px;
     font-size: 1.2rem;
   }
 `;
