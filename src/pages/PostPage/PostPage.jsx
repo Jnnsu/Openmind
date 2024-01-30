@@ -49,13 +49,13 @@ const PostPage = () => {
         setSubject(subjectData);
         setUserData({...subjectData});
 
-        const { count, next, results} = await getQuestionList(subjectId, query.limit, query.offset);
+        const { count, results} = await getQuestionList(subjectId, query.limit, query.offset);
         // "count": 0,  질문 개수
         // "next": null,  다음 question 주소값..?
         // "previous": null, 이전 question 주소값...?
         // "results": []   질문들..
         setQuestionCount(count);
-        setQuestionList(previous => [...previous]);
+        setQuestionList(previous => [...previous, ...results]);
         setIsHasNext(results.length === LIMIT);
         setIsLoading(false);
       } catch (error) {
@@ -65,7 +65,7 @@ const PostPage = () => {
     };
 
     fetchData();
-}, [subjectId, navigate, isLoading]);
+}, [subjectId, navigate, isLoading, query.limit, query.offset]);
 
   return (
     <>
@@ -83,15 +83,17 @@ const PostPage = () => {
       <S.MainContainer>
         <S.QuestionListContainer>
           <S.CountQuestion>
+            <img src="/images/Messages.svg" alt="메세지 아이콘"/>
             <span>{questionCount ? `${questionCount}개의 질문이 있습니다` : '아직 질문이 없습니다'}</span>
           </S.CountQuestion>
           {questionCount > 0 ? (
             <S.QuestionList>
               {questionList.map((question, index) => (
-                <S.QuestionCard
+                <S.FeedCard
                   key={question.subjectId}
                   question={question}
                   index={index}
+                  subject={subject}
                   // 필요한 props를 전달합니다.
                 />
               ))}
@@ -102,7 +104,9 @@ const PostPage = () => {
               )}
             </S.QuestionList>
           ) : (
-            <S.NoQuestionImageContainer />
+            <S.NoQuestionImageContainer>
+              <img src='/images/empty.png' alt="편지함 이미지"/>
+            </S.NoQuestionImageContainer>
           )}
         </S.QuestionListContainer>
         {/* ModalFloatButton 추가 */}

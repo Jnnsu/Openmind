@@ -3,6 +3,8 @@ import { FloatButton } from '../../components/Button/FloatingButton/FloationgBut
 import QuestionCard from '../../components/QuestionCard/QuestionCard';
 import { QuestionList, CountQuestion } from '../../components/Feed/QuestionCardContainer/QuestionCardContainerStyle';
 import ShareButton from '../../components/Button/ShareButton/ShareButton';
+import { CardContainer } from '../../components/Feed/QuestionCardContainer/QuestionCardContainerStyle';
+import FeedCard from '../../components/Feed/FeedCard/FeedCard';
 
 
 export const Header = styled.div`
@@ -89,7 +91,7 @@ export const MainContainer = styled.div`
   }
 `;
 
-export const QuestionListContainer = styled.div`
+export const QuestionListContainer = styled(CardContainer)`
   position: relative;
   min-height: 33rem;
 
@@ -138,4 +140,4 @@ export const ModalFloatButton = styled(FloatButton)`
   right: 20px;
 `;
 
-export { ShareButton, CountQuestion, QuestionList, QuestionCard };
+export { ShareButton, CountQuestion, QuestionList, QuestionCard, FeedCard };

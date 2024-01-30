@@ -1,100 +1,150 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+// import BadgeButton from '../../Button/BadgeButton/BadgeButton';
+import { Button as BadgeButton } from '../../Button/BadgeButton/BadgeButtonStyle';
 
-export const CardContainer = styled.div`
+export const FeedCardContainer = styled.div`
+  width: 684px;
+  height: auto;
+  background: var(--Grayscale-10);
+  box-shadow: var(--Shadow-1pt);
+  border-radius: 16px;
   display: flex;
-  flex-direction: column;
-  gap: 32px;
   width: 100%;
   padding: 32px;
-  border-radius: 16px;
-  box-shadow: var(--Shadow-1pt);
-  background: white;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
 `;
 
-export const Header = styled.div`
+export const CardTop = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
 `;
 
-export const QuestionTime = styled.div`
-  color: var(--Grayscale-40);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
+export const CardCreatedDateAndQuestion = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1 0 0;
+
+  & span {
+    color: var(--Grayscale-40);
+    font-feature-settings:
+      'clig' off,
+      'liga' off;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px; /* 128.571% */
+  }
+
+  & h3 {
+    align-self: stretch;
+
+    color: var(--Grayscale-60);
+    font-feature-settings:
+      'clig' off,
+      'liga' off;
+    font-family: Actor;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px; /* 133.333% */
+  }
 `;
 
-export const QuestionContent = styled.div`
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
+export const CardFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+`;
+
+
+export const QuestionAnswer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  align-self: stretch;
+
+  & .main__profileImage {
+    display: flex;
+    width: 4.8rem;
+    height: 4.8rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 767px) {
+    & .main__profileImage {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
+  }
 `;
 
 export const AnswerContainer = styled.div`
   display: flex;
-  gap: 12px;
-  width: 100%;
-`;
-
-export const AnswerBox = styled.div`
-  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
-  gap: 4px;
-  width: 120;
+  gap: 0.4rem;
+  flex: 1 0 0;
+
+  & .answerContent {
+    align-self: stretch;
+    color: var(--Grayscale-60);
+    font-feature-settings:
+      'clig' off,
+      'liga' off;
+    font-size: 1.6rem;
+    line-height: 2.2rem; /* 137.5% */
+  }
+
+  & .answerIsRejected {
+    align-self: stretch;
+    color: var(--Red-50);
+    font-feature-settings:
+      'clig' off,
+      'liga' off;
+    font-size: 1.6rem;
+    line-height: 2.2rem; /* 137.5% */
+  }
 `;
 
-export const AnswerProfile = styled.div`
+export const AnswerElapsedTime = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.8rem;
+  flex: 1 0 0;
+
+  & .main__profileName {
+    color: var(--Grayscale-60, #000);
+    font-feature-settings:
+      'clig' off,
+      'liga' off;
+    font-family: Actor;
+    font-size: 1.8rem;
+    line-height: 2.4rem; /* 133.333% */
+  }
+
+  & .answerElapsedTime {
+    color: var(--Grayscale-40, #818181);
+    font-feature-settings:
+      'clig' off,
+      'liga' off;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.8rem; /* 128.571% */
+  }
+
+  @media (max-width: 767px) {
+    & .main__profileName {
+      font-size: 1.4rem;
+      line-height: 1.8rem; /* 128.571% */
+    }
+  }
 `;
 
-export const AnswerName = styled.div`
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-`;
-
-export const AnswerDate = styled.div`
-  color: var(--Grayscale-40);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-`;
-
-export const AnsweredContent = styled.div`
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22px;
-`;
-
-export const RefuseContent = styled.div`
-  color: var(--red);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22px;
-`;
-
-export const Foooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-top: 18px;
-  border-top: 1px solid var(--Grayscale-30);
-`;
-
-export const FooterIcons = styled.div`
-  display: flex;
-  gap: 32px;
-`;
-
-export const ProfileImage = styled.div`
-  width: 49px;
-  height: 49px;
-`;
+export { BadgeButton };
