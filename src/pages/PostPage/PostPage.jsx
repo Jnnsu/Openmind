@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getQuestionList, getSubject } from '../../api/api';
 import * as S from './PostPageStyle';
+import Modal from '../modal/modal';
 
 const LIMIT = 10;
 
@@ -9,12 +10,13 @@ const PostPage = () => {
     const { subjectId } = useParams();
     const navigate = useNavigate();
 
-    const [subject, setSubject] = useState({});
-    const [questionCount, setQuestionCount] = useState(0);
-    const [questionList, setQuestionList] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isHasNext, setIsHasNext] = useState(true);
-    const [query, setQuery] = useState({ limit: LIMIT, offset: 0 });
+  const [subject, setSubject] = useState({});
+  const [questionCount, setQuestionCount] = useState(0);
+  const [questionList, setQuestionList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isHasNext, setIsHasNext] = useState(true);
+  const [query, setQuery] = useState({ limit: LIMIT, offset: 0 });
+  const [isShowModal, setIsShowModal] = useState(false);
 
     const handleViewMoreButtonOnClick = () => {
         if (!isHasNext) return;
@@ -101,11 +103,12 @@ const PostPage = () => {
                     질문 작성하기
                 </S.ModalFloatButton>
 
-                {/* 모달이 열려있을 때 모달 컴포넌트를 렌더링합니다. */}
-                {isShowModal && <ModalQustion handleClose={handleModalQuestion} />}
-            </S.MainContainer>
-        </>
-    );
+        {/* 모달이 열려있을 때 모달 컴포넌트를 렌더링합니다. */}
+        {isShowModal && <Modal handleClose={handleModalQuestion} />}
+     
+      </S.MainContainer>
+    </>
+  );
 };
 
 export default PostPage;
