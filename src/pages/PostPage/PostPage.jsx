@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getQuestionList, getSubject  } from '../../api/api';
+import { getQuestionList, getSubject } from '../../api/api';
 import * as S from './PostPageStyle';
 import Modal from '../modal/modal';
 import ProfileImage from '../../components/Feed/ProfileImage/ProfileImage';
@@ -19,17 +19,17 @@ const PostPage = () => {
   const [isHasNext, setIsHasNext] = useState(true);
   const [query, setQuery] = useState({ limit: LIMIT, offset: 0 });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userData, setUserData] =useState({
-    name: subject?.name, 
-    imageSource: subject?.imageSource, 
-    subjectId: subjectId
-  })
-  const openModal = () =>{
+  const [userData, setUserData] = useState({
+    name: subject?.name,
+    imageSource: subject?.imageSource,
+    subjectId: subjectId,
+  });
+  const openModal = () => {
     setIsModalOpen(true);
-  }
+  };
   const closeModal = () => {
     setIsModalOpen(false);
-  }
+  };
 
   const handleViewMoreButtonOnClick = () => {
     if (!isHasNext) return;
@@ -41,15 +41,19 @@ const PostPage = () => {
     const fetchData = async () => {
       try {
         const subjectData = await getSubject(subjectId);
-        
+
         if (!subjectData) {
           navigate('/404'); // 사용자를 찾을 수 없음을 알리는 페이지로 이동합니다.
           return;
         }
         setSubject(subjectData);
-        setUserData({...subjectData});
+        setUserData({ ...subjectData });
 
-        const { count, results} = await getQuestionList(subjectId, query.limit, query.offset);
+        const { count, results } = await getQuestionList(
+          subjectId,
+          query.limit,
+          query.offset,
+        );
         // "count": 0,  질문 개수
         // "next": null,  다음 question 주소값..?
         // "previous": null, 이전 question 주소값...?
@@ -65,17 +69,26 @@ const PostPage = () => {
     };
 
     fetchData();
-}, [subjectId, navigate, isLoading, query.limit, query.offset]);
+  }, [subjectId, navigate, isLoading, query.limit, query.offset]);
 
   return (
     <>
       <S.Header>
         <S.HeaderImage />
         <S.SubjectInfo>
-          <a href='/'>
-            <img className='logo' src='/images/logo.png' alt='메인페이지 로고'/>
+          <a href="/">
+            <img
+              className="logo"
+              src="/images/logo.png"
+              alt="메인페이지 로고"
+            />
           </a>
-          <ProfileImage className='subject-profileimg' imageSource={subject?.imageSource} alt="프로필 이미지" size='136px' />
+          <ProfileImage
+            className="subject-profileimg"
+            imageSource={subject?.imageSource}
+            alt="프로필 이미지"
+            size="136px"
+          />
           <h1 className="subject-name">{subject?.name}</h1>
           <ShareButton />
         </S.SubjectInfo>
@@ -83,8 +96,12 @@ const PostPage = () => {
       <S.MainContainer>
         <S.QuestionListContainer>
           <S.CountQuestion>
-            <img src="/images/Messages.svg" alt="메세지 아이콘"/>
-            <span>{questionCount ? `${questionCount}개의 질문이 있습니다` : '아직 질문이 없습니다'}</span>
+            <img src="/images/Messages.svg" alt="메세지 아이콘" />
+            <span>
+              {questionCount
+                ? `${questionCount}개의 질문이 있습니다`
+                : '아직 질문이 없습니다'}
+            </span>
           </S.CountQuestion>
           {questionCount > 0 ? (
             <S.QuestionList>
@@ -98,14 +115,17 @@ const PostPage = () => {
                 />
               ))}
               {isHasNext && (
-                <S.ViewMoreButton onClick={handleViewMoreButtonOnClick} disabled={isLoading}>
+                <S.ViewMoreButton
+                  onClick={handleViewMoreButtonOnClick}
+                  disabled={isLoading}
+                >
                   질문 더 보기
                 </S.ViewMoreButton>
               )}
             </S.QuestionList>
           ) : (
             <S.NoQuestionImageContainer>
-              <img src='/images/empty.png' alt="편지함 이미지"/>
+              <img src="/images/empty.png" alt="편지함 이미지" />
             </S.NoQuestionImageContainer>
           )}
         </S.QuestionListContainer>
@@ -117,9 +137,7 @@ const PostPage = () => {
         >
           질문 작성하기
         </S.ModalFloatButton>
-        {isModalOpen && (
-        <Modal userData={userData} closeModal={closeModal} />
-        )}
+        {isModalOpen && <Modal userData={userData} closeModal={closeModal} />}
       </S.MainContainer>
     </>
   );

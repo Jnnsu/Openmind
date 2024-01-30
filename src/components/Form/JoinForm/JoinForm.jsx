@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setUserData } from '../../api/api';
-import { TEAM } from '../../constants';
-import FillBoxButton from '../Button/FillBoxButton/FillBoxButton';
+import { setUserData } from '../../../api/api';
+import { TEAM } from '../../../constants';
+import FillBoxButton from '../../Button/FillBoxButton/FillBoxButton';
 import * as S from './JoinFornStyle';
 
 export default function JoinForm() {
@@ -55,6 +55,7 @@ export default function JoinForm() {
           placeholder="Username"
           type="text"
           id="username"
+          required
         />
         <S.Label htmlFor="username">Username</S.Label>
       </S.InputGroup>
