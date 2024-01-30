@@ -9,6 +9,9 @@ export const MainPageContainer = styled.div`
   position: relative;
   width: 100vw;
   height: 100vh;
+  background-image: url('${props => props.backgroundImage}');
+  background-size: cover;
+  background-position: center;
 `;
 
 export const LogoImage = styled.img`
@@ -24,4 +27,6 @@ export const LogoImage = styled.img`
 
 export const BackgroundImage = styled.img`
   width: 100vw;
+  height: 100vh;
+  object-fit: cover;
 `;

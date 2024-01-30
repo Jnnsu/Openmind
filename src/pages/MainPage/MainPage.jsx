@@ -1,30 +1,20 @@
-import { useNavigate } from 'react-router-dom';
 import * as S from './MainPageStyle';
 import NavBar from '../../components/NavBar/MainPageNavBar';
 import AuthToggleForm from '../../components/Form/AuthToggleForm/AuthToggleForm';
 import { ProfileForm } from '../../components/Form/ProfileForm/ProfileForm';
-import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { weatherState } from '../../atom/atom';
 
 export default function Main() {
-  // const [userId, setUserId] = useState('');
-  // const [userName, setUserName] = useState('');
   const userId = sessionStorage.getItem('userId');
   const userName = sessionStorage.getItem('userName');
-
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const storedUserId = sessionStorage.getItem('userId');
-  //   const storedUserName = sessionStorage.getItem('userName');
-
-  //   if (storedUserId && storedUserName) {
-  //     setUserId(storedUserId);
-  //     setUserName(storedUserName);
-  //   }
-  // }, [navigate]);
+  const weatherInfo = useRecoilValue(weatherState);
+  const backgroundImage = weatherInfo
+    ? `${process.env.PUBLIC_URL}/images/${weatherInfo}.jpg`
+    : `${process.env.PUBLIC_URL}/images/MainPageBackground.png`;
 
   return (
-    <S.MainPageContainer>
+    <S.MainPageContainer backgroundImage={backgroundImage}>
       <NavBar />
       <S.LogoImage
         src={`${process.env.PUBLIC_URL}/images/logo.svg`}
@@ -35,10 +25,6 @@ export default function Main() {
       ) : (
         <AuthToggleForm />
       )}
-      <S.BackgroundImage
-        src={`${process.env.PUBLIC_URL}/images/mainPageBackground.png`}
-        alt="메인 패이지 배경 그림"
-      />
     </S.MainPageContainer>
   );
 }
