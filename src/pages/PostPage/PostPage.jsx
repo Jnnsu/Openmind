@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getQuestionList, getSubject  } from '../../api/api';
 import * as S from './PostPageStyle';
+import Modal from '../modal/modal';
 
 const LIMIT = 10;
 
@@ -16,7 +17,6 @@ const PostPage = () => {
   const [isHasNext, setIsHasNext] = useState(true);
   const [query, setQuery] = useState({ limit: LIMIT, offset: 0 });
   const [isShowModal, setIsShowModal] = useState(false);
-
 
   const handleViewMoreButtonOnClick = () => {
     if (!isHasNext) return;
@@ -105,7 +105,7 @@ const PostPage = () => {
         </S.ModalFloatButton>
 
         {/* 모달이 열려있을 때 모달 컴포넌트를 렌더링합니다. */}
-        {isShowModal && <ModalQustion handleClose={handleModalQuestion} />}
+        {isShowModal && <Modal handleClose={handleModalQuestion} />}
      
       </S.MainContainer>
     </>
