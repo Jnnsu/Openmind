@@ -23,6 +23,10 @@ export const HeaderImage = styled.div`
     lightgray 0px -267.142px / 100% 515.021% no-repeat;
   background-position: center;
   mix-blend-mode: hard-light;
+
+  @media (max-width: 767px) {
+    height: 17.7rem;
+  }
 `;
 
 export const LogoAndProfileAndShare = styled.div`
@@ -277,10 +281,6 @@ export const AnswerForm = styled.form`
       line-height: 2.2rem; /* 137.5% */
     }
   }
-`;
-
-export const QuestionCardWrapper = styled.div`
-  width: 100%;
 `;
 
 export const ViewMoreButton = styled(FloatButton)`

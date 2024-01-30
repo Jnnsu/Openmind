@@ -41,13 +41,13 @@ const PostPage = () => {
     const fetchData = async () => {
       try {
         const subjectData = await getSubject(subjectId);
-        console.log(subjectData)
         
         if (!subjectData) {
           navigate('/404'); // 사용자를 찾을 수 없음을 알리는 페이지로 이동합니다.
           return;
         }
         setSubject(subjectData);
+        setUserData({...subjectData});
 
         const { count, next, results} = await getQuestionList(subjectId, query.limit, query.offset);
         // "count": 0,  질문 개수
@@ -75,7 +75,7 @@ const PostPage = () => {
           <a href='/'>
             <img className='logo' src='/images/logo.png' alt='메인페이지 로고'/>
           </a>
-          <ProfileImage className='ProfileImage' src={subject?.imageSource} alt="프로필 이미지" />
+          <ProfileImage className='subject-profileimg' imageSource={subject?.imageSource} alt="프로필 이미지" size='136px' />
           <h1 className="subject-name">{subject?.name}</h1>
           <ShareButton />
         </S.SubjectInfo>
@@ -102,9 +102,7 @@ const PostPage = () => {
               )}
             </S.QuestionList>
           ) : (
-            <S.NoQuestionImageContainer>
-              <span>아직 질문이 없습니다.</span>
-            </S.NoQuestionImageContainer>
+            <S.NoQuestionImageContainer />
           )}
         </S.QuestionListContainer>
         {/* ModalFloatButton 추가 */}

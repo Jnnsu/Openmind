@@ -8,6 +8,8 @@ export const ModalContainer = styled.div`
   align-items: center;
   background: rgba(0, 0, 0, 0.56);
   flex-shrink: 0;
+  position: fixed;
+  inset: 0;
 `;
 
 export const ModalContents = styled.div`
@@ -16,7 +18,8 @@ export const ModalContents = styled.div`
   flex-shrink: 0;
   border-radius: 24px;
   box-shadow: var(--Shadow-3pt);
-  background: var(--GrayScale-10);
+  background: var(--Grayscale-10);
+  padding: 4rem 4rem 7rem 4rem;
 `;
 
 export const ModalHeader = styled.div`
@@ -24,6 +27,7 @@ export const ModalHeader = styled.div`
   width: 532px;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 4rem;
 `;
 
 export const ModalHeaderTitleBox = styled.div`
@@ -56,6 +60,7 @@ export const ModalProfileBox = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  margin-bottom: 1.5rem;
 
   & .ModalProfileTo {
     line-height: 24px;
@@ -68,7 +73,7 @@ export const ModalProfileBox = styled.div`
     font-family: Pretendard;
     color: var(--Grayscale-60);
     line-height: 22px;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 400;
   }
 `;
@@ -99,7 +104,6 @@ export const ModalMainQuestionArea = styled.div`
   display: flex;
   width: 532px;
   height: 180px;
-  padding: 16px;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -129,6 +133,7 @@ export const ModalQuestionExportButton = styled.button`
   gap: 10px;
   align-self: stretch;
   border-radius: 8px;
+  border: none;
   background: var(--Brown-30);
 
   color: var(--Grayscale-10);

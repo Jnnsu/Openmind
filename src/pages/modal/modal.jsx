@@ -3,6 +3,7 @@ import * as S from './modalStyle';
 import TextArea from '../../components/Input/TextArea';
 import axios from 'axios';
 import { useState } from 'react';
+import ProfileImage from '../../components/Feed/ProfileImage/ProfileImage';
 
 export default function Modal({ closeModal, userData }) {
   const {name, imageSource, id} = userData;
@@ -46,6 +47,7 @@ export default function Modal({ closeModal, userData }) {
           },
         },
       );
+      // console.log(subjectId)
 
       if (response.status === 201) {
         window.location.reload(true);
@@ -71,7 +73,7 @@ export default function Modal({ closeModal, userData }) {
           <img
             className="CloseButton"
             onClick={e => closeModal(e)}
-            src="./images/Close.svg"
+            src="/images/Close.svg"
             alt="close icon"
           />
         </S.ModalHeader>
@@ -94,12 +96,14 @@ export default function Modal({ closeModal, userData }) {
                 textAreaCheck(e);
                 setInputValue(e.target.value);
               }}
+              placeholder="질문을 입력해주세요."
             />
           </S.ModalMainQuestionArea>
-          {isTextArea && <S.ModalQuestionExportButton onClick={postQuestion} />}
+          {isTextArea && <S.ModalQuestionExportButton onClick={postQuestion}>질문 보내기</S.ModalQuestionExportButton>}
         </S.ModalMain>
       </S.ModalContents>
-    </S.ModalContainer>,
+    </S.ModalContainer>
+    ,
     document.body,
   );
 }
