@@ -7,11 +7,11 @@ export default function Main() {
   return (
     <S.MainPageContainer>
       <NavBar />
+      <Weather />
       <S.LogoImage
         src={`${process.env.PUBLIC_URL}/images/logo.svg`}
         alt="OPENMIND 로고"
       />
-      <Weather />
       <AuthToggleForm />
       <S.BackgroundImage
         src={`${process.env.PUBLIC_URL}/images/mainPageBackground.png`}

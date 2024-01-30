@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CostumSpin = styled.p`
-  color: white;
+  color: #fff;
 `;
 
 export const WeatherDiv = styled.div`
@@ -19,4 +19,13 @@ export const WeatherDiv = styled.div`
     font-size: 1rem;
     font-weight: 300;
   }
+`;
+
+export const WeatherContainer = styled.div`
+  all: unset;
+  width: 400px;
+  background: #000;
+  position: absolute;
+  top: 100px;
+  font-size: 20px;
 `;
