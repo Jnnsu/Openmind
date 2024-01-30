@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 import { FloatButton } from '../../components/Button/FloatingButton/FloationgButtonStyle';
+import QuestionCard from '../../components/QuestionCard/QuestionCard';
+import { QuestionList } from '../../components/Feed/QuestionCardContainer/QuestionCardContainerStyle';
+import { CountQuestion } from '../../components/Feed/QuestionCardContainer/QuestionCardContainerStyle';
+import ShareButton from '../../components/Button/ShareButton/ShareButton';
+
 
 export const Header = styled.div`
   display: flex;
@@ -94,23 +99,6 @@ export const NoQuestionImageContainer = styled.div`
   align-items: center;
 `;
 
-export const CountQuestion = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-
-  & img {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  & span {
-    color: var(--Grayscale-60);
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-size: 1.6rem;
-    line-height: 2.2rem; /* 137.5% */
-  }
-`;
 
 export const ViewMoreButton = styled(FloatButton)`
   width: 13.4rem;
@@ -144,10 +132,4 @@ export const ModalFloatButton = styled(FloatButton)`
   right: 20px;
 `;
 
-export const QuestionList = styled.div`
-
-`;
-
-export const QuestionCard = styled.div`
-
-`;
+export { ShareButton, CountQuestion, QuestionList, QuestionCard };
