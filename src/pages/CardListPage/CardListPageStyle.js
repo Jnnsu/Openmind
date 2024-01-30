@@ -26,6 +26,7 @@ export const CardListHeader = styled.div`
 export const Logo = styled.img`
   width: 146px;
   height: 57px;
+  cursor: pointer;
 `;
 
 export const CardListTitleWrapper = styled.div`
