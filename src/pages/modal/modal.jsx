@@ -1,6 +1,8 @@
 import { createPortal } from 'react-dom';
-import * as S from './ModalStyle';
-import TextArea from '../components/Input/TextArea';
+import * as S from './modalStyle';
+import TextArea from '../../components/Input/TextArea';
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function Modal({ handleCloseModal, subjectData }) {
   const [name, imageSource, subjectId] = subjectData;
@@ -74,7 +76,7 @@ export default function Modal({ handleCloseModal, subjectData }) {
           />
         </S.ModalHeader>
         <S.ModalProfileBox>
-          <S.ModalProfileTo className="ModalProfileTo">To.</S.ModalProfileTo>
+          <div className="ModalProfileTo">To.</div>
           <S.ModalProfileUserImageBox>
             <img
               className="ModalProfileUserImage"
@@ -82,7 +84,7 @@ export default function Modal({ handleCloseModal, subjectData }) {
               alt="프로필 사진"
             />
           </S.ModalProfileUserImageBox>
-          <S.ModalProfileUserId>{name}</S.ModalProfileUserId>
+          <div>{name}</div>
         </S.ModalProfileBox>
         <S.ModalMain>
           <S.ModalMainQuestionArea>
