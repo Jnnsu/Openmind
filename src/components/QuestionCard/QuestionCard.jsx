@@ -20,17 +20,17 @@ export default function QuestionCard({
   onDeleteItem,
 }) {
   const [answerInput, setAnswerInput] = useState(question.answer);
-  const [answerModifyId, setAnswerModifyId] = useState();
+  const [answerModify, setAnswerModify] = useState();
 
   const handleTextareaOnChange = e => {
     setAnswerInput(e.target.value);
   };
 
   const handleSelectAnswerModify = () => {
-    if (answerModifyId === question.id) {
-      setAnswerModifyId(null);
+    if (answerModify || question.answer?.isRejected) {
+      setAnswerModify(false);
     } else {
-      setAnswerModifyId(question.id);
+      setAnswerModify(true);
     }
   };
 
@@ -66,7 +66,7 @@ export default function QuestionCard({
       setAnswerInput(questionAnswer.content);
     }
 
-    setAnswerModifyId(null);
+    setAnswerModify(false);
     setQuestionList([
       ...questionList.slice(0, index),
       question,
@@ -78,9 +78,9 @@ export default function QuestionCard({
     const answerValue = e.target.previousElementSibling.value;
     let questionAnswer = {};
     let answer;
-    if (question.id === answerModifyId) {
+    if (answerModify) {
       if (answerValue === question.answer.content) {
-        setAnswerModifyId(null);
+        setAnswerModify(false);
         return;
       } else {
         questionAnswer = {
@@ -103,7 +103,7 @@ export default function QuestionCard({
 
     question.answer = answer;
 
-    setAnswerModifyId(null);
+    setAnswerModify(false);
     setQuestionList([
       ...questionList.slice(0, index),
       question,
@@ -113,11 +113,9 @@ export default function QuestionCard({
 
   const getAnswerContent = () => {
     const answer = question.answer;
-    const questionId = question.id;
-    const buttonText =
-      answerModifyId === questionId ? '수정 완료' : '답변 완료';
+    const buttonText = answerModify ? '수정 완료' : '답변 완료';
     let answerContent;
-    if (answer && answerModifyId !== questionId) {
+    if (answer && !answerModify) {
       answerContent = <span className="answerContent">{answer?.content}</span>;
     } else {
       answerContent = (
@@ -180,6 +178,7 @@ export default function QuestionCard({
         <S.Kebab
           menuItem={isAnswered ? menuItem : menuItem.slice(1)}
           question={question}
+          answerModify={answerModify}
         />
       </S.QuestionStatus>
       <S.QuestionElapsedTime>
