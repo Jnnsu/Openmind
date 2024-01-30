@@ -1,6 +1,7 @@
 import * as S from './MainPageNavBarStyle';
 import OutlineBoxButton from '../../components/Button/OutlineBoxButton/OutlineBoxButton';
 import { useNavigate } from 'react-router-dom';
+import Weather from '../Weather/Weather';
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export default function NavBar() {
 
   return (
     <S.NavBar>
+      <Weather />
       <OutlineBoxButton
         appendix={
           <img

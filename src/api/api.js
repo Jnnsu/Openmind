@@ -169,3 +169,27 @@ export async function deleteQuestion(questionId) {
     console.log(error);
   }
 }
+
+export const getWeatherData = async (lat, lon) => {
+  try {
+    const response = await fetch(
+      `/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&lang=kr&units=metric`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const weatherData = await response.json();
+    console.log(weatherData);
+    return weatherData;
+  } catch (error) {
+    return `Error: ${error.message}`;
+  }
+};
