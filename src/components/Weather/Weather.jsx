@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useCurrentLocation } from '../../hooks/useCurrentLocation';
 import { positionOptions } from '../../utils/positionOptions';
 import { getWeatherData } from '../../api/api';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import * as S from './WeatherStyle';
 
 export default function Weather() {
@@ -29,7 +30,10 @@ export default function Weather() {
           if (weatherData) {
             setCity(weatherData.name);
             setTemp(`${weatherData.main.temp}°C`);
-            setWeather(weatherData.weather[0].icon); // 그냥 weather를 요청하면 날씨를 글자로 보내주고 icon을 붙이면 날씨에 맞는 이미지 url을 보내준다.
+            setWeather({
+              icon: weatherData.weather[0].icon,
+              weather: weatherData.weather[0].description,
+            }); // 그냥 weather를 요청하면 날씨를 글자로 보내주고 icon을 붙이면 날씨에 맞는 이미지 url을 보내준다.
           }
         } catch (error) {
           console.error('Error fetching weather data:', error);
@@ -42,17 +46,18 @@ export default function Weather() {
 
   return (
     <S.WeatherContainer>
-      {!city === false ? (
-        <S.WeatherDiv>
+      {!weather === false ? (
+        <S.WeatherTracker>
+          <p>{city}</p>
           <img
-            src={`http://openweathermap.org/img/wn/${weather}.png`}
+            src={`http://openweathermap.org/img/wn/${weather.icon}.png`}
             alt="날씨 이미지"
           />
-          <span>{temp}</span>
-          <p>{city}</p>
-        </S.WeatherDiv>
+          <p>{temp}</p>
+          <p>{weather.weather}</p>
+        </S.WeatherTracker>
       ) : (
-        <S.CostumSpin>Finding your location..</S.CostumSpin>
+        <LoadingSpinner error={error} />
       )}
     </S.WeatherContainer>
   );

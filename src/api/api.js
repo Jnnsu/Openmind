@@ -189,7 +189,6 @@ export const getWeatherData = async (lat, lon) => {
 
     const weatherData = await response.json();
     console.log(weatherData);
-    console.log(weatherData);
     return weatherData;
   } catch (error) {
     return `Error: ${error.message}`;
