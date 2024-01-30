@@ -65,8 +65,7 @@ export async function getSubject(subjectId) {
     );
 
     if (!response.ok) {
-      alert('존재하지 않는 이름/아이디 입니다.');
-      window.location.href = '/';
+      alert('데이터를 받아오지 못했습니다.');
     }
 
     const body = await response.json();
