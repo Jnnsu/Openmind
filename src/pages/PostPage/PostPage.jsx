@@ -32,17 +32,22 @@ const PostPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const subjectData = await getSubject (subjectId);
+        const subjectData = await getSubject(subjectId);
+        
         if (!subjectData) {
           navigate('/404'); // 사용자를 찾을 수 없음을 알리는 페이지로 이동합니다.
           return;
         }
         setSubject(subjectData);
 
-        const { questionCount, questionList } = await getQuestionList(subjectId, query.limit, query.offset);
-        setQuestionCount(questionCount);
-        setQuestionList(prevQuestionList => [...prevQuestionList, ...questionList]);
-        setIsHasNext(questionList.length === query.limit);
+        const { count, next, results} = await getQuestionList(subjectId, query.limit, query.offset);
+        // "count": 0,  질문 개수
+        // "next": null,  다음 question 주소값..?
+        // "previous": null, 이전 question 주소값...?
+        // "results": []   질문들..
+        setQuestionCount(count);
+        setQuestionList(previous => [...previous, ...next]);
+        setIsHasNext(results.length === LIMIT);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -51,7 +56,7 @@ const PostPage = () => {
     };
 
     fetchData();
-  }, [subjectId, query, navigate]);
+}, [subjectId, navigate, isLoading]);
 
   return (
     <>

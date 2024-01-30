@@ -64,10 +64,10 @@ export async function getSubject(subjectId) {
       `https://openmind-api.vercel.app/3-3/subjects/${subjectId}/`,
     );
 
-    if (!response.ok) {
-      alert('존재하지 않는 이름/아이디 입니다.');
-      window.location.href = '/';
-    }
+    // if (!response.ok) {
+    //   alert('존재하지 않는 이름/아이디 입니다.');
+    //   window.location.href = '/';
+    // }
 
     const body = await response.json();
 
