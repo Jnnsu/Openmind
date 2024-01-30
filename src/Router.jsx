@@ -10,8 +10,8 @@ export default function Router() {
       <Route path="/" element={<MainPage />} />
       <Route path="/list" element={<CardListPage />} />
       <Route path="/post/">
-        <Route path="/post/{id}" element={<PostPage />} />
-        <Route path="/post/{subjectId}/answer" element={<AnswerPage />} />
+        <Route path="/post/:subjectId" element={<PostPage />} />
+        <Route path="/post/:subjectId/answer" element={<AnswerPage />} />
       </Route>
     </Routes>
   );

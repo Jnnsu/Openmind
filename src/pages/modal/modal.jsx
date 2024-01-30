@@ -3,17 +3,18 @@ import * as S from './modalStyle';
 import TextArea from '../../components/Input/TextArea';
 import axios from 'axios';
 import { useState } from 'react';
+import ProfileImage from '../../components/Feed/ProfileImage/ProfileImage';
 
-export default function Modal({ handleCloseModal, subjectData }) {
-  const [name, imageSource, subjectId] = subjectData;
-  const SUBJECT_ID = subjectId;
+export default function Modal({ closeModal, userData }) {
+  const {name, imageSource, id} = userData;
+  const SUBJECT_ID = id;
   const [isTextArea, setIsTextArea] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
   const onClick = e => {
     // 모달 바깥클릭하면 나가는 이벤트
     if (e.target === e.currentTarget) {
-      handleCloseModal(e);
+      closeModal(e);
     }
   };
 
@@ -46,6 +47,7 @@ export default function Modal({ handleCloseModal, subjectData }) {
           },
         },
       );
+      // console.log(subjectId)
 
       if (response.status === 201) {
         window.location.reload(true);
@@ -70,8 +72,8 @@ export default function Modal({ handleCloseModal, subjectData }) {
           </S.ModalHeaderTitleBox>
           <img
             className="CloseButton"
-            onClick={e => handleCloseModal(e)}
-            src="./images/Close.svg"
+            onClick={e => closeModal(e)}
+            src="/images/Close.svg"
             alt="close icon"
           />
         </S.ModalHeader>
@@ -94,12 +96,14 @@ export default function Modal({ handleCloseModal, subjectData }) {
                 textAreaCheck(e);
                 setInputValue(e.target.value);
               }}
+              placeholder="질문을 입력해주세요."
             />
           </S.ModalMainQuestionArea>
-          {isTextArea && <S.ModalQuestionExportButton onClick={postQuestion} />}
+          {isTextArea && <S.ModalQuestionExportButton onClick={postQuestion}>질문 보내기</S.ModalQuestionExportButton>}
         </S.ModalMain>
       </S.ModalContents>
-    </S.ModalContainer>,
+    </S.ModalContainer>
+    ,
     document.body,
   );
 }
