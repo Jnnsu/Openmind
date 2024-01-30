@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as S from './KebabButtonStyle';
 
-export default function Kebab({ menuItem, question }) {
+export default function Kebab({ menuItem, question, answerModify }) {
   const [isOpenKebabMenu, setIsOpenKebabMenu] = useState();
   const [selectedMenuItem, setSelectedMenuItem] = useState();
   const [dropLeft, setDropLeft] = useState();
@@ -26,7 +26,7 @@ export default function Kebab({ menuItem, question }) {
   };
 
   const handleKebabMenuItemOnClick = e => {
-    if (e.currentTarget.innerText === selectedMenuItem || isReject) {
+    if (answerModify || isReject) {
       setSelectedMenuItem(null);
     } else {
       setSelectedMenuItem(e.currentTarget.innerText);
@@ -46,7 +46,10 @@ export default function Kebab({ menuItem, question }) {
           {menuItem.map(element => {
             let className = '';
             let image = element.imagePath;
-            if (element.isBlue || element.text === selectedMenuItem) {
+            if (
+              element.isBlue ||
+              (answerModify && element.text === selectedMenuItem)
+            ) {
               className = 'selected';
               image = element.imageBluePath;
             }

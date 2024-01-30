@@ -27,7 +27,7 @@ export default function AnswerPage() {
       )
     ) {
       const result = await deleteSubject(subjectId);
-      if (result.ok) {
+      if (!result) {
         navigate('/');
       } else {
         alert('삭제에 실패하였습니다.');
