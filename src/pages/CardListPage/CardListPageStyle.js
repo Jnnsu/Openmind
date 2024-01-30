@@ -19,6 +19,7 @@ export const CardListHeader = styled.div`
   @media (min-width: 375px) and (max-width: 767px) {
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 `;
 
