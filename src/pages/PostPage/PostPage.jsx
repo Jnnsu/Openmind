@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getQuestionList, getSubject  } from '../../api/api';
 import * as S from './PostPageStyle';
 import Modal from '../modal/modal';
+import ProfileImage from '../../components/Feed/ProfileImage/ProfileImage';
+import ShareButton from '../../components/Button/ShareButton/ShareButton';
 
 const LIMIT = 10;
 
@@ -16,7 +18,18 @@ const PostPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isHasNext, setIsHasNext] = useState(true);
   const [query, setQuery] = useState({ limit: LIMIT, offset: 0 });
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userData, setUserData] =useState({
+    name: subject?.name, 
+    imageSource: subject?.imageSource, 
+    subjectId: subjectId
+  })
+  const openModal = () =>{
+    setIsModalOpen(true);
+  }
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
 
   const handleViewMoreButtonOnClick = () => {
     if (!isHasNext) return;
@@ -24,15 +37,11 @@ const PostPage = () => {
     setQuery(prevQuery => ({ ...prevQuery, offset: prevQuery.offset + LIMIT }));
   };
 
-  //모달띄우는 버튼
-  const handleModalQuestion = () => {
-    setIsShowModal(!isShowModal);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const subjectData = await getSubject(subjectId);
+        console.log(subjectData)
         
         if (!subjectData) {
           navigate('/404'); // 사용자를 찾을 수 없음을 알리는 페이지로 이동합니다.
@@ -46,7 +55,7 @@ const PostPage = () => {
         // "previous": null, 이전 question 주소값...?
         // "results": []   질문들..
         setQuestionCount(count);
-        setQuestionList(previous => [...previous, ...next]);
+        setQuestionList(previous => [...previous]);
         setIsHasNext(results.length === LIMIT);
         setIsLoading(false);
       } catch (error) {
@@ -66,9 +75,9 @@ const PostPage = () => {
           <a href='/'>
             <img className='logo' src='/images/logo.png' alt='메인페이지 로고'/>
           </a>
-          <img className="subject-profile-image" src={subject?.profileImage} alt="프로필 이미지" />
+          <ProfileImage className='ProfileImage' src={subject?.imageSource} alt="프로필 이미지" />
           <h1 className="subject-name">{subject?.name}</h1>
-          <p className="subject-description">{subject?.description}</p>
+          <ShareButton />
         </S.SubjectInfo>
       </S.Header>
       <S.MainContainer>
@@ -102,15 +111,13 @@ const PostPage = () => {
         <S.ModalFloatButton
           className="question-write-button"
           type="button"
-          onClick={handleModalQuestion}
-          subjectData={[subject?.name, subject?.imageSource, subjectId]}
+          onClick={openModal}
         >
           질문 작성하기
         </S.ModalFloatButton>
-
-        {/* 모달이 열려있을 때 모달 컴포넌트를 렌더링합니다. */}
-        {isShowModal && <Modal handleClose={handleModalQuestion} />}
-     
+        {isModalOpen && (
+        <Modal userData={userData} closeModal={closeModal} />
+        )}
       </S.MainContainer>
     </>
   );

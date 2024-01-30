@@ -95,7 +95,7 @@ export const ModalMain = styled.div`
   gap: 8px;
 `;
 
-export const ModalMainQuestionArea = styled.input`
+export const ModalMainQuestionArea = styled.div`
   display: flex;
   width: 532px;
   height: 180px;

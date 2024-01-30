@@ -4,16 +4,16 @@ import TextArea from '../../components/Input/TextArea';
 import axios from 'axios';
 import { useState } from 'react';
 
-export default function Modal({ handleCloseModal, subjectData }) {
-  const [name, imageSource, subjectId] = subjectData;
-  const SUBJECT_ID = subjectId;
+export default function Modal({ closeModal, userData }) {
+  const {name, imageSource, id} = userData;
+  const SUBJECT_ID = id;
   const [isTextArea, setIsTextArea] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
   const onClick = e => {
     // 모달 바깥클릭하면 나가는 이벤트
     if (e.target === e.currentTarget) {
-      handleCloseModal(e);
+      closeModal(e);
     }
   };
 
@@ -70,7 +70,7 @@ export default function Modal({ handleCloseModal, subjectData }) {
           </S.ModalHeaderTitleBox>
           <img
             className="CloseButton"
-            onClick={e => handleCloseModal(e)}
+            onClick={e => closeModal(e)}
             src="./images/Close.svg"
             alt="close icon"
           />

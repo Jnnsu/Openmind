@@ -20,6 +20,13 @@ export const HeaderImage = styled.div`
   mix-blend-mode: hard-light;
 `;
 
+export const ProfileImage = styled.div`
+  width: 136px;
+  height: 136px;
+  flex-shrink: 0;
+  border-radius: 136px;
+`;
+
 export const SubjectInfo = styled.div`
   display: flex;
   flex-direction: column;
