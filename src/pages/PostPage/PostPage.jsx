@@ -28,7 +28,6 @@ const PostPage = () => {
   const handleModalQuestion = () => {
     setIsShowModal(!isShowModal);
   };
-  
 
   useEffect(() => {
     const fetchData = async () => {
