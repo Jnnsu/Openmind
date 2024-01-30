@@ -1,46 +1,50 @@
-import BadgeButton from '../../Button/BadgeButton/BadgeButton';
-import Reaction from '../Reaction/Reaction';
 import * as S from './FeedCardStyle';
 import cardCreatedDate from '../../../utils/CardCreatedDate';
+import Reaction from '../Reaction/Reaction';
 
-export default function FeedCard ( { data, subjectData } ){
-  const {id: qusetionId, content, like, dislike, createdAt, answer} =data;
-  const [subjectName, subjectImg] = subjectData;
+export default function Card({ subject, question }) {
+  const { createdAt, content, answer, like , dislike } = question;
+  const isAnswered = !!answer;
+  const color = isAnswered ? 'brown' : 'gray';
+  const text = isAnswered ? '답변 완료' : '미답변';
+  console.log(color, text);
 
   return (
-    <S.CardContainer>
-      <S.Header>
-        <BadgeButton isAnswered={answer} />
-      </S.Header>
-        <S.QuestionTime>
-         질문 · {cardCreatedDate(createdAt)}
-        </S.QuestionTime>
-        <S.QuestionContent>{content}</S.QuestionContent>
-      {answer ? (
+    <S.FeedCardContainer>
+      <S.CardTop>
+        <S.BadgeButton $color={color}>{text}</S.BadgeButton>
+      </S.CardTop>
+      <S.CardCreatedDateAndQuestion>
+        <span>질문 · {cardCreatedDate(createdAt)}</span>
+        <h3>{content}</h3>
+      </S.CardCreatedDateAndQuestion>
+      {answer &&
+      <S.QuestionAnswer>
+        <img
+          className="main__profileImage"
+          src={subject?.imageSource}
+          alt="프로필 사진"
+        />
         <S.AnswerContainer>
-          <S.ProfileImage src={subjectImg}/>
-          <S.AnswerBox>
-            <S.AnswerProfile>
-              <S.AnswerName>{subjectName}</S.AnswerName>
-              <S.AnswerDate>
-                {cardCreatedDate(answer['createdAt'])}
-              </S.AnswerDate>
-            </S.AnswerProfile>
-            { answer['isRejected'] ? (
-              <S.RefuseContent>답변 거절</S.RefuseContent>
-            ):(
-            <S.AnsweredContent>{answer['content']}</S.AnsweredContent>
+          <S.AnswerElapsedTime>
+            <span className="main__profileName">{subject?.name}</span>
+            {isAnswered && (
+              <span className="answerElapsedTime">
+                {cardCreatedDate(createdAt)}
+              </span>
+            )}
+          </S.AnswerElapsedTime>
+          {question.answer?.isRejected ? (
+            <span className="answerIsRejected">답변 거절</span>
+          ) : (
+            answer && <span className="answerContent">{answer.content}</span>
           )}
-          </S.AnswerBox>
         </S.AnswerContainer>
-      ) : null }
-      <S.Foooter>
-        <S.FooterIcons>
-        <Reaction like={like} dislike={dislike} /> 
-        {/* questionId={questionId} */}
-        </S.FooterIcons>
-      </S.Foooter>
-    </S.CardContainer>
+      </S.QuestionAnswer> }
+         
+      <S.CardFooter>
+        <Reaction like={like} dislike={dislike} />
+      </S.CardFooter>
+    </S.FeedCardContainer>
   );
-
-};
+}
