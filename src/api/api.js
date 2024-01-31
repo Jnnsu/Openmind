@@ -1,4 +1,5 @@
 import { API } from '../constants';
+const PROXY = window.location.hostname === 'localhost' ? '' : '/data';
 
 export const setUserData = async userData => {
   try {
@@ -192,33 +193,10 @@ export async function deleteQuestion(questionId) {
   }
 }
 
-// export const getWeatherData = async (lat, lon) => {
-//   try {
-//     const response = await fetch(
-//       `${PROXY}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`,
-//       {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       },
-//     );
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     const weatherData = await response.json();
-//     return weatherData;
-//   } catch (error) {
-//     return `Error: ${error.message}`;
-//   }
-// };
-
 export const getWeatherData = async (lat, lon) => {
   try {
     const response = await fetch(
-      `/.netlify/functions/getWeather?lat=${lat}&lon=${lon}`,
+      `${PROXY}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`,
       {
         method: 'GET',
         headers: {
@@ -232,11 +210,34 @@ export const getWeatherData = async (lat, lon) => {
     }
 
     const weatherData = await response.json();
-
-    // 여기서 날씨 데이터를 활용할 수 있습니다.
-    console.log(weatherData);
+    return weatherData;
   } catch (error) {
-    console.error(`Error during fetch: ${error.message}`);
-    // 에러 처리 로직을 추가할 수 있습니다.
+    return `Error: ${error.message}`;
   }
 };
+
+// export const getWeatherData = async (lat, lon) => {
+//   try {
+//     const response = await fetch(
+//       `/.netlify/functions/getWeather?lat=${lat}&lon=${lon}`,
+//       {
+//         method: 'GET',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       },
+//     );
+
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     const weatherData = await response.json();
+
+//     // 여기서 날씨 데이터를 활용할 수 있습니다.
+//     console.log(weatherData);
+//   } catch (error) {
+//     console.error(`Error during fetch: ${error.message}`);
+//     // 에러 처리 로직을 추가할 수 있습니다.
+//   }
+// };
