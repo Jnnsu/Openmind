@@ -1,5 +1,6 @@
 import { API } from '../constants';
-const PROXY = window.location.hostname === 'localhost' ? '' : '/api';
+const PROXY =
+  window.location.hostname === 'localhost' ? '' : '/.netlify/functions';
 
 export const setUserData = async userData => {
   try {
