@@ -1,6 +1,5 @@
 import { API } from '../constants';
-const PROXY =
-  window.location.hostname === 'localhost' ? '' : 'api.openweathermap.org';
+const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
 
 export const setUserData = async userData => {
   try {
