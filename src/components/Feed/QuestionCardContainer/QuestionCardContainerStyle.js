@@ -21,11 +21,6 @@ export const CountQuestion = styled.div`
   align-items: center;
   gap: 0.8rem;
 
-  & img {
-    width: 2.4rem;
-    height: 2.4rem;
-  }
-
   & span {
     color: var(--Brown-40);
     font-feature-settings:

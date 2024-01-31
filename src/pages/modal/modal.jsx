@@ -3,6 +3,7 @@ import * as S from './modalStyle';
 import TextArea from '../../components/Input/TextArea';
 import axios from 'axios';
 import { useState } from 'react';
+import FillBoxButton from '../../components/Button/FillBoxButton/FillBoxButton';
 
 export default function Modal({ closeModal, userData }) {
   const { name, imageSource, id } = userData;
@@ -24,7 +25,10 @@ export default function Modal({ closeModal, userData }) {
   };
 
   const textAreaCheck = e => {
-    if (e.target.value !== '') {
+    const value = e.target.value;
+    console.log('Textarea value:', value);
+
+    if (value !== '') {
       setIsTextArea(true);
     } else {
       setIsTextArea(false);
@@ -47,7 +51,7 @@ export default function Modal({ closeModal, userData }) {
         },
       );
       if (response.status === 201) {
-        window.location.reload(true);
+        window.location.reload(true); //여기 체크해보기
       }
     } catch (error) {
       console.log("modal's send question", error);
@@ -83,7 +87,7 @@ export default function Modal({ closeModal, userData }) {
               alt="프로필 사진"
             />
           </S.ModalProfileUserImageBox>
-          <div>{name}</div>
+          <div className="userName">{name}</div>
         </S.ModalProfileBox>
         <S.ModalMain>
           <S.ModalMainQuestionArea>
@@ -96,11 +100,14 @@ export default function Modal({ closeModal, userData }) {
               placeholder="질문을 입력해주세요."
             />
           </S.ModalMainQuestionArea>
-          {isTextArea && (
-            <S.ModalQuestionExportButton onClick={postQuestion}>
-              질문 보내기
-            </S.ModalQuestionExportButton>
-          )}
+          {/* // html button disabled */}
+          <FillBoxButton
+            onClick={postQuestion}
+            fulled={true}
+            disabled={!inputValue ? 'true' : null}
+          >
+            질문 보내기
+          </FillBoxButton>
         </S.ModalMain>
       </S.ModalContents>
     </S.ModalContainer>,

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const CardListContainer = styled.div`
   background: var(--Grayscale-20);
   width: 100%;
-  height: 100vh;
   padding: 40px 130px;
 
   @media (min-width: 375px) and (max-width: 767px) {
@@ -133,10 +132,7 @@ export const ReceiveQuestion = styled.div`
   display: flex;
   align-items: center;
   font-size: 16px;
-
-  img {
-    width: 18px;
-  }
+  gap: 3px;
 `;
 
 export const CardListFooter = styled.div`
