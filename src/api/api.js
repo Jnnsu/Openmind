@@ -1,5 +1,5 @@
 import { API } from '../constants';
-const PROXY = window.location.hostname === 'localhost' ? '' : '/data';
+const PROXY = window.location.hostname === 'localhost' ? '' : '/api';
 
 export const setUserData = async userData => {
   try {
