@@ -27,7 +27,7 @@ export const ProfileContainer = styled.div`
   }
 
   & button {
-    width: 100%;
+    width: 48%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,5 +45,15 @@ export const ProfileContainer = styled.div`
       font-size: 1.4rem;
       height: 34px;
     }
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 767px) {
+    width: 260px;
   }
 `;
