@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CardList() {
   const [result, setResult] = useState([]);
-  const [sortOption, setSortOption] = useState('date');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(8);
+  const postsPerPage = 8;
+
+  const [sort, setSort] = useState('createdAt');
+  const [offset, setOffset] = useState(0);
 
   const navigate = useNavigate();
 
@@ -18,19 +20,10 @@ export default function CardList() {
     async function getListData() {
       try {
         const response = await fetch(
-          `https://openmind-api.vercel.app/3-3/subjects/?limit=${postsPerPage}`,
+          `https://openmind-api.vercel.app/3-3/subjects/?sort=${sort}&limit=${postsPerPage}&offset=${offset}`,
         );
         const { results, count } = await response.json();
         let sortedData = [...results];
-
-        if (sortOption === 'name') {
-          sortedData = sortedData.sort((a, b) => a.name.localeCompare(b.name));
-        }
-        if (sortOption === 'date') {
-          sortedData = sortedData.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-          );
-        }
 
         setResult(sortedData);
         setTotalPosts(count);
@@ -39,20 +32,7 @@ export default function CardList() {
       }
     }
     getListData();
-  }, [sortOption, postsPerPage]);
-
-  const fetchDataForPage = async pageNumber => {
-    const offset = (currentPage - 1) * postsPerPage;
-    const url = `https://openmind-api.vercel.app/3-3/subjects/?limit=${postsPerPage}&offset=${offset}`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return data.results || [];
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  }, [postsPerPage, sort, offset]);
 
   const handleAnswerPage = () => {
     const userId = sessionStorage.getItem('userId');
@@ -68,15 +48,14 @@ export default function CardList() {
   };
 
   const handleSortOption = option => {
-    setSortOption(option);
+    setSort(option);
   };
 
   const handlePaginate = async pageNumber => {
     try {
-      // console.log('Handling pagination for page:', pageNumber);
+      setOffset((pageNumber - 1) * postsPerPage);
+
       setCurrentPage(pageNumber);
-      const data = await fetchDataForPage(pageNumber);
-      setResult(data);
     } catch (error) {
       console.error(error);
     }
@@ -98,7 +77,7 @@ export default function CardList() {
         <S.CardListTitleWrapper>
           <S.CardListTitle>누구에게 질문할까요?</S.CardListTitle>
           <DropDownButton
-            sortOption={sortOption}
+            sortOption={sort}
             onSortOptionChange={handleSortOption}
           />
         </S.CardListTitleWrapper>
