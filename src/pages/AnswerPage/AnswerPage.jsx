@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getQuestionList, getSubject, deleteSubject } from '../../api/api';
+import { ReactComponent as Message } from '../../images/Messages.svg';
 import * as S from './AnswrePageStyle';
 
 export default function AnswerPage() {
@@ -122,7 +123,7 @@ export default function AnswerPage() {
             삭제하기
           </S.DeleteSubjectButton>
           <S.CountQuestion>
-            <img src="/images/Messages.svg" alt="메세지 아이콘" />
+            <Message fill="var(--Brown-40)" />
             <span>{questionCountString}</span>
           </S.CountQuestion>
           {questionCount > 0 ? (

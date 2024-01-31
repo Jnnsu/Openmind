@@ -22,6 +22,7 @@ export const HeaderImage = styled.div`
     url('/images/header-image.png'),
     lightgray 0px -267.142px / 100% 515.021% no-repeat;
   background-position: center;
+  background-repeat: no-repeat;
   mix-blend-mode: hard-light;
 
   @media (max-width: 767px) {
