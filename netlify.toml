@@ -1,9 +1,3 @@
-[[redirects]]
-  from = "/proxy/*"
-  to = "https://api.openweathermap.org/:splat"
-  status = 200
-  force = true
-
 [build]
   environment = { REACT_APP_WEATHER_API_KEY = "a4157db9eb299058145cdf841898ff26" }
   command = "npm run build"
