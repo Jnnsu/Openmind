@@ -24,17 +24,17 @@ export default function Weather() {
         try {
           // 날씨 데이터 불러오기
           const weatherData = await getWeatherData(
-            location.latitude,
-            location.longitude,
+            location?.latitude,
+            location?.longitude,
           );
 
           // 불러온 날씨 데이터로 city, weather, temp 설정
           if (weatherData) {
-            setCity(weatherData.name);
-            setTemp(`${weatherData.main.temp}°C`);
+            setCity(weatherData?.name);
+            setTemp(`${weatherData?.main?.temp}°C`);
             setWeather({
-              icon: weatherData.weather[0].icon,
-              weather: weatherData.weather[0].main,
+              icon: weatherData?.weather[0]?.icon,
+              weather: weatherData?.weather[0]?.main,
             });
           }
         } catch (error) {
