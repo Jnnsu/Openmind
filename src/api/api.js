@@ -196,7 +196,10 @@ export async function deleteQuestion(questionId) {
 export const getWeatherData = async (lat, lon) => {
   try {
     const response = await fetch(
-      `${PROXY}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`,
+      'https://corsproxy.io/' +
+        encodeURIComponent(
+          'https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric',
+        ),
       {
         method: 'GET',
         headers: {
