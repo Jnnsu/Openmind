@@ -29,12 +29,12 @@ export default function Weather() {
           );
 
           // 불러온 날씨 데이터로 city, weather, temp 설정
-          if (weatherData) {
-            setCity(weatherData?.name);
-            setTemp(`${weatherData?.main?.temp}°C`);
+          if (weatherData && weatherData.main && weatherData.weather[0]) {
+            setCity(weatherData.name);
+            setTemp(`${weatherData.main.temp}°C`);
             setWeather({
-              icon: weatherData?.weather[0]?.icon,
-              weather: weatherData?.weather[0]?.main,
+              icon: weatherData.weather[0].icon,
+              weather: weatherData.weather[0].main,
             });
           }
         } catch (error) {
