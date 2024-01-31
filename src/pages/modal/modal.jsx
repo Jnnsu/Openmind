@@ -3,10 +3,9 @@ import * as S from './modalStyle';
 import TextArea from '../../components/Input/TextArea';
 import axios from 'axios';
 import { useState } from 'react';
-import ProfileImage from '../../components/Feed/ProfileImage/ProfileImage';
 
 export default function Modal({ closeModal, userData }) {
-  const {name, imageSource, id} = userData;
+  const { name, imageSource, id } = userData;
   const SUBJECT_ID = id;
   const [isTextArea, setIsTextArea] = useState(true);
   const [inputValue, setInputValue] = useState('');
@@ -37,7 +36,7 @@ export default function Modal({ closeModal, userData }) {
       const response = await axios.post(
         `https://openmind-api.vercel.app/3-3/subjects/${SUBJECT_ID}/questions/`,
         {
-          subjectId: SUBJECT_ID.id,
+          subjectId: SUBJECT_ID,
           content: inputValue,
           team: '3-3',
         },
@@ -47,8 +46,6 @@ export default function Modal({ closeModal, userData }) {
           },
         },
       );
-      // console.log(subjectId)
-
       if (response.status === 201) {
         window.location.reload(true);
       }
@@ -99,11 +96,14 @@ export default function Modal({ closeModal, userData }) {
               placeholder="질문을 입력해주세요."
             />
           </S.ModalMainQuestionArea>
-          {isTextArea && <S.ModalQuestionExportButton onClick={postQuestion}>질문 보내기</S.ModalQuestionExportButton>}
+          {isTextArea && (
+            <S.ModalQuestionExportButton onClick={postQuestion}>
+              질문 보내기
+            </S.ModalQuestionExportButton>
+          )}
         </S.ModalMain>
       </S.ModalContents>
-    </S.ModalContainer>
-    ,
+    </S.ModalContainer>,
     document.body,
   );
 }

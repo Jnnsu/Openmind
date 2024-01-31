@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
-export default function TextArea({ placeholder }) {
-
+export default function TextArea({ placeholder, onChange }) {
   return (
     <Form>
-      <InputTextArea placeholder={placeholder} />
+      <InputTextArea placeholder={placeholder} onChange={onChange} />
     </Form>
   );
 }
