@@ -5,6 +5,7 @@ import * as S from './PostPageStyle';
 import Modal from '../modal/modal';
 import ProfileImage from '../../components/Feed/ProfileImage/ProfileImage';
 import ShareButton from '../../components/Button/ShareButton/ShareButton';
+import { ReactComponent as Message } from '../../images/Messages.svg';
 
 const LIMIT = 10;
 
@@ -54,10 +55,6 @@ const PostPage = () => {
           query.limit,
           query.offset,
         );
-        // "count": 0,  질문 개수
-        // "next": null,  다음 question 주소값..?
-        // "previous": null, 이전 question 주소값...?
-        // "results": []   질문들..
         setQuestionCount(count);
         setQuestionList(previous => [...previous, ...results]);
         setIsHasNext(results.length === LIMIT);
@@ -96,7 +93,7 @@ const PostPage = () => {
       <S.MainContainer>
         <S.QuestionListContainer>
           <S.CountQuestion>
-            <img src="/images/Messages.svg" alt="메세지 아이콘" />
+            <Message fill="var(--Brown-40)" />
             <span>
               {questionCount
                 ? `${questionCount}개의 질문이 있습니다`
@@ -129,7 +126,6 @@ const PostPage = () => {
             </S.NoQuestionImageContainer>
           )}
         </S.QuestionListContainer>
-        {/* ModalFloatButton 추가 */}
         <S.ModalFloatButton
           className="question-write-button"
           type="button"
