@@ -20,12 +20,14 @@ export const ProfileForm = ({ userId, userName }) => {
       <p>
         <span>{userName}</span>님 환영합니다!
       </p>
-      <FillBoxButton type="submit" onClick={handleAnswerButtonClick}>
-        질문 받기
-      </FillBoxButton>
-      <FillBoxButton type="submit" onClick={handleLogoutButtonClick}>
-        로그아웃
-      </FillBoxButton>
+      <S.ButtonContainer>
+        <FillBoxButton type="submit" onClick={handleAnswerButtonClick}>
+          질문 받기
+        </FillBoxButton>
+        <FillBoxButton type="submit" onClick={handleLogoutButtonClick}>
+          로그아웃
+        </FillBoxButton>
+      </S.ButtonContainer>
     </S.ProfileContainer>
   );
 };

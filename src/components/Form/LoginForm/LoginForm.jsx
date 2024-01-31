@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getUserDataList } from '../../../api/api';
+import { getAllUserDataList } from '../../../api/api';
 import { useNavigate } from 'react-router-dom';
 import FillBoxButton from '../../Button/FillBoxButton/FillBoxButton';
 import * as S from './LoginformStyle';
@@ -31,7 +31,8 @@ export default function LoginForm() {
     }
 
     try {
-      const response = await getUserDataList();
+      const response = await getAllUserDataList();
+      console.log(response);
       const userDataList = response.results;
 
       // DB에는 id가 숫자, input은 문자열이므로 userId를 숫자로 변환

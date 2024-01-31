@@ -15,7 +15,6 @@ export const setUserData = async userData => {
     }
 
     const userDataList = await response.json();
-    console.log(userDataList);
     return userDataList;
   } catch (error) {
     console.error(`Error during fetch: ${error.message}`);
@@ -37,7 +36,30 @@ export const getUserDataList = async () => {
     }
 
     const userDataList = await response.json();
-    console.log(userDataList);
+    return userDataList;
+  } catch (error) {
+    console.error(`Error during fetch: ${error.message}`);
+    return `Error: ${error.message}`;
+  }
+};
+
+export const getAllUserDataList = async () => {
+  try {
+    const response = await fetch(
+      `https://openmind-api.vercel.app/3-3/subjects/?limit=1000&offset=10&sort=name`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const userDataList = await response.json();
     return userDataList;
   } catch (error) {
     console.error(`Error during fetch: ${error.message}`);
