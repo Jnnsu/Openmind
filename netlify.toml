@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/api/*"
-  to = "https://api.openweathermap.org/data/2.5/:splat"
+  from = "/proxy/*"
+  to = "https://api.openweathermap.org/:splat"
   status = 200
   force = true
 
