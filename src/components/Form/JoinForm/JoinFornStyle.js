@@ -6,7 +6,7 @@ import {
 } from '../../Input/FieldStyle';
 
 export const JoinForm = styled.form`
-  width: 400px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
