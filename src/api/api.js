@@ -1,4 +1,5 @@
 import { API } from '../constants';
+const PROXY = window.location.hostname === 'localhost' ? '' : '/api';
 
 export const setUserData = async userData => {
   try {
@@ -195,7 +196,7 @@ export async function deleteQuestion(questionId) {
 export const getWeatherData = async (lat, lon) => {
   try {
     const response = await fetch(
-      `/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`,
+      `${PROXY}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`,
       {
         method: 'GET',
         headers: {
