@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as S from './DropDownButtonStyle';
 
 export default function DropDownButton({ sortOption, onSortOptionChange }) {
@@ -31,7 +31,7 @@ export default function DropDownButton({ sortOption, onSortOptionChange }) {
             <S.DropDownItem onClick={() => handleSortOption('name')}>
               이름순
             </S.DropDownItem>
-            <S.DropDownItem onClick={() => handleSortOption('date')}>
+            <S.DropDownItem onClick={() => handleSortOption('createdAt')}>
               최신순
             </S.DropDownItem>
           </S.DropDownMenu>
