@@ -23,4 +23,6 @@ export const FillButton = styled(BoxButton)`
     background-color: var(--Brown-30);
     border: none;
   }
+
+  ${props => (props.fulled ? 'width: 100%;' : '')}
 `;

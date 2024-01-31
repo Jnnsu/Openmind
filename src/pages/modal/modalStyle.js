@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import FillBoxButton from '../../components/Button/FillBoxButton/FillBoxButton';
 
 export const ModalContainer = styled.div`
   width: 100vw;
@@ -43,10 +44,15 @@ export const ModalHeaderTitleBox = styled.div`
   }
 
   & .questionMent {
-    font-size: 1.5rem;
-    line-height: 30px;
+    color: var(--Grayscale-60, #000);
+    font-feature-settings:
+      'clig' off,
+      'liga' off;
     font-family: Actor;
-    color: var(--Grayscale-60);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; /* 125% */
   }
 
   & .CloseButton {
@@ -69,7 +75,7 @@ export const ModalProfileBox = styled.div`
     color: var(--Grayscale-60);
   }
 
-  & .ModalProfileUserId {
+  & .userName {
     font-family: Pretendard;
     color: var(--Grayscale-60);
     line-height: 22px;
@@ -125,18 +131,3 @@ export const ModalMainQuestionAreaText = styled.div`
   }
 `;
 
-export const ModalQuestionExportButton = styled.button`
-  display: flex;
-  padding: 12px 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  align-self: stretch;
-  border-radius: 8px;
-  border: none;
-  background: var(--Brown-30);
-
-  color: var(--Grayscale-10);
-  font-family: Pretendard;
-  line-height: 22px;
-`;
