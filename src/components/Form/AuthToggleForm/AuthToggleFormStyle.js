@@ -4,6 +4,11 @@ export const FormContainer = styled.div`
   position: absolute;
   top: 364px;
   width: 400px;
+
+  @media (max-width: 767px) {
+    width: 305px;
+    top: 260px;
+  }
 `;
 
 export const ButtonContainer = styled.div`

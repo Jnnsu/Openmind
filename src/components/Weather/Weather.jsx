@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { weatherState } from '../../atom/atom';
 import { useCurrentLocation } from '../../hooks/useCurrentLocation';
 import { positionOptions } from '../../utils/positionOptions';
 import { getWeatherData } from '../../api/api';
@@ -10,6 +12,7 @@ export default function Weather() {
   const [weather, setWeather] = useState('');
   const [city, setCity] = useState('');
   const [temp, setTemp] = useState('');
+  const [weatherInfo, setWeatherInfo] = useRecoilState(weatherState);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -32,8 +35,9 @@ export default function Weather() {
             setTemp(`${weatherData.main.temp}°C`);
             setWeather({
               icon: weatherData.weather[0].icon,
-              weather: weatherData.weather[0].description,
-            }); // 그냥 weather를 요청하면 날씨를 글자로 보내주고 icon을 붙이면 날씨에 맞는 이미지 url을 보내준다.
+              weather: weatherData.weather[0].main,
+            });
+            setWeatherInfo(weatherData.weather[0].main);
           }
         } catch (error) {
           console.error('Error fetching weather data:', error);
@@ -48,13 +52,15 @@ export default function Weather() {
     <S.WeatherContainer>
       {!weather === false ? (
         <S.WeatherTracker>
-          <p>{city}</p>
+          <S.City>
+            <p>{city}</p>
+            <p>{weather.weather}</p>
+          </S.City>
           <img
             src={`http://openweathermap.org/img/wn/${weather.icon}.png`}
             alt="날씨 이미지"
           />
           <p>{temp}</p>
-          <p>{weather.weather}</p>
         </S.WeatherTracker>
       ) : (
         <LoadingSpinner error={error} />
