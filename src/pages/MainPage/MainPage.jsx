@@ -9,8 +9,8 @@ export default function Main() {
   const userId = sessionStorage.getItem('userId');
   const userName = sessionStorage.getItem('userName');
   const weatherInfo = useRecoilValue(weatherState);
-  const backgroundImage = weatherInfo
-    ? `${process.env.PUBLIC_URL}/images/${weatherInfo}.jpg`
+  const backgroundImage = weatherInfo.weather
+    ? `${process.env.PUBLIC_URL}/images/${weatherInfo.weather}.jpg`
     : `${process.env.PUBLIC_URL}/images/MainPageBackground.png`;
 
   return (

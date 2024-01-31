@@ -9,10 +9,9 @@ import * as S from './WeatherStyle';
 
 export default function Weather() {
   const { location, error } = useCurrentLocation(positionOptions);
-  const [weather, setWeather] = useState('');
   const [city, setCity] = useState('');
   const [temp, setTemp] = useState('');
-  const [weatherInfo, setWeatherInfo] = useRecoilState(weatherState);
+  const [weather, setWeather] = useRecoilState(weatherState);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -37,7 +36,6 @@ export default function Weather() {
               icon: weatherData.weather[0].icon,
               weather: weatherData.weather[0].main,
             });
-            setWeatherInfo(weatherData.weather[0].main);
           }
         } catch (error) {
           console.error('Error fetching weather data:', error);
