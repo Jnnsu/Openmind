@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { getUserDataList } from '../../../api/api';
+import { useNavigate } from 'react-router-dom';
 import FillBoxButton from '../../Button/FillBoxButton/FillBoxButton';
 import * as S from './LoginformStyle';
 
@@ -43,6 +43,7 @@ export default function LoginForm() {
 
       if (user) {
         window.sessionStorage.setItem('userId', userId);
+        window.sessionStorage.setItem('userName', userName);
         navigate(`/post/${userId}/answer`);
         return;
       }
@@ -105,7 +106,7 @@ export default function LoginForm() {
         )}
       </S.InputGroup>
 
-      <FillBoxButton type="submit">질문 받기</FillBoxButton>
+      <FillBoxButton type="submit">로그인 하기</FillBoxButton>
     </S.LoginForm>
   );
 }

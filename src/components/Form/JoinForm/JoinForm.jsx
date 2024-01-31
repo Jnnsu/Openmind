@@ -33,6 +33,7 @@ export default function JoinForm() {
 
       if (userId) {
         window.sessionStorage.setItem('userId', userId);
+        window.sessionStorage.setItem('userName', userName);
         navigate(`/post/${userId}/answer`);
         return;
       }

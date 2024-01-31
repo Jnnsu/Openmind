@@ -3,7 +3,6 @@ import DropDownButton from '../../components/DropDown/DropDownButton';
 import OutlineBoxButton from '../../components/Button/OutlineBoxButton/OutlineBoxButton';
 import Pagenation from '../../components/Pagenation/Pagenation';
 import { useEffect, useState } from 'react';
-import { API } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 
 export default function CardList() {
@@ -18,13 +17,11 @@ export default function CardList() {
   useEffect(() => {
     async function getListData() {
       try {
-        // const response = await fetch(API.SUBJECT);
         const response = await fetch(
           `https://openmind-api.vercel.app/3-3/subjects/?limit=${postsPerPage}`,
         );
         const { results, count } = await response.json();
         let sortedData = [...results];
-        console.log(count);
 
         if (sortOption === 'name') {
           sortedData = sortedData.sort((a, b) => a.name.localeCompare(b.name));
@@ -44,20 +41,6 @@ export default function CardList() {
     getListData();
   }, [sortOption, postsPerPage]);
 
-  // useEffect(() => {
-  //   async function fetchDataForPage() {
-  //     const offset = (currentPage - 1) * postsPerPage;
-  //     const url = `https://openmind-api.vercel.app/3-3/subjects/?limit=${postsPerPage}&offset=${offset}`;
-  //     try {
-  //       const response = await fetch(url);
-  //       const data = await response.json();
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   }
-  //   fetchDataForPage();
-  // }, []);
-
   const fetchDataForPage = async pageNumber => {
     const offset = (currentPage - 1) * postsPerPage;
     const url = `https://openmind-api.vercel.app/3-3/subjects/?limit=${postsPerPage}&offset=${offset}`;
@@ -72,7 +55,12 @@ export default function CardList() {
   };
 
   const handleAnswerPage = () => {
-    navigate('/post/:subjectId/answer');
+    const userId = sessionStorage.getItem('userId');
+    if (userId) {
+      navigate(`/post/${userId}/answer`);
+    } else {
+      navigate('/');
+    }
   };
 
   const handlePostPage = id => {
@@ -90,12 +78,7 @@ export default function CardList() {
       const data = await fetchDataForPage(pageNumber);
       setResult(data);
     } catch (error) {
-      console.error(
-        'Error handling pagination for page',
-        pageNumber,
-        ':',
-        error,
-      );
+      console.error(error);
     }
   };
 
