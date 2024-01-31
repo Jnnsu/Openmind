@@ -4,6 +4,7 @@ import OutlineBoxButton from '../../components/Button/OutlineBoxButton/OutlineBo
 import Pagenation from '../../components/Pagenation/Pagenation';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ReactComponent as Message } from '../../images/Messages.svg';
 
 export default function CardList() {
   const [result, setResult] = useState([]);
@@ -70,7 +71,16 @@ export default function CardList() {
             alt="로고 이미지"
             onClick={() => navigate('/')}
           />
-          <OutlineBoxButton onClick={handleAnswerPage}>
+          <OutlineBoxButton
+            appendix={
+              <img
+                src={`${process.env.PUBLIC_URL}/images/arrow-right-icon.png`}
+                alt="화살표"
+                width="18"
+              />
+            }
+            onClick={handleAnswerPage}
+          >
             답변하러 가기
           </OutlineBoxButton>
         </S.CardListHeader>
@@ -97,7 +107,7 @@ export default function CardList() {
               </S.CardTop>
               <S.CardBottom>
                 <S.ReceiveQuestion>
-                  <img src="./images/Messages.svg" alt="메세지 아이콘" />
+                  <Message fill="var(--Grayscale-40)" />
                   <div>받은 질문</div>
                 </S.ReceiveQuestion>
                 <div>{item.questionCount}개</div>
