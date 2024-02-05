@@ -27,6 +27,8 @@
   <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
 </div>
 
+<br>
+
 <div>
 <h2>팀원 소개</h2>
 </div>
@@ -68,6 +70,8 @@
 </tr>
 </table>
 
+<br>
+
 <h2>개발 기간</h2>
 
 - 1월 17일 ~ 1월 31일
@@ -75,6 +79,8 @@
     - 01/17 - 개발환경 & 개발 컨벤션 & 공통 컴포넌트 개발
     - 01/23 - 각자 맡은 컴포넌트 개발
     - 01/31 - 마지막 점검 & 발표 자료 제작
+ 
+  <br>
 
  <h2>🔗 관련 Link</h2>
  
@@ -83,9 +89,12 @@
 [🤙 컨벤션](https://fixed-raptor-781.notion.site/2c5a83a759d34ff381fb034bd27b92dc?pvs=4)<br>
 [🍀 KPT 회고](https://fixed-raptor-781.notion.site/KPT-da365b114400456b96f1e22b5689d949?pvs=4)
 
+<br>
 
 <h2>User Flow</h2>
 <img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F580fab05-04d4-483e-afa4-952c205044ce%2Ffe1a0bad-93bb-4c24-aca4-1ea04ee9d761%2FUntitled.png?table=block&id=3a2efa63-2c08-4530-bf66-b6b041b71ea3&spaceId=580fab05-04d4-483e-afa4-952c205044ce&width=2000&userId=3e168b31-269f-4540-820c-e2e6ed5b2f69&cache=v2">
+
+<br>
 
 <h2>폴더 구조</h2>
 📦src<br>
@@ -120,8 +129,10 @@
  ┣ 📜index.css<br>
  ┗ 📜Router.jsx<br>
 
+<br>
 
  <h2>페이지 시연</h2>
+ 
  <h3>📌 메인 페이지</h3>
 <img src="https://file.notion.so/f/f/580fab05-04d4-483e-afa4-952c205044ce/24cba2ab-bc54-4620-afbf-7666e4e6462c/KakaoTalk_20240201_005127713-ezgif.com-video-to-gif-converter_(1).gif?id=ae2167a5-1fcc-4377-aa9d-7467487b81ed&table=block&spaceId=580fab05-04d4-483e-afa4-952c205044ce&expirationTimestamp=1707228000000&signature=tNo6d06RJl-R7762aFASCY1OZU3AObqN-y0wHq_3ERw" width="800">
 
@@ -166,7 +177,7 @@
   7초 안에 위치정보를 불러오지 못하면 기본 배경화면이 보여지게 됩니다. <br><br>
   1분 이내에 가져온 위치 정보라면 새로 요청하지 않고 캐시된 정보를 재사용할 수 있도록 하였습니다.
 
----
+<br>
 
  <h3>📌 답변 피드</h3>
  <img src="https://file.notion.so/f/f/580fab05-04d4-483e-afa4-952c205044ce/1a10299d-a92e-4a11-b5b9-0573aebea51d/%EB%8B%B5%EB%B3%80%EA%B1%B0%EC%A0%88.gif?id=631e48e9-cd69-4b9d-a4c8-2b4e28a8e64c&table=block&spaceId=580fab05-04d4-483e-afa4-952c205044ce&expirationTimestamp=1707228000000&signature=KqjPFWzb-55GVZ15Rzt9p_m4KJngPzN0vMpb4gP_hx8" width="800">
@@ -200,7 +211,7 @@
 
 > 삭제하기 버튼을 누르면 알림창이 나오며, 확인을 누를 시 모든 질문이 해당 피드와 같이 삭제 됩니다.
 
----
+<br>
 
 <h3>📌 카드 리스트 페이지</h3>
 <img src="https://file.notion.so/f/f/580fab05-04d4-483e-afa4-952c205044ce/aafe0db7-d9c4-4bbc-aea8-07a11e088e1f/LIST-ezgif.com-video-to-gif-converter.gif?id=d94b9b06-a17b-4e65-a3df-90e6e4cbfcb5&table=block&spaceId=580fab05-04d4-483e-afa4-952c205044ce&expirationTimestamp=1707228000000&signature=w5doNspdGyp-6wtG2zfO229f4lonaprapfMcnKtceHs" width="800">
@@ -209,7 +220,7 @@
 
 - 전체 데이터를 불러오는 페이지
 
----
+<br>
 
 <h3>📌 질문 피드</h3>
 <img src="https://file.notion.so/f/f/580fab05-04d4-483e-afa4-952c205044ce/c6ba66a1-03f5-4b86-aa3f-6abba645ba98/2024-01-3110.16.50-ezgif.com-video-to-gif-converter.gif?id=7c7ec043-e42f-4b53-a1bb-0008afd3f343&table=block&spaceId=580fab05-04d4-483e-afa4-952c205044ce&expirationTimestamp=1707228000000&signature=XbqM_IbYfCe9A0Xnp53PXtRPbs3NJIqt1Kh93oN_mzI" width="800">
@@ -222,7 +233,7 @@
 
 - 리스트에서 선택된 유저의 질문리스트를 확인하고, 질문을 보낼 수 있습니다. 공유하기 버튼을 통해 해당 페이지 url을 복사할 수 있습니다.
 
----
+<br>
 
 <h3>📌 질문 모달</h3>
 <img src="https://file.notion.so/f/f/580fab05-04d4-483e-afa4-952c205044ce/7322a0d3-b9e5-4c6b-b6cf-f19442b3e9a9/ezgif.com-video-to-gif-converter.gif?id=fcf1619d-f141-4f3a-b51e-c4b7acf42b91&table=block&spaceId=580fab05-04d4-483e-afa4-952c205044ce&expirationTimestamp=1707228000000&signature=Ooex6OrsmWwzYcK_FT1fS_HKQqQUWUA0FP33gHXz9G4" width="800">
@@ -230,8 +241,9 @@
 ### **Summary**
 
 - 해당하는 유저에게 질문을 보내는 창입니다.
+
+  <br>
   
----
 
 <h2>이슈</h2>
 
