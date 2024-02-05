@@ -90,7 +90,7 @@
 <h2>폴더 구조</h2>
 📦src<br>
  ┣ 📂apis<br>
- ┣ 📂atom<br>
+ ┣ 📂atom<br>
  ┣ 📂components<br>
  ┃ ┣ 📂Button<br>
  ┃ ┃  ┣ 📂BadeButton<br>
@@ -168,7 +168,7 @@
 
 ---
 
- <h3>📌 답변 페이지</h3>
+ <h3>📌 답변 피드</h3>
  <img src="https://file.notion.so/f/f/580fab05-04d4-483e-afa4-952c205044ce/1a10299d-a92e-4a11-b5b9-0573aebea51d/%EB%8B%B5%EB%B3%80%EA%B1%B0%EC%A0%88.gif?id=631e48e9-cd69-4b9d-a4c8-2b4e28a8e64c&table=block&spaceId=580fab05-04d4-483e-afa4-952c205044ce&expirationTimestamp=1707228000000&signature=KqjPFWzb-55GVZ15Rzt9p_m4KJngPzN0vMpb4gP_hx8" width="800">
 
  **✨ 답변거절**
@@ -211,7 +211,7 @@
 
 ---
 
-<h3>📌 질문 피드 페이지</h3>
+<h3>📌 질문 피드</h3>
 <img src="https://file.notion.so/f/f/580fab05-04d4-483e-afa4-952c205044ce/c6ba66a1-03f5-4b86-aa3f-6abba645ba98/2024-01-3110.16.50-ezgif.com-video-to-gif-converter.gif?id=7c7ec043-e42f-4b53-a1bb-0008afd3f343&table=block&spaceId=580fab05-04d4-483e-afa4-952c205044ce&expirationTimestamp=1707228000000&signature=XbqM_IbYfCe9A0Xnp53PXtRPbs3NJIqt1Kh93oN_mzI" width="800">
 
  ### **Summary**
