@@ -276,27 +276,27 @@
 
 - 📌 메인 페이지
   - 로그인
-      - **Problem :** 로그인 후 다른 페이지로 갔다가 메인 페이지로 돌아오면 로그인 form이 계속 뜨는 이슈 발생.
-      - **Solution :** 세션의 id 존재여부를 조회해 로그인 시 로그인 전용 form을 보여주도록 설정
+      - **Problem :** 로그인 후 다른 페이지로 갔다가 메인 페이지로 돌아오면 로그인 폼이 계속 뜨는 이슈 발생.
+      - **Solution :** 세션의 id 존재여부를 조회해 로그인 시 로그인 전용 폼을 보여주도록 설정
       
   - 날씨 api
-      - **Problem** : 날씨 api를 불러오는 도중 CORS 에러 발생
-      - **Solution** : pakage.json에 proxy 설정, 배포된 사이트는 'https://corsproxy.io/'(프록시 서버) 를 api url 앞에 붙여서 임시로 CORS를 우회해 해결
-          - netlify.toml 파일에서 리다이렉트 설정을 해보았지만 해결이 안돼서 리팩토링 시 다시 시도해볼 예정입니다.
+      - **Problem** : 날씨 api를 불러오는 도중 "CORS 에러" 발생
+      - **Solution** : `pakage.json`에 프록시 설정, 배포된 사이트는 'https://corsproxy.io/'(프록시 서버) 를 api url 앞에 붙여서 임시로 CORS를 우회해 해결
+          - `netlify.toml` 파일에서 리다이렉트 설정을 해보았지만 해결이 안돼서 리팩토링 시 다시 시도해볼 예정입니다.
     
 - 📌 답변 피드
     - 케밥 메뉴
         - **Problem** : 답변 거절과 답변 수정하기의 스타일이 현재 상태가 잘 반영되지 않음.
-        - **Solution** : 케밥 메뉴를 열 때마다 현재 상태가 반영이 되게 하여 답변 거절을 해결하였고, 수정하기 관련 state를 추가하여 현재 상태를 반영하게 하였음.
+        - **Solution** : 케밥 메뉴를 열 때마다 현재 상태가 반영이 되게 하여 답변 거절을 해결하였고, 수정하기 관련 `state`를 추가하여 현재 상태를 반영하게 하였음.
     - 질문 답변란
         - **Problem** : 하나의 상태값에 모든 입력된 답변들을 기록하여 질문들이 많으면 답변 입력이 늦는 나쁜 UX 발생.
-        - **Solution** : 각 질문마다 답변을 기록하는 state를 만들어 개선.
+        - **Solution** : 각 질문마다 답변을 기록하는 `state`를 만들어 개선.
     - 무한 스크롤
-        - **Problem** : onScroll로 구현하려 했으나 state값 변경과 api 요청이 알지 못하는 이유로 인해 제대로 이루어지지 않음.
-        - **Solution** : IntersectionObserver를 이용해 요소 관측을 통한 무한 스크롤 구현.
+        - **Problem** : `onScroll`로 구현하려 했으나 `state`값 변경과 api 요청이 알지 못하는 이유로 인해 제대로 이루어지지 않음.
+        - **Solution** : `IntersectionObserver`를 이용해 요소 관측을 통한 무한 스크롤 구현.
 - 📌 질문 피드
     - ID 받아오기
-        - **Problem** : Router에서 id를 받아오는 방식을 이해하지 못함
+        - **Problem** : `Router`에서 `id`를 받아오는 방식을 이해하지 못함
         - **Solution** : `/list`에서 카드를 클릭하면 해당 카드의 아이디를 가져와서 띄워야 했고, Router에는`/post/:subjectId`로 작성해야 함
     - 질문 작성하기 버튼
         - **Problem** : 모달에게 정보 넘겨주기는 배열로? 객체로?
@@ -307,4 +307,4 @@
 - 📌 질문 리스트 페이지
   - 페이지네이션
       - **Problem** : 카드 리스트를 이름순으로 하고 페이지 이동을 했을 때, 최신순으로 보여지는 현상
-      - **Solution** : 페이지가 바뀔 때마다 데이터를 불러왔었는데 sort, offset state를 만들고 useEffect의 dependency에 넣어주어서 데이터를 불러오게 변경
+      - **Solution** : 페이지가 바뀔 때마다 데이터를 불러왔었는데 `sort`, `offset state`를 만들고 `useEffect`의 `dependency`에 넣어주어서 데이터를 불러오게 변경
