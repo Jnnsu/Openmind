@@ -1,6 +1,6 @@
 
 <div align='center'>
-<h2>Codeit-Sprint FE 3기 3팀 - Part2 Project</h2>
+<h2>Codeit-Sprint FE 3기 3팀 - 1차 Project</h2>
 </div>
 
 <br>
